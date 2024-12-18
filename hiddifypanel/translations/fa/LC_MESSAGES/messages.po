@@ -2477,7 +2477,7 @@ msgid "lang.fa"
 msgstr "🇮🇷 فارسی"
 
 msgid "lang.my"
-msgstr ""
+msgstr "🇲🇲 زبان برمه‌ای - မြန်မာဘာသာ"
 
 msgid "lang.pt"
 msgstr "🇵🇹 پرتغالی - Português "
