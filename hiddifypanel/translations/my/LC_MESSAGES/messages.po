@@ -2311,6 +2311,9 @@ msgstr "🇷🇺 ရုရှား - Русский"
 msgid "lang.zh"
 msgstr "🇨🇳 တရုတ် - 简体中文"
 
+msgid "lang.my"
+msgstr "🇲🇲 မြန်မာ - မြန်မာဘာသာ"
+
 msgid "lib.telegram.erlang"
 msgstr "✴️ Erlang : Good Performance"
 
