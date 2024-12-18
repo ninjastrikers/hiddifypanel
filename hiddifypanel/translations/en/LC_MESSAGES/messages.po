@@ -2491,7 +2491,7 @@ msgid "lang.fa"
 msgstr "🇮🇷 Persian - فارسی"
 
 msgid "lang.my"
-msgstr "lang.my"
+msgstr "🇲🇲 Burmese - မြန်မာဘာသာ"
 
 msgid "lang.pt"
 msgstr "🇵🇹 Portuguese - Português "
