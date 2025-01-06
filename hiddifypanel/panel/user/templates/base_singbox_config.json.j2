@@ -1,5 +1,6 @@
 {% set V1_7= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<8 %}
 {% set V1_9= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<10 %}
+
 {
     "outbounds": [
         {
@@ -26,46 +27,30 @@
         {% if V1_7 %}
         "geoip": {
                "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
-               "download_detour": {% if hconfig(ConfigEnum.country)=='cn' %}"Select" {%else%}"bypass"{%endif%} 
+               "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%} 
             },
         "geosite": {
             "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
-            "download_detour": {% if hconfig(ConfigEnum.country)=='cn' %}"Select" {%else%}"bypass"{%endif%} 
+            "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%} 
         }, 
         {%else%}
         "rule_set": [
-            {%if hconfig(ConfigEnum.country)=="ir"%}
+            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {
-                "tag": "geosite-ir",
+                "tag": "geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "type": "remote",
                 "format": "binary",
-                "url": "https:\/\/raw.githubusercontent.com\/Chocolate4U\/Iran-sing-box-rules\/rule-set\/geosite-ir.srs",
-                "download_detour": "bypass" 
+                "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+                "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%}
             },
             {
-            "tag": "geoip-ir",
+            "tag": "geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
             "type": "remote",
             "format": "binary",
-            "url": "https:\/\/raw.githubusercontent.com\/Chocolate4U\/Iran-sing-box-rules\/rule-set\/geoip-ir.srs",
-            "download_detour": "bypass"
+            "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+            "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%} 
             }
-            {%endif%}
-            {%if hconfig(ConfigEnum.country)=="ru"%}
-            {
-                "tag": "geosite-ru",
-                "type": "remote",
-                "format": "binary",
-                "url": "https:\/\/github.com\/SagerNet\/sing-geosite\/raw\/rule-set\/geosite-category-ru.srs",
-                "download_detour": "bypass" 
-            },
-            {
-            "tag": "geoip-ru",
-            "type": "remote",
-            "format": "binary",
-            "url": "https:\/\/github.com\/SagerNet\/sing-geoip\/raw\/rule-set\/geoip-ru.srs",
-            "download_detour": "bypass"
-            }
-            {%endif%}
+            {%endif%}               
             {# {
                 "tag": "geosite-category-ads-all",
                 "type": "remote",
@@ -88,10 +73,10 @@
                 ],
                 "outbound": "dns-out"
             },
-            {%if hconfig(ConfigEnum.country) in ["ir","cn","ru"]%}
+            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
-                    "{{hconfig(ConfigEnum.country)}}"
+                    "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
                 ],
                 "outbound": "bypass"
             },
@@ -105,19 +90,19 @@
                 {%endif%}
                 "outbound": "block"
             }, #}
-            {%if hconfig(ConfigEnum.country) in ["ir","cn","ru"]%}
+            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {% if V1_7 %}
             {
-                "geoip": ["{{hconfig(ConfigEnum.country)}}"],
+                "geoip": ["{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"],
                 "outbound": "bypass"
             },
             {%else%}
             {
-                "rule_set": "geoip-{{hconfig(ConfigEnum.country)}}",
+                "rule_set": "geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "outbound": "bypass"
             },
             {
-                "rule_set": "geosite-{{hconfig(ConfigEnum.country)}}",
+                "rule_set": "geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "outbound": "bypass"
             },
             {%endif%}
@@ -192,10 +177,10 @@
                 ],
                 "server": "dns-local"
             },
-            {%if hconfig(ConfigEnum.country)in ["ir","cn","ru"]%}
+            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
-                    "{{hconfig(ConfigEnum.country)}}"
+                    "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
                 ],
                 "server": "dns-local"
             },
