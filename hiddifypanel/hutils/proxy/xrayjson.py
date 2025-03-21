@@ -271,6 +271,7 @@ def add_stream_settings(base: dict, proxy: dict):
         add_httpupgrade_stream(ss, proxy)
     if proxy['transport'] == ProxyTransport.xhttp:
         ss['network'] = proxy['transport']
+        ss['transport'] = "xhttp"
         add_xhttp_stream(ss, proxy)
     if proxy['transport'] == 'ws':
         ss['network'] = proxy['transport']
