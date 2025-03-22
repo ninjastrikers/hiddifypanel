@@ -135,7 +135,33 @@ proxy-groups:
 #   %endfor
 #   %endfor
 rule-providers:
-
+{% if hconfig(ConfigEnum.country) in ["ir","zh","ru"] %}
+  geoip_{{hconfig(ConfigEnum.country)}}:
+    type: http
+    behavior: classical
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geoip/classical/{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.yaml"
+    path: ./geoip/{{hconfig(ConfigEnum.country)}}.yaml
+    interval: 432000
+    
+{% endif %}
+{% if hconfig(ConfigEnum.country)=="zh" %}
+  geosite_cn:
+    type: http
+    behavior: classical
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo-lite/geosite/classical/cn.yaml"
+    path: ./geosite/zh.yaml
+    interval: 86400
+    
+{% endif %}
+{% if hconfig(ConfigEnum.country) in ["ir","ru"] %}
+  geosite_{{hconfig(ConfigEnum.country)}}:
+    type: http
+    behavior: classical
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/classical/category-{{hconfig(ConfigEnum.country)}}.yaml"
+    path: ./geosite/{{hconfig(ConfigEnum.country)}}.yaml
+    interval: 86400
+    
+{% endif %}
   blocked:
     type: http
     behavior: classical
@@ -175,9 +201,13 @@ rules:
   # - IP-CIDR,10.10.34.0/24,{{OnProxyIssue}}
   # - RULE-SET,tmpblocked,{{OnProxyIssue}}
   # - RULE-SET,blocked,{{OnProxyIssue}}
-  - GEOIP,IR,{{OnIranSites}}
-  - DOMAIN-SUFFIX,.ir,{{OnIranSites}}
+{% if hconfig(ConfigEnum.country) in ["ir","zh","ru"] %}
+  - RULE-SET,geoip_{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}},DIRECT
+  - RULE-SET,geosite_{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}},DIRECT
+{% endif %}
+{% if hconfig(ConfigEnum.country)=="ir" %}
   - RULE-SET,open,{{OnIranSites}}
+{% endif %}
   # - RULE-SET,ads,REJECT
   - MATCH,{{OnNotFilteredSites}}
 
