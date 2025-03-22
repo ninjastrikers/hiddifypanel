@@ -971,6 +971,18 @@ msgstr "全部"
 msgid "android"
 msgstr "安卓"
 
+msgid "app.clash_verge_rev.description"
+msgstr ""
+
+msgid "app.clash_verge_rev.title"
+msgstr ""
+
+msgid "app.cmfa.description"
+msgstr ""
+
+msgid "app.cmfa.title"
+msgstr ""
+
 msgid "app.foxray.description"
 msgstr "福克斯射线描述"
 

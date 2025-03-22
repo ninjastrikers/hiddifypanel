@@ -278,6 +278,14 @@
   "all": "All",
   "android": "Android",
   "app": {
+    "clash_verge_rev": {
+      "description": "app.clash_verge_rev.description",
+      "title": "app.clash_verge_rev.title"
+    },
+    "cmfa": {
+      "description": "app.cmfa.description",
+      "title": "app.cmfa.title"
+    },
     "foxray": {
       "description": "FoXray Description",
       "title": "FoXray"

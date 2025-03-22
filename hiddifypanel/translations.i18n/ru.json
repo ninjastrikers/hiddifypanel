@@ -278,6 +278,14 @@
   "all": "Все",
   "android": "Android",
   "app": {
+    "clash_verge_rev": {
+      "description": "",
+      "title": ""
+    },
+    "cmfa": {
+      "description": "",
+      "title": ""
+    },
     "foxray": {
       "description": "Описание фоксрея",
       "title": "Фоксрей"

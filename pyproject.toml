@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hiddifypanel"
-version = '10.85.0.dev0'
+version = '10.85.0.dev3'
 description = "hiddifypanel multi proxy panel"
 readme = "README.md"
 homepage = "https://hiddify.com"

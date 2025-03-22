@@ -1005,6 +1005,18 @@ msgstr "All"
 msgid "android"
 msgstr "Android"
 
+msgid "app.clash_verge_rev.description"
+msgstr "app.clash_verge_rev.description"
+
+msgid "app.clash_verge_rev.title"
+msgstr "app.clash_verge_rev.title"
+
+msgid "app.cmfa.description"
+msgstr "app.cmfa.description"
+
+msgid "app.cmfa.title"
+msgstr "app.cmfa.title"
+
 msgid "app.foxray.description"
 msgstr "FoXray Description"
 

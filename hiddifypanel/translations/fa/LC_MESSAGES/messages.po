@@ -991,6 +991,18 @@ msgstr "همه"
 msgid "android"
 msgstr "اندروید"
 
+msgid "app.clash_verge_rev.description"
+msgstr ""
+
+msgid "app.clash_verge_rev.title"
+msgstr ""
+
+msgid "app.cmfa.description"
+msgstr ""
+
+msgid "app.cmfa.title"
+msgstr ""
+
 msgid "app.foxray.description"
 msgstr "توضیحات FoXray"
 
