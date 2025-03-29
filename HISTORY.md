@@ -13,6 +13,20 @@
 
 #### Other
 
+* Merge pull request #4 from ninjastrikers/main. 
+  _chore: update translations with Fink 🐦_
+
+* Merge branch 'hiddify:main' into main. 
+
+* Update config_enum.py. 
+  _adding my_
+
+* Chore: update translations with Fink 🐦 
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Panel. 
+
+* Update translations. 
+
 * Update translations. 
 
 * Merge branch 'main' of github.com:hiddify/Hiddify-Panel. 

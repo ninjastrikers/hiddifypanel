@@ -2334,7 +2334,7 @@ msgid "lang.fa"
 msgstr "🇮🇷 波斯语 - فارسی"
 
 msgid "lang.my"
-msgstr ""
+msgstr "🇲🇲 缅甸语 - မြန်မာဘာသာ"
 
 msgid "lang.pt"
 msgstr "🇵🇹 葡萄牙語 - Português  "
