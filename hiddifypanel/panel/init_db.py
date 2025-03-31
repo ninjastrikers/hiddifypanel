@@ -16,7 +16,7 @@ from sqlalchemy import func, text
 from loguru import logger
 MAX_DB_VERSION = 120
 
-def _v99(child_id):
+def _v100(child_id):
     pass
 
 def _v98(child_id):
@@ -872,10 +872,10 @@ def migrate(db_version):
         for column in table_obj.columns:
             add_column(column)
     Events.db_prehook.notify()
-    if db_version < 99:
-        execute('update str_config set key="xhttp_enable" where key="splithttp_enable";')
-        execute('update str_config set key="path_xhttp" where key="path_splithttp";')
-        execute('update Proxy set transport="xhttp" where key="splithttp";')
+    if db_version < 100:
+        execute('update str_config set `key`="xhttp_enable" where `key`="splithttp_enable";')
+        execute('update str_config set `key`="path_xhttp" where `key`="path_splithttp";')
+        execute("UPDATE proxy SET transport = 'xhttp' WHERE transport = 'splithttp';")
     if db_version < 97:
         execute('ALTER TABLE str_config MODIFY value VARCHAR(3072);')
     if db_version < 82:
