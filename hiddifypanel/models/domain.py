@@ -3,7 +3,7 @@ import ipaddress
 import re
 from typing import Dict, List
 from flask import request
-from flask_babel import lazy_gettext as _
+
 from sqlalchemy.orm import backref
 from strenum import StrEnum
 from sqlalchemy_serializer import SerializerMixin

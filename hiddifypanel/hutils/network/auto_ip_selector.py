@@ -37,10 +37,11 @@ apt.ircf.space		APT
 """
 
 try:
-    IPASN = maxminddb.open_database('GeoLite2-ASN.mmdb') if os.path.exists('GeoLite2-ASN.mmdb') else {}
-    IPCOUNTRY = maxminddb.open_database('GeoLite2-Country.mmdb') if os.path.exists('GeoLite2-Country.mmdb') else {}
-    __ipcity = maxminddb.open_database('GeoLite2-City.mmdb') if os.path.exists('GeoLite2-City.mmdb') else {}
-except Exception as e:
+   
+    IPASN = maxminddb.open_database('GeoLite2-ASN.mmdb')
+    IPCOUNTRY = maxminddb.open_database('GeoLite2-Country.mmdb')
+    __ipcity = maxminddb.open_database('GeoLite2-City.mmdb') 
+except BaseException as e:
     print("Error can not load maxminddb", file=sys.stderr)
     IPASN = {}
     IPCOUNTRY = {}

@@ -1,6 +1,6 @@
 from typing import Optional
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy_utils import UUIDType
+# from sqlalchemy_utils import UUIDType
 import re
 import os
 from sqlalchemy import Row, text, Sequence
@@ -10,7 +10,7 @@ from sqlalchemy import Row, text, Sequence
 
 
 db: SQLAlchemy = SQLAlchemy()
-db.UUID = UUIDType  # type: ignore
+# db.UUID = UUIDType  # type: ignore
 
 
 def init_app(app):
