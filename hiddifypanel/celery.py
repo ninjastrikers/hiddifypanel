@@ -96,8 +96,8 @@ def init_app_no_flask():
     # )
 
     celery_app.add_periodic_task(
-        # crontab(hour="*/6", minute="0"),
-        crontab(hour="*", minute="*"),
+        crontab(hour="*/6", minute="0"),
+        # crontab(hour="*", minute="*"),
         backup_task.s(),
         name="backup_task "
     )
