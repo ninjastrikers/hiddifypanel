@@ -748,7 +748,7 @@ def add_new_enum_values():
 
 
 def is_db_latest():
-    return hconfig(ConfigEnum.db_version)==latest_db_version()
+    return str(hconfig(ConfigEnum.db_version))==str(latest_db_version())
 
 def latest_db_version():
     for ver in range(MAX_DB_VERSION, 1, -1):

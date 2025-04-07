@@ -64,7 +64,9 @@ def init_app_no_flask():
 
     from hiddifypanel.panel import init_db
     if not init_db.is_db_latest():
-        logger.error("The database is not upgraded! exiting...")
+        logger.error("The database upgrade is required before proceeding. Terminating the process.")
+        import time
+        time.sleep(20)
         sys.exit(1)
 
     celery_app = Celery()
