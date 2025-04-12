@@ -473,7 +473,7 @@ def _v1():
         BoolConfig(key=ConfigEnum.allow_invalid_sni, value=True),
         BoolConfig(key=ConfigEnum.kcp_enable, value=False),
         StrConfig(key=ConfigEnum.kcp_ports, value="88"),
-        BoolConfig(key=ConfigEnum.auto_update, value=True),
+        BoolConfig(key=ConfigEnum.auto_update, value=os.environ.get('HIDDIFY_DISABLE_UPDATE',"").lower() not in {'1','true'}),
         BoolConfig(key=ConfigEnum.speed_test, value=True),
         BoolConfig(key=ConfigEnum.only_ipv4, value=False),
         BoolConfig(key=ConfigEnum.vmess_enable, value=True),
@@ -797,12 +797,14 @@ def upgrade_database():
 
 def init_db():
     db.create_all()
-
+    
     # set_hconfig(ConfigEnum.db_version, 71)
     # temporary fix
     add_column(Child.mode)
     add_column(Child.name)
+
     db_version = int(hconfig(ConfigEnum.db_version) or 0)
+
     if db_version == latest_db_version():
         return
     from flask import g
