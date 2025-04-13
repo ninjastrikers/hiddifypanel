@@ -27,7 +27,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: ${{ contains(github.ref_name,'dev') }}
+          prerelease: ${{ contains(github.ref_name,'b') }}
           body_path: release_message.md
 
   deploy:
@@ -38,11 +38,11 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: '3.x'
+        python-version: '3.13'
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine gitchangelog pystache  poetry
+        pip install setuptools wheel twine  poetry
     - name: Build and publish
       env:
         TWINE_USERNAME: __token__
