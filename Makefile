@@ -94,7 +94,8 @@ dev:          ## Create a new tag for release.
 	@gitchangelog > HISTORY.md
 	@git add hiddifypanel/VERSION hiddifypanel/VERSION.py HISTORY.md
 	@git commit -m "release: switch to develop"
-	@git push -u origin HEAD
+
+
 .PHONY: release
 release:
 ifeq ($(TAG),)
@@ -106,7 +107,7 @@ ifeq ($(TAG),)
 endif
 	@echo "$${TAG}" > hiddifypanel/VERSION
 	@sed -i "/^version =/c version = '$${TAG}'" pyproject.toml
-	@sed -i "/^__version__ =/c __version__ = '$${TAG}'" pyproject.toml
+	@sed -i "/^__version__ =/c __version__ = '$${TAG}'" hiddifypanel/VERSION.py
 	@sed -i "/^__release_time__/c __release_time__= datetime.strptime('$$(date +%Y-%m-%dT%H:%M:%S)','%Y-%m-%dT%H:%M:%S')" hiddifypanel/VERSION.py
 	@git tag v$${TAG}
 	@gitchangelog > HISTORY.md
