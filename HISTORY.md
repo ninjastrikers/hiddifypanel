@@ -9,6 +9,8 @@
 
 #### Fix
 
+* Release bug. 
+
 * Exception showing. 
 
 * Std out issue generation. 
