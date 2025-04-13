@@ -24,6 +24,9 @@ msgstr "%(placeholder)s"
 msgid "0 - Last day"
 msgstr "Last Day"
 
+msgid "<a href=\"%(user_link)s\"> %(user)s</a>"
+msgstr "<a href=\"%(user_link)s\"> %(user)s</a>"
+
 msgid "Access Denied!"
 msgstr "Access Denied"
 
@@ -47,6 +50,9 @@ msgstr "You can add some text that Is only visible to you"
 
 msgid "Added by"
 msgstr "Added by"
+
+msgid "Admin Links"
+msgstr "Admin Links"
 
 msgid "Admins"
 msgstr "Admins"
@@ -95,6 +101,9 @@ msgstr "CPU %(cores)s Core"
 
 msgid "Can add sub admin"
 msgstr "👥 Can Add Sub Admin"
+
+msgid "Change"
+msgstr "Change"
 
 msgid "Check again"
 msgstr "Check Again"
@@ -358,6 +367,9 @@ msgstr ""
 msgid "HiddigyN"
 msgstr "HiddifyN <span class='badge badge-success'>Recommended</span>"
 
+msgid "Home Link"
+msgstr "Home Link"
+
 msgid "Hover the user to see the reason"
 msgstr "Hover the user to see the reason"
 
@@ -471,6 +483,9 @@ msgstr "New"
 msgid "No children!"
 msgstr "No Children"
 
+msgid "Not Secure"
+msgstr "Not Secure"
+
 msgid "Note"
 msgstr "📝 Note"
 
@@ -485,6 +500,9 @@ msgstr "Offline More Than 1 Week"
 
 msgid "Ok"
 msgstr "Ok"
+
+msgid "Online"
+msgstr "Online"
 
 msgid "Online Users"
 msgstr "Online Users"
@@ -733,6 +751,9 @@ msgstr "Started from %(relative)s"
 msgid "Status"
 msgstr "Status"
 
+msgid "SubLink"
+msgstr "SubLink"
+
 msgid "Submit"
 msgstr "Submit"
 
@@ -746,6 +767,9 @@ msgstr ""
 
 msgid "Telegram Bot"
 msgstr "Telegram Bot"
+
+msgid "Telegram Bot Link"
+msgstr "Telegram Bot Link"
 
 msgid "Temporary Short Link"
 msgstr "⏱️ Temporary Short Link"

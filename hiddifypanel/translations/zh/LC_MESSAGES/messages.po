@@ -22,6 +22,9 @@ msgstr "%(placeholder)s"
 msgid "0 - Last day"
 msgstr "最后一天"
 
+msgid "<a href=\"%(user_link)s\"> %(user)s</a>"
+msgstr ""
+
 msgid "Access Denied!"
 msgstr "拒绝访问"
 
@@ -45,6 +48,9 @@ msgstr "您可以添加一些只有您可见的文本"
 
 msgid "Added by"
 msgstr "添加者"
+
+msgid "Admin Links"
+msgstr ""
 
 msgid "Admins"
 msgstr "管理员"
@@ -93,6 +99,9 @@ msgstr "CPU %(cores)s 核心"
 
 msgid "Can add sub admin"
 msgstr "👥 可以添加子管理员"
+
+msgid "Change"
+msgstr ""
 
 msgid "Check again"
 msgstr "再检查一遍"
@@ -347,6 +356,9 @@ msgstr ""
 msgid "HiddigyN"
 msgstr "HiddifyN <span class='badge badge-success'>推荐</span>"
 
+msgid "Home Link"
+msgstr ""
+
 msgid "Hover the user to see the reason"
 msgstr "将鼠标悬停在用户上即可查看原因"
 
@@ -452,6 +464,9 @@ msgstr "新"
 msgid "No children!"
 msgstr "没有孩子"
 
+msgid "Not Secure"
+msgstr ""
+
 msgid "Note"
 msgstr "📝 注意"
 
@@ -466,6 +481,9 @@ msgstr "离线超过1周"
 
 msgid "Ok"
 msgstr "好的"
+
+msgid "Online"
+msgstr ""
 
 msgid "Online Users"
 msgstr "在线用户"
@@ -710,6 +728,9 @@ msgstr "从 %(relative)s 开始"
 msgid "Status"
 msgstr "地位"
 
+msgid "SubLink"
+msgstr ""
+
 msgid "Submit"
 msgstr "提交"
 
@@ -722,6 +743,9 @@ msgstr "✔️ 成功！请等待大约 5 分钟以确保所有内容均已更�
 
 msgid "Telegram Bot"
 msgstr "Telegram 机器人"
+
+msgid "Telegram Bot Link"
+msgstr ""
 
 msgid "Temporary Short Link"
 msgstr "⏱️临时短链接"

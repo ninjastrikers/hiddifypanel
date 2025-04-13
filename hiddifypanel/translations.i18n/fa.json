@@ -5,6 +5,7 @@
   "%(expire_days)s days": "%(expire_days)s روز",
   "%(placeholder)s": "%(placeholder)s",
   "0 - Last day": "آخرین روز",
+  "<a href=\"%(user_link)s\"> %(user)s</a>": "",
   "Access Denied!": "دسترسی غیرمجاز",
   "Actions": "عملیات",
   "Active": "فعال",
@@ -13,6 +14,7 @@
   "Add some text that is only visible to super_admin.": "متنی را اضافه کنید که فقط برای سوپر ادمین ها قابل مشاهده هست",
   "Add some text that is only visible to you.": "در این قسمت یادداشتی اضافه کنید. (این یادداشت فقط برای شما قابل نمایش است.)",
   "Added by": "اضافه شده توسط",
+  "Admin Links": "",
   "Admins": "ادمین ها",
   "Alias": "نام نمایشی",
   "All": "همه",
@@ -29,6 +31,7 @@
   "Bug": "باگ/پیشنهاد",
   "CPU %(cores)s Cores": "پردازنده %(cores)s هسته",
   "Can add sub admin": "👥 امکان اضافه کردن ادمین فرعی",
+  "Change": "",
   "Check again": "بررسی مجدد",
   "Childs": "زیرمجموعه‌ها",
   "China": "🇨🇳 چین",
@@ -85,6 +88,7 @@
   "HiddifyNG": "HiddifyNG <span class='badge badge-success'>پیشنهادی</span>",
   "HiddifyNG intro": "📌 لطفاً HiddifyNG را از یکی از این لینک ها نصب کنید:\n<br />\n %(dl_link)s  %(play_link)s\n<br />\nسپس روی لینک زیر کلیک کنید و آن را در HiddifyNG باز کنید.\n<br />",
   "HiddigyN": "HiddifyN <span class='badge badge-success'>پیشنهادی</span>",
+  "Home Link": "",
   "Hover the user to see the reason": "روی یوزر کلیک کنید تا دلیل آن را ببینید",
   "How many days this package should be available?": "این بسته چند روزه است؟",
   "How many?": "چه تعداد؟",
@@ -116,11 +120,13 @@
   "Network": "شبکه",
   "New": "تازه",
   "No children!": "هیچ زیر مجموعه ای یافت نشد",
+  "Not Secure": "",
   "Note": "📝 یادداشت",
   "Offline more than 1 day": "آفلاین بیش از 1 روز",
   "Offline more than 1 hour": "آفلاین بیش از 1 ساعت",
   "Offline more than 1 week": "آفلاین بیش از 1 هفته",
   "Ok": "تایید",
+  "Online": "",
   "Online Users": "کاربران آنلاین",
   "Only Blocked and Local websites": "☑️ فقط سایت‌های داخلی و مسدود شده‌ی خارجی",
   "Only for sublink?": "🌍 استفاده فقط برای لینک کانفیگ ها (سابسکریپشن)",
@@ -193,10 +199,12 @@
   "Started %(days)s days ago": "از %(days)s روز پیش شروع شد",
   "Started from %(relative)s": "از %(relative)s شروع شد",
   "Status": "وضعیت",
+  "SubLink": "",
   "Submit": "ثبت",
   "Success": "موفقیت",
   "Success! Please wait around 5 minutes to make sure everything is updated.": "✔️ موفقیت آمیز بود! لطفا برای اینکه مطمئن شوید بروزرسانی‌ها به درستی اعمال شده، حدود 5 دقیقه صبر کنید.",
   "Telegram Bot": "بات تلگرام",
+  "Telegram Bot Link": "",
   "Temporary Short Link": "⏱️ لینک کوتاه موقت",
   "The message has been sent.": "پیام ارسال شده است.",
   "The message was not sent to": "پیام نتوانست به کاربران زیر ارسال شود",

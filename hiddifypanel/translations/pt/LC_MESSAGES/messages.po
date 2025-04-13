@@ -24,6 +24,9 @@ msgstr "%(placeholder)s"
 msgid "0 - Last day"
 msgstr "Último dia"
 
+msgid "<a href=\"%(user_link)s\"> %(user)s</a>"
+msgstr ""
+
 msgid "Access Denied!"
 msgstr "Acesso negado"
 
@@ -48,6 +51,9 @@ msgstr "Você pode adicionar algum texto, será visível apenas para voce"
 
 msgid "Added by"
 msgstr "Adicionado por"
+
+msgid "Admin Links"
+msgstr ""
 
 msgid "Admins"
 msgstr "Administradores"
@@ -96,6 +102,9 @@ msgstr "CPU %(cores)s Núcleos "
 
 msgid "Can add sub admin"
 msgstr "👥 Pode adicionar subadministrador"
+
+msgid "Change"
+msgstr ""
 
 msgid "Check again"
 msgstr "Verifique novamente"
@@ -316,6 +325,9 @@ msgstr ""
 msgid "HiddigyN"
 msgstr "HiddigyN <span class='badge badge-success'>Recommended</span>"
 
+msgid "Home Link"
+msgstr ""
+
 msgid "Hover the user to see the reason"
 msgstr "Hover the user to see the reason"
 
@@ -430,6 +442,9 @@ msgstr "Novo"
 msgid "No children!"
 msgstr "sem filhos"
 
+msgid "Not Secure"
+msgstr ""
+
 msgid "Note"
 msgstr "📝 Observação"
 
@@ -444,6 +459,9 @@ msgstr "Offline há mais de uma semana"
 
 msgid "Ok"
 msgstr "OK"
+
+msgid "Online"
+msgstr ""
 
 msgid "Online Users"
 msgstr "Usuários online"
@@ -691,6 +709,9 @@ msgstr "Iniciado em %(relative)s"
 msgid "Status"
 msgstr "Status"
 
+msgid "SubLink"
+msgstr ""
+
 msgid "Submit"
 msgstr "Enviar"
 
@@ -705,6 +726,9 @@ msgstr ""
 
 msgid "Telegram Bot"
 msgstr "Telegram Bot"
+
+msgid "Telegram Bot Link"
+msgstr ""
 
 msgid "Temporary Short Link"
 msgstr "⏱️ Link curto temporário"
