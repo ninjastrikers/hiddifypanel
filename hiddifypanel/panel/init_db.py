@@ -698,8 +698,7 @@ def add_column(column):
 
 def execute(query: str):
     try:
-
-        db_execute(query)
+        return db_execute(query)
     except BaseException as e:
         logger.debug(f'migrating_db: {e}')
         pass
@@ -747,8 +746,17 @@ def add_new_enum_values():
         db_execute(f"ALTER TABLE {table_name} MODIFY COLUMN `{column_name}` ENUM({enumstr});", commit=True)
 
 
-def is_db_latest():
-    return str(hconfig(ConfigEnum.db_version))==str(latest_db_version())
+def current_db_version()->int:
+    try:
+        if db_version:=db.session.execute(db.text("select value from str_config where `key`='db_version'")).fetchall():
+            return int(db_version[0][0])
+    except:
+        pass
+    logger.warning("db version not found")
+    return 0
+
+def is_db_latest()->bool:
+    return current_db_version()==str(latest_db_version())
 
 def latest_db_version():
     for ver in range(MAX_DB_VERSION, 1, -1):
@@ -759,7 +767,6 @@ def latest_db_version():
 
 
 def upgrade_database():
-
     panel_root = '/opt/hiddify-manager/hiddify-panel/'
     backup_root = f"{panel_root}backup/"
     sqlite_db = f"{panel_root}hiddifypanel.db"
@@ -796,17 +803,17 @@ def upgrade_database():
 
 
 def init_db():
+    # set_hconfig(ConfigEnum.db_version, 71)
+    db_version = current_db_version()
+    if db_version == latest_db_version():
+        return
+    
     db.create_all()
     
-    # set_hconfig(ConfigEnum.db_version, 71)
     # temporary fix
     add_column(Child.mode)
     add_column(Child.name)
 
-    db_version = int(hconfig(ConfigEnum.db_version) or 0)
-
-    if db_version == latest_db_version():
-        return
     from flask import g
     cache.invalidate_all_cached_functions()
     migrate(db_version)
