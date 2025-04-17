@@ -9,6 +9,10 @@
 
 #### Fix
 
+* Child. 
+
+* Db not init issue. 
+
 * Release bug. 
 
 * Exception showing. 
@@ -30,6 +34,10 @@
 * My translation. 
 
 #### Other
+
+* Remove unused import. 
+
+* Updte. 
 
 * Add DISABLE_AUTO_UPDATE. 
 
