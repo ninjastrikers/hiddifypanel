@@ -817,7 +817,7 @@ def init_db():
     from flask import g
     cache.invalidate_all_cached_functions()
     migrate(db_version)
-    Child.current()
+
     child = Child.by_id(0)
     if child is None:
         tmp_uuid = str(uuid.uuid4())
