@@ -35,6 +35,13 @@
 
 #### Other
 
+* Update release script. 
+
+* Merge pull request #12 from tesilaaliset/fix/fix_session_config_background_job. 
+  _Fix using session for hiddify panel after removing flask from backgro…_
+
+* Fix using session for hiddify panel after removing flask from background jobs. 
+
 * Remove unused import. 
 
 * Updte. 
