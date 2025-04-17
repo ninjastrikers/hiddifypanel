@@ -72,13 +72,12 @@ class Child(db.Model):  # type: ignore
         if has_app_context() and hasattr(g, "child"):
             return g.child
         child = Child.by_id(0)
-        if child is None:
-            tmp_uuid = str(uuid.uuid4())
-            db.session.add(Child(id=0, unique_id=tmp_uuid, name="Root"))
-            db.session.commit()
-            db_execute(f"update child set id=0 where unique_id='{tmp_uuid}'", commit=True)
-            child = Child.by_id(0)
-
+        # if child is None:
+        #     tmp_uuid = str(uuid.uuid4())
+        #     db.session.add(Child(id=0, unique_id=tmp_uuid, name="Root"))
+        #     db.session.commit()
+        #     db_execute(f"update child set id=0 where unique_id='{tmp_uuid}'", commit=True)
+        #     child = Child.by_id(0)
         return child
 
     @classmethod

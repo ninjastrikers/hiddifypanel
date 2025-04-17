@@ -817,7 +817,16 @@ def init_db():
     from flask import g
     cache.invalidate_all_cached_functions()
     migrate(db_version)
-    Child.query.filter(Child.id == 0).first().mode = ChildMode.virtual
+    Child.current()
+    child = Child.by_id(0)
+    if child is None:
+        tmp_uuid = str(uuid.uuid4())
+        db.session.add(Child(id=0, unique_id=tmp_uuid, name="Root"))
+        db.session.commit()
+        db_execute(f"update child set id=0 where unique_id='{tmp_uuid}'", commit=True)
+        child = Child.by_id(0)  
+
+    child.mode = ChildMode.virtual
     # if db_version < 69:
     #     _v70(0)
 
