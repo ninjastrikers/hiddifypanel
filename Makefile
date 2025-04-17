@@ -120,6 +120,7 @@ endif
 	@echo "creating git tag : $${TAG}"
 	@git tag v$${TAG}
 	@git push -u origin HEAD --tags
+	@git checkout dev && git merge beta && git push
 	@echo "Github Actions will detect the new tag and release the new version."
 
 .PHONY: docs
