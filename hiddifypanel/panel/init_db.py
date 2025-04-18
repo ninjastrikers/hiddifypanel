@@ -756,7 +756,7 @@ def current_db_version()->int:
     return 0
 
 def is_db_latest()->bool:
-    return current_db_version()==str(latest_db_version())
+    return current_db_version()==latest_db_version()
 
 def latest_db_version():
     for ver in range(MAX_DB_VERSION, 1, -1):
