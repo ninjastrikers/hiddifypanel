@@ -35,6 +35,17 @@
 
 #### Other
 
+* Merge branch 'dev' into beta. 
+
+* Update marshmallow. 
+
+* Merge pull request #15 from tesilaaliset/fix/pin_marshmellow_version. 
+  _Pining marshmellow version on uv_
+
+* Pining marshmellow version on uv. 
+
+* Update release script. 
+
 * Update release script. 
 
 * Merge pull request #12 from tesilaaliset/fix/fix_session_config_background_job. 
