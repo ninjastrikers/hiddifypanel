@@ -4,7 +4,6 @@ from urllib.parse import urlparse
 import urllib.request
 import ipaddress
 from hiddifypanel.hutils.network.auto_ip_selector import IPASN
-import netifaces
 import requests
 import random
 import socket
@@ -12,7 +11,10 @@ import time
 import ssl
 import re
 import os
-
+import ipaddress
+import psutil
+import socket
+from typing import List, Union, Literal
 
 from hiddifypanel.models import *
 from hiddifypanel.cache import cache
@@ -87,29 +89,31 @@ def get_socket_public_ip(version: Literal[4, 6]) -> Union[ipaddress.IPv4Address,
         return None
 
 
+
 def get_interface_public_ip(version: Literal[4, 6]) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
     addresses = []
     try:
-        interfaces = netifaces.interfaces()
-        for interface in interfaces:
-            if version == 4:
-                address_info = netifaces.ifaddresses(interface).get(netifaces.AF_INET, [])
-            elif version == 6:
-                address_info = netifaces.ifaddresses(interface).get(netifaces.AF_INET6, [])
-            else:
-                continue
+        interfaces = psutil.net_if_addrs()
+        for interface_addresses in interfaces.values():
+            for addr in interface_addresses:
+                if version == 4 and addr.family == socket.AF_INET:
+                    ip = addr.address
+                elif version == 6 and addr.family == socket.AF_INET6:
+                    ip = addr.address
+                else:
+                    continue
 
-            if address_info:
-                for addr in address_info:
-                    address = ipaddress.ip_address(addr['addr'])
-                    if address.is_global:
-                        addresses.append(address)
+                try:
+                    ip_obj = ipaddress.ip_address(ip.split('%')[0])  # Remove scope_id for IPv6
+                    if ip_obj.is_global:
+                        addresses.append(ip_obj)
+                except ValueError:
+                    continue
 
         return addresses
 
     except (OSError, KeyError):
         return []
-
 
 @cache.cache(ttl=600)
 def get_ips(version: Literal[4, 6] | None = None) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:

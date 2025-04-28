@@ -48,7 +48,6 @@ dependencies = [
     "flask-babel==4.0.0",
     "loguru==0.7.2",
     "maxminddb==2.6.2",
-    "netifaces==0.11.0",
     "ping3==4.0.8",
     "psutil==6.1.0",
     "python-dateutil==2.9.0.post0",
@@ -70,6 +69,7 @@ dependencies = [
     "json5>=0.9.28,<1.0.0",
     "jinja2>=3.1.6",
     "marshmallow<=3.26.1",
+    "psutils>=3.3.9",
 ]
 
 [project.optional-dependencies]
