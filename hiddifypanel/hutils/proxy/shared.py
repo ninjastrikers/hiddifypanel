@@ -361,7 +361,7 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         return base
     elif "shadowsocks" in proxy.transport:
         return base
-    if ProxyTransport.XTLS in proxy.transport:
+    if proxy.l3 in [ProxyL3.reality] and  proxy.transport in [ProxyTransport.XTLS,ProxyTransport.xhttp]:
         base['flow'] = 'xtls-rprx-vision'
         return {**base, 'transport': 'tcp'}
 

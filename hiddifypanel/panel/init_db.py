@@ -660,7 +660,7 @@ def make_proxy_rows(cfgs):
                 continue
             if l3 in ["kcp", 'reality'] and cdn != "direct":
                 continue
-            if l3 == "reality" and ((transport not in ['tcp', 'grpc', 'XTLS']) or proto != 'vless'):
+            if l3 == "reality" and ((transport not in ['tcp', 'grpc', 'XTLS',ProxyTransport.xhttp]) or proto != 'vless'):
                 continue
             if proto == "trojan" and l3 not in ["tls", 'xtls', 'tls_h2', 'h3_quic']:
                 continue
@@ -668,6 +668,11 @@ def make_proxy_rows(cfgs):
                 continue
             if transport in ["h2"] and l3 != "reality":
                 continue
+            if l3 in [ProxyL3.h3_quic,ProxyL3.tls_h2] and transport in [ProxyTransport.httpupgrade, ProxyTransport.WS]:
+                continue
+
+            
+
             # if l3 == "tls_h2" and transport =="grpc":
             #     continue
             enable = l3 != "http" or proto == "vmess"
