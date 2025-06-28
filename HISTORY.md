@@ -41,6 +41,8 @@
 
 #### Other
 
+* Fix fragment order. 
+
 * Speed up usage and fix concurrent bug. 
 
 * Add reality xhttp and fix the view avaible proxies page. 
