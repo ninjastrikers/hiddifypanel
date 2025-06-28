@@ -58,11 +58,11 @@ def _reset_priodic_usage() -> bool:
     last_usage_check: int = hconfig(ConfigEnum.last_priodic_usage_check) or 0
     import time
     current_time = int(time.time())
-    # if current_time - last_usage_check < 60 * 60 * 6:
-    #     return apply_changes
-    # # reset as soon as possible in the day
-    # if datetime.datetime.now().hour > 5 and current_time - last_usage_check < 60 * 60 * 24:
-    #     return apply_changes
+    if current_time - last_usage_check < 60 * 60 * 6:
+        return apply_changes
+    # reset as soon as possible in the day
+    if datetime.datetime.now().hour > 5 and current_time - last_usage_check < 60 * 60 * 24:
+        return apply_changes
     logger.debug("reseting user usage if needed")
     # for user in db.session.query(User).filter(User.mode != UserMode.no_reset).all():
     #     if user.user_should_reset():
