@@ -38,17 +38,17 @@ class SingboxApi(DriverABS):
     def remove_client(self, user):
         pass
 
-    def get_all_usage(self, users):
+    def get_all_usage(self):
         xray_client = self.get_singbox_client()
         usages = xray_client.stats_query('user', reset=True)
-        uuid_user_map = {u.uuid: u for u in users}
+        
         res = defaultdict(int)
         for use in usages:
             if "user>>>" not in use.name:
                 continue
             # print(use.name, use.value)
             uuid = use.name.split(">>>")[1].split("@")[0]
-            res[uuid_user_map[uuid]] += use.value  # uplink + downlink
+            res[uuid] += use.value  # uplink + downlink
         return res
         # return {u: self.get_usage_imp(u.uuid) for u in users}
 

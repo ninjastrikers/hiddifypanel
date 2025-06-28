@@ -22,7 +22,25 @@ class WireguardApi(DriverABS):
 
     def __init__(self) -> None:
         super().__init__()
+        self.pub_uuid_map={}
+    def __load_pubkey_uuid_map(self):
+        from hiddifypanel.database import db
+        users = db.session.query(User).all()
+        self.pub_uuid_map={u.wg_pub: u.uuid for u in users}
 
+    def __convert_pub_key_to_uuid(self,pubkeys):
+        res={}
+        can_reload_map=True
+        for key in pubkeys:
+            if uuid:=self.pub_uuid_map.get(key):
+                res[key]=uuid
+            elif can_reload_map:
+                self.__load_pubkey_uuid_map()
+                can_reload_map=False
+                if uuid:=self.pub_uuid_map.get(key):
+                    res[key]=uuid
+        return res
+            
     def __get_wg_usages(self) -> dict:
         raw_output = commander(Command.update_wg_usage, run_in_background=False)
         data = {}
@@ -36,6 +54,7 @@ class WireguardApi(DriverABS):
                 'down': int(sections[1]),
                 'up': int(sections[2]),
             }
+        
         return data
 
     def __get_local_usage(self) -> dict:
@@ -45,22 +64,25 @@ class WireguardApi(DriverABS):
 
         return {}
 
-    def __sync_local_usages(self, users) -> dict:
+    def __sync_local_usages(self) -> dict:
         local_usage = self.__get_local_usage()
         wg_usage = self.__get_wg_usages()
+        
         res = {}
         # remove local usage that is removed from wg usage
         for local_wg_pub in local_usage.copy().keys():
             if local_wg_pub not in wg_usage:
                 del local_usage[local_wg_pub]
-        uuid_map = {u.wg_pub: u for u in users}
+
+        
+        uuid_map = self.__convert_pub_key_to_uuid(wg_usage.keys())
         for wg_pub, wg_usage in wg_usage.items():
-            user = uuid_map.get(wg_pub)
-            uuid = user.uuid if user else None
+            uuid = uuid_map.get(wg_pub)
+            
             if not local_usage.get(wg_pub):
                 local_usage[wg_pub] = {"uuid": uuid, "usage": wg_usage}
                 continue
-            res[wg_pub] = self.calculate_reset(local_usage[wg_pub]['usage'], wg_usage)
+            res[uuid] = self.calculate_reset(local_usage[wg_pub]['usage'], wg_usage)
             local_usage[wg_pub] = {"uuid": uuid, "usage": wg_usage}
 
         self.get_redis_client().set(USERS_USAGE, json.dumps(local_usage))
@@ -101,14 +123,14 @@ class WireguardApi(DriverABS):
     def remove_client(self, user):
         pass
 
-    def get_all_usage(self, users, reset=True):
+    def get_all_usage(self, reset=True):
         if not hconfig(ConfigEnum.wireguard_enable):
             return {}
-        all_usages = self.__sync_local_usages(users)
+        all_usages = self.__sync_local_usages()
         res = {}
-        for u in users:
-            if use := all_usages.get(u.wg_pub):
-                res[u] = use['up'] + use['down']
-            else:
-                res[u] = 0
+        for uuid,use in all_usages.items():
+            # if use := all_usages.get(u.wg_pub):
+                res[uuid] = use['up'] + use['down']
+            # else:
+            #     res[u] = 0
         return res
