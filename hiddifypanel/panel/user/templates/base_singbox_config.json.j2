@@ -1,5 +1,6 @@
 {% set V1_7= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<8 %}
 {% set V1_9= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<10 %}
+{% set V1_10= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<11 %}
 
 {
     "outbounds": [
@@ -11,10 +12,12 @@
             "tag": "bypass",
             "type": "direct"
         },
+        {% if V1_10 %}
         {
             "tag": "block",
             "type": "block"
         },
+        {%endif%}
         {
             "tag": "dns-out",
             "type": "dns"
@@ -73,6 +76,18 @@
                 ],
                 "outbound": "dns-out"
             },
+            {% if not V1_10 %}
+                {
+                    "inbound": ["tun-in","mixed-in"],
+                    "action": "resolve",
+                    "strategy": "prefer_ipv4"
+                },
+                {
+                    "inbound": ["tun-in","mixed-in"],
+                    "action": "sniff",
+                    "timeout": "1s"
+                }
+            {%endif%}
             {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
@@ -88,7 +103,11 @@
                 {%else%}
                 "rule_set": "geosite-category-ads-all",
                 {%endif%}
+                {% if V1_10 %}
                 "outbound": "block"
+                {%else%}
+                "action": "reject"
+                {%endif%}
             }, #}
             {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {% if V1_7 %}
@@ -208,7 +227,6 @@
         {
             "type": "tun",
             "tag": "tun-in",
-            "domain_strategy": "prefer_ipv4",
             "interface_name": "tun0",
             {% if V1_9 %}
             "inet4_address": "172.19.0.1\/30",
@@ -220,8 +238,11 @@
             "strict_route": true,
             "stack": "system",
             "endpoint_independent_nat": true,
+            {% if V1_10 %}
             "sniff": true,
+            "domain_strategy": "prefer_ipv4",
             "sniff_override_destination": false
+            {% endif %}
         },
         {
             "domain_strategy": "prefer_ipv4",
