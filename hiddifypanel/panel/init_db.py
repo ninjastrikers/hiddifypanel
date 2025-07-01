@@ -17,52 +17,46 @@ from loguru import logger
 MAX_DB_VERSION = 120
 
 
-def _v102(child_id):
+def _v103(child_id):
 
     add_usage_proc=    """
 DROP PROCEDURE IF EXISTS add_usage_json;
 
-CREATE PROCEDURE add_usage_json(IN usage_data JSON)
+CREATE PROCEDURE add_usage_json(IN usage_data JSON, IN cur_time DATETIME)
 BEGIN
   DECLARE u_id INT DEFAULT NULL;
   DECLARE u_uuid CHAR(36) DEFAULT NULL;
   DECLARE u_usage BIGINT;
   DECLARE done BOOL DEFAULT FALSE;
+  DECLARE cur_date DATE;
+
 
   DECLARE cur CURSOR FOR
-    SELECT jt.id, jt.uuid, jt.usage FROM JSON_TABLE(
+    SELECT  jt.uuid, jt.usage FROM JSON_TABLE(
       usage_data,
       '$[*]' COLUMNS (
-        id INT PATH '$.id' NULL ON ERROR,
-        uuid CHAR(36) PATH '$.uuid' NULL ON ERROR,
+        uuid CHAR(36) PATH '$.uuid',
         `usage` BIGINT PATH '$.usage'
       )
     ) AS jt;
 
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
+  SET cur_date = DATE(cur_time);
   OPEN cur;
 
   read_loop: LOOP
-    FETCH cur INTO u_id, u_uuid, u_usage;
+    FETCH cur INTO  u_uuid, u_usage;
     IF done THEN
       LEAVE read_loop;
     END IF;
 
-    IF u_id IS NOT NULL THEN
-      UPDATE user
-      SET current_usage = current_usage + u_usage,
-          last_online = NOW(),
-          start_date = CASE WHEN start_date IS NULL THEN CURDATE() ELSE start_date END
-      WHERE id = u_id;
-    ELSEIF u_uuid IS NOT NULL THEN
-      UPDATE user
-      SET current_usage = current_usage + u_usage,
-          last_online = NOW(),
-          start_date = CASE WHEN start_date IS NULL THEN CURDATE() ELSE start_date END
+    
+    UPDATE `user`
+    SET current_usage = current_usage + u_usage,
+        last_online = cur_time,
+        start_date = CASE WHEN start_date IS NULL THEN cur_date ELSE start_date END
+    WHERE uuid = u_uuid;
 
-      WHERE uuid = u_uuid;
-    END IF;
 
     COMMIT;
   END LOOP;
@@ -866,8 +860,8 @@ def upgrade_database():
 
 def init_db():
     # set_hconfig(ConfigEnum.db_version, 71)
+    set_hconfig(ConfigEnum.db_version,101)
     db_version = current_db_version()
-    # set_hconfig(ConfigEnum.db_version,101)
     if db_version == latest_db_version():
         return
     

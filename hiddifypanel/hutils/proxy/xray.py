@@ -92,7 +92,7 @@ def to_link(proxy: dict) -> str | dict:
     if proxy['proto'] == 'hysteria2':
         baseurl = f'hysteria2://{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}?hiddify=1&obfs=salamander&obfs-password={proxy["hysteria_obfs_password"]}&sni={proxy["sni"]}'
         if proxy['mode'] == 'Fake' or proxy['allow_insecure']:
-            baseurl += "&insecure=1"
+            baseurl += "&insecure=1&allow_insecure=1"
         return f"{baseurl}#{name_link}"
     if proxy['proto'] == ProxyProto.wireguard:
         if g.user_agent.get('is_streisand'):

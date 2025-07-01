@@ -104,7 +104,8 @@ def add_users_usage_new(usages: list[dict], child_id, sync=False):
     before_enabled_users = user_driver.get_enabled_users()
 
     daily_usage = {}
-    today = datetime.date.today()
+    cur_time=datetime.datetime.now()
+    today = cur_time.date()
     db_changes = False
     for adm in db.session.query(AdminUser).all():
         daily_usage[adm.id] = db.session.query(DailyUsage).filter(DailyUsage.date == today, DailyUsage.admin_id == adm.id, DailyUsage.child_id == child_id).first()
@@ -118,8 +119,8 @@ def add_users_usage_new(usages: list[dict], child_id, sync=False):
         db.session.commit()
 
     apply_changes = _reset_priodic_usage()
-
-    db_execute("CALL add_usage_json(:usage_data)", usage_data=json.dumps(usages), commit=True)
+    
+    db_execute("CALL add_usage_json(:usage_data,:cur_time)", usage_data=json.dumps(usages),cur_time=cur_time.strftime('%Y-%m-%d %H:%M:%S'), commit=True)
 
     usage_map = {u['uuid']: u for u in usages}
     
@@ -161,7 +162,7 @@ def add_users_usage_new(usages: list[dict], child_id, sync=False):
     if apply_changes:
         hiddify.quick_apply_users()
 
-    return {"status": 'success', "comments": usages, "date": hutils.convert.time_to_json(datetime.datetime.now())}
+    return {"status": 'success', "comments": usages, "date": hutils.convert.time_to_json(cur_time)}
 
 
 # def _add_users_usage(users_usage_data: Dict[User, Dict], child_id, sync=False):
