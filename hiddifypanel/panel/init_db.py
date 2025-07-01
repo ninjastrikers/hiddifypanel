@@ -860,7 +860,7 @@ def upgrade_database():
 
 def init_db():
     # set_hconfig(ConfigEnum.db_version, 71)
-    set_hconfig(ConfigEnum.db_version,101)
+    # set_hconfig(ConfigEnum.db_version,101)
     db_version = current_db_version()
     if db_version == latest_db_version():
         return
