@@ -8,19 +8,19 @@
             "tag": "direct",
             "type": "direct"
         },
-        {
-            "tag": "bypass",
-            "type": "direct"
-        },
         {% if V1_10 %}
         {
             "tag": "block",
             "type": "block"
         },
-        {%endif%}
         {
             "tag": "dns-out",
             "type": "dns"
+        },
+        {%endif%}
+        {
+            "tag": "bypass",
+            "type": "direct"
         }
     ],
     "route": {
@@ -43,39 +43,47 @@
                 "tag": "geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "type": "remote",
                 "format": "binary",
-                "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
-                "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%}
+                "url": "https://github.com/hiddify/hiddify-geo/raw/rule-set/country/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+                "download_detour": "Select"
             },
             {
             "tag": "geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
             "type": "remote",
             "format": "binary",
-            "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
-            "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%} 
+            "url": "https://github.com/hiddify/hiddify-geo/raw/rule-set/country/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+            "download_detour": "Select"
             }
             {%endif%}               
             {# {
                 "tag": "geosite-category-ads-all",
                 "type": "remote",
                 "format": "binary",
-                "url": "https:\/\/raw.githubusercontent.com\/Chocolate4U\/Iran-sing-box-rules\/rule-set\/geosite-category-ads-all.srs",
-                "download_detour": {% if hconfig(ConfigEnum.country)=='cn' %}"Select" {%else%}"bypass"{%endif%} 
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs", 
+                "download_detour": "Select"
             } #}
         ],
         {%endif%}
         "rules": [
+          
+            {% if V1_10 %}
             {
                 "outbound": "dns-out",
-                "port": [
-                    53
-                ]
+                "port": [53]
             },
             {
-                "inbound": [
-                    "dns-in"
-                ],
+                "inbound": ["dns-in"],
                 "outbound": "dns-out"
             },
+            {%else%}
+            {
+                "port": [53],
+                "action": "hijack-dns"
+            },
+            {
+                "inbound": ["dns-in"],
+                "action": "hijack-dns"
+            },
+            {%endif%}
             {% if not V1_10 %}
                 {
                     "inbound": ["tun-in","mixed-in"],
@@ -86,7 +94,7 @@
                     "inbound": ["tun-in","mixed-in"],
                     "action": "sniff",
                     "timeout": "1s"
-                }
+                },
             {%endif%}
             {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
@@ -131,7 +139,11 @@
                 "port": [
                     443
                 ],
+                {% if V1_10 %}
                 "outbound": "block"
+                {%else%}
+                "action": "reject"
+                {%endif%}
             },
             {
                 "ip_cidr": [
@@ -237,12 +249,12 @@
             "auto_route": true,
             "strict_route": true,
             "stack": "system",
-            "endpoint_independent_nat": true,
             {% if V1_10 %}
             "sniff": true,
             "domain_strategy": "prefer_ipv4",
-            "sniff_override_destination": false
+            "sniff_override_destination": false,
             {% endif %}
+            "endpoint_independent_nat": true
         },
         {
             "domain_strategy": "prefer_ipv4",
