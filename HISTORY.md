@@ -9,6 +9,8 @@
 
 #### Fix
 
+* Typo. 
+
 * Test bug. 
 
 * Installation issues. 
@@ -40,6 +42,14 @@
 * My translation. 
 
 #### Other
+
+* Update to singbox 1.11. 
+
+* Update singbox configs. 
+
+* Add host to tcp settings. 
+
+* Use same date time in update. 
 
 * Fix fragment order. 
 
