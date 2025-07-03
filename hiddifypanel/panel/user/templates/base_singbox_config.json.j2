@@ -38,19 +38,20 @@
         }, 
         {%else%}
         "rule_set": [
-            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
+
+            {%if 0 and hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {
                 "tag": "geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "type": "remote",
                 "format": "binary",
-                "url": "https://github.com/hiddify/hiddify-geo/raw/rule-set/country/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+                "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
                 "download_detour": "Select"
             },
             {
             "tag": "geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
             "type": "remote",
             "format": "binary",
-            "url": "https://github.com/hiddify/hiddify-geo/raw/rule-set/country/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+            "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
             "download_detour": "Select"
             }
             {%endif%}               
@@ -76,6 +77,7 @@
             },
             {%else%}
             {
+                "inbound":["tun-in","mixed-in"],
                 "port": [53],
                 "action": "hijack-dns"
             },
@@ -85,18 +87,14 @@
             },
             {%endif%}
             {% if not V1_10 %}
-                {
-                    "inbound": ["tun-in","mixed-in"],
-                    "action": "resolve",
-                    "strategy": "prefer_ipv4"
-                },
+                
                 {
                     "inbound": ["tun-in","mixed-in"],
                     "action": "sniff",
                     "timeout": "1s"
                 },
             {%endif%}
-            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
+            {%if 0 and hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
                     "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
@@ -117,7 +115,7 @@
                 "action": "reject"
                 {%endif%}
             }, #}
-            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
+            {%if 0 and hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {% if V1_7 %}
             {
                 "geoip": ["{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"],
@@ -189,7 +187,7 @@
                 "detour": "Select"
             },
             {
-                "address": "1.1.1.1",
+                "address": "8.8.8.8",
                 "detour": "direct",
                 "tag": "dns-local"
             },
@@ -208,7 +206,7 @@
                 ],
                 "server": "dns-local"
             },
-            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
+            {%if 0 and hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
                     "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
@@ -221,7 +219,7 @@
                 "server": "dns-local"
             }
         ],
-        "final": "dns-remote",
+        "final": "dns-local",
         "reverse_mapping": true,
         "strategy": "prefer_ipv4",
         "independent_cache": true
