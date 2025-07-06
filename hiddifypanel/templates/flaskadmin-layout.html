@@ -107,9 +107,10 @@
                 $("#servernames").parent().hide();
                 $("#domain").parent().find(".control-label").html(`{{_('domain.domain')}}`)
                 $("#domain").parent().find(".help-block").html(`{{_('domain.description')}}`)
-
+                $("#download_domain").parent().hide();
 
             } else {
+                $("#download_domain").parent().show();
                 $("#cdn_ip").parent().show();
                 //$("#mode").parent().show();
                 $("#show_domains").parent().hide()
@@ -131,7 +132,9 @@
                     // $("#grpc").parent().parent().show()
                     $("#domain").parent().find(".control-label").html(`{{_('config.reality_fallback_domain.label')}}`)
                     $("#domain").parent().find(".help-block").html(`{{_('config.reality_fallback_domain.description')+("<a target='_blank' href='" +hurl_for('admin.Actions:get_some_random_reality_friendly_domain',test_domain=domain)+"'>"+_('Example Domains')+"</a>")}}`)
+                    $("#download_domain").parent().hide();
                 } else {
+                    
                     if ($("#mode").val() == 'cdn' || $("#mode").val() == 'auto_cdn_ip') {
                         $("#servernames").parent().show();
                         $("#servernames").parent().find(".control-label").html(`{{_('domain.domain_fronting.label')}}`)
@@ -140,7 +143,7 @@
                         $("#servernames").parent().hide();
                     }
 
-                    $("#grpc").parent().parent().hide()
+                    
                     $("#domain").parent().find(".control-label").html(`{{_('domain.domain')}}`)
                     $("#domain").parent().find(".help-block").html(`{{_('domain.description')}}`)
                 }

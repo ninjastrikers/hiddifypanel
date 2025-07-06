@@ -1714,10 +1714,10 @@ msgid "config.reality_fallback_domain.label"
 msgstr "🌍 现实后备域"
 
 msgid "config.reality_port.description"
-msgstr "您可以为您的现实服务器设置自定义端口，以减少系统开销。（允许直接连接到代理应该是肯定的）"
+msgstr ""
 
 msgid "config.reality_port.label"
-msgstr "↔️ 直接 Reality 端口"
+msgstr ""
 
 msgid "config.reality_private_key.description"
 msgstr "不要改变它"
@@ -1820,9 +1820,15 @@ msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ 在子链接中显示用法"
 
 msgid "config.special_port.description"
-msgstr ""
+msgstr "您可以为您的现实服务器设置自定义端口，以减少系统开销。（允许直接连接到代理应该是肯定的）"
 
 msgid "config.special_port.label"
+msgstr "↔️ 直接 Reality 端口"
+
+msgid "config.special_port_old.description"
+msgstr ""
+
+msgid "config.special_port_old.label"
 msgstr ""
 
 msgid "config.speed_test.description"
@@ -2354,6 +2360,9 @@ msgstr "直接下载"
 msgid "download_domain.description"
 msgstr ""
 
+msgid "download_domain.label"
+msgstr ""
+
 msgid "fake"
 msgstr "🆎 假网站"
 
@@ -2518,13 +2527,13 @@ msgid "singbox: ssh"
 msgstr "歌手盒：SSH"
 
 msgid "special_reality_grpc"
-msgstr ""
+msgstr "Reality gRPC"
 
 msgid "special_reality_tcp"
-msgstr ""
+msgstr "Reality TCP"
 
 msgid "special_reality_xhttp"
-msgstr ""
+msgstr "Reality xHTTP"
 
 msgid "ssh"
 msgstr "SSH"

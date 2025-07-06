@@ -734,8 +734,8 @@
       "label": "🌍 Domínio alternativo"
     },
     "reality_port": {
-      "description": "Você pode definir uma porta personalizada para seu servidor de Reality para reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve ser sim)",
-      "label": "↔️ Porto de Realidade Direta"
+      "description": "",
+      "label": ""
     },
     "reality_private_key": {
       "description": "Não mude isso",
@@ -802,6 +802,10 @@
       "label": "💬 Mostrar uso no sublink"
     },
     "special_port": {
+      "description": "Você pode definir uma porta personalizada para seu servidor de Reality para reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve ser sim)",
+      "label": "↔️ Porto de Realidade Direta"
+    },
+    "special_port_old": {
       "description": "",
       "label": ""
     },
@@ -1117,7 +1121,8 @@
   },
   "download": "Download direto",
   "download_domain": {
-    "description": ""
+    "description": "",
+    "label": ""
   },
   "fake": "🆎 Site falso",
   "gRPC": "➿ gRPC",
@@ -1210,9 +1215,9 @@
     }
   },
   "singbox: ssh": "caixa de som: ssh",
-  "special_reality_grpc": "",
-  "special_reality_tcp": "",
-  "special_reality_xhttp": "",
+  "special_reality_grpc": "Reality gRPC",
+  "special_reality_tcp": "Reality TCP",
+  "special_reality_xhttp": "Reality xHTTP",
   "ssh": "SSH",
   "sub_link_only": "📳 Somente para Link de Assinatura (pode ser direto, relé ou CDN)",
   "telegram": "Telegram",

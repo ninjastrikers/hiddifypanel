@@ -738,8 +738,8 @@
       "label": "🌍 Reality Fallback Domain"
     },
     "reality_port": {
-      "description": "You can set a customized port for your reality server to reduce the system's overhead. (Allow direct connection to proxies should be yes)",
-      "label": "↔️  Direct Reality Port"
+      "description": "config.reality_port.description",
+      "label": "config.reality_port.label"
     },
     "reality_private_key": {
       "description": "Do Not Change It",
@@ -806,8 +806,8 @@
       "label": "👁️‍🗨️ Show Usage in Sublink"
     },
     "special_port": {
-      "description": "config.special_port.description",
-      "label": "config.special_port.label"
+      "description": "You can set a customized port for your reality server to reduce the system's overhead. (Allow direct connection to proxies should be yes)",
+      "label": "↔️  Direct Reality Port"
     },
     "speed_test": {
       "description": "Allow your users to do Speed Test. It helps them to identify the link quality",
@@ -1125,7 +1125,8 @@
   },
   "download": "Direct Download",
   "download_domain": {
-    "description": "download_domain.description"
+    "description": "Only for XHTTP: This allows, for example, downloads to happen from a different domain than uploads. This makes detection harder and can also improve overall quality.",
+    "label": "Download Domain"
   },
   "fake": "🆎 Fake Site",
   "gRPC": "➿ gRPC",

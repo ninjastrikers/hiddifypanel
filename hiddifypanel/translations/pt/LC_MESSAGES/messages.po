@@ -1772,12 +1772,9 @@ msgstr "🌍 Domínio alternativo"
 
 msgid "config.reality_port.description"
 msgstr ""
-"Você pode definir uma porta personalizada para seu servidor de Reality para "
-"reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve "
-"ser sim)"
 
 msgid "config.reality_port.label"
-msgstr "↔️ Porto de Realidade Direta"
+msgstr ""
 
 msgid "config.reality_private_key.description"
 msgstr "Não mude isso"
@@ -1895,8 +1892,17 @@ msgstr "💬 Mostrar uso no sublink"
 
 msgid "config.special_port.description"
 msgstr ""
+"Você pode definir uma porta personalizada para seu servidor de Reality para "
+"reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve "
+"ser sim)"
 
 msgid "config.special_port.label"
+msgstr "↔️ Porto de Realidade Direta"
+
+msgid "config.special_port_old.description"
+msgstr ""
+
+msgid "config.special_port_old.label"
 msgstr ""
 
 msgid "config.speed_test.description"
@@ -2487,6 +2493,9 @@ msgstr "Download direto"
 msgid "download_domain.description"
 msgstr ""
 
+msgid "download_domain.label"
+msgstr ""
+
 msgid "fake"
 msgstr "🆎 Site falso"
 
@@ -2658,13 +2667,13 @@ msgid "singbox: ssh"
 msgstr "caixa de som: ssh"
 
 msgid "special_reality_grpc"
-msgstr ""
+msgstr "Reality gRPC"
 
 msgid "special_reality_tcp"
-msgstr ""
+msgstr "Reality TCP"
 
 msgid "special_reality_xhttp"
-msgstr ""
+msgstr "Reality xHTTP"
 
 msgid "ssh"
 msgstr "SSH"

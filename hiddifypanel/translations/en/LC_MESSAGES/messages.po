@@ -1809,12 +1809,10 @@ msgid "config.reality_fallback_domain.label"
 msgstr "🌍 Reality Fallback Domain"
 
 msgid "config.reality_port.description"
-msgstr ""
-"You can set a customized port for your reality server to reduce the system's"
-" overhead. (Allow direct connection to proxies should be yes)"
+msgstr "config.reality_port.description"
 
 msgid "config.reality_port.label"
-msgstr "↔️  Direct Reality Port"
+msgstr "config.reality_port.label"
 
 msgid "config.reality_private_key.description"
 msgstr "Do Not Change It"
@@ -1928,10 +1926,12 @@ msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ Show Usage in Sublink"
 
 msgid "config.special_port.description"
-msgstr "config.special_port.description"
+msgstr ""
+"You can set a customized port for your reality server to reduce the system's"
+" overhead. (Allow direct connection to proxies should be yes)"
 
 msgid "config.special_port.label"
-msgstr "config.special_port.label"
+msgstr "↔️  Direct Reality Port"
 
 msgid "config.speed_test.description"
 msgstr ""
@@ -2521,7 +2521,13 @@ msgid "download"
 msgstr "Direct Download"
 
 msgid "download_domain.description"
-msgstr "download_domain.description"
+msgstr ""
+"Only for XHTTP: This allows, for example, downloads to happen from a "
+"different domain than uploads. This makes detection harder and can also "
+"improve overall quality."
+
+msgid "download_domain.label"
+msgstr "Download Domain"
 
 msgid "fake"
 msgstr "🆎 Fake Site"

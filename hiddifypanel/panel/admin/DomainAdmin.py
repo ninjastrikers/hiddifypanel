@@ -86,7 +86,7 @@ class DomainAdmin(AdminLTEModelView):
         'show_domains': _('Show Domains'),
         'alias': _('Alias'),
         'grpc': _('gRPC'),
-        "download_domain":_('Download Domain')
+        "download_domain":_('download_domain.label')
     }
 
     form_columns = ['mode', 'domain','download_domain', 'alias', 'servernames', 'cdn_ip', 'show_domains']

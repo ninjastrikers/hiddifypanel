@@ -1798,11 +1798,9 @@ msgstr "🌍 دامنه بازگشتی ریالیتی"
 
 msgid "config.reality_port.description"
 msgstr ""
-"شما می توانید یک پورت سفارشی برای سرور ریالیتی خود تنظیم کنید تا پردازش "
-"سیستم را کاهش دهید. (اجازه اتصال مستقیم به پروکسی ها باید بله باشد)"
 
 msgid "config.reality_port.label"
-msgstr "↔️  پورت ریالیتی"
+msgstr ""
 
 msgid "config.reality_private_key.description"
 msgstr "این کد را تغییر ندهید"
@@ -1918,8 +1916,16 @@ msgstr "👁️‍🗨️ نمایش حجم و تاریخ انقضا در کان
 
 msgid "config.special_port.description"
 msgstr ""
+"شما می توانید یک پورت سفارشی برای سرور ریالیتی خود تنظیم کنید تا پردازش "
+"سیستم را کاهش دهید. (اجازه اتصال مستقیم به پروکسی ها باید بله باشد)"
 
 msgid "config.special_port.label"
+msgstr "↔️  پورت ریالیتی"
+
+msgid "config.special_port_old.description"
+msgstr ""
+
+msgid "config.special_port_old.label"
 msgstr ""
 
 msgid "config.speed_test.description"
@@ -2508,6 +2514,12 @@ msgstr "دانلود مستقیم"
 
 msgid "download_domain.description"
 msgstr ""
+"فقط برای XHTTP: این امکان وجود دارد که برای مثال آپلود از دامنه ریلی انجاد "
+"شود و آپلود از دامنه ای که در این بخش استفاده میکند. در نتیجه سخت تر شناسایی"
+" میشوید و همینطور کیفیت کلی بهتری خواهید داشتو."
+
+msgid "download_domain.label"
+msgstr "دامنه دانلود"
 
 msgid "fake"
 msgstr "🆎 گمراه کننده (Fake)"
@@ -2680,13 +2692,13 @@ msgid "singbox: ssh"
 msgstr "SingBox: SSH"
 
 msgid "special_reality_grpc"
-msgstr ""
+msgstr "Reality gRPC"
 
 msgid "special_reality_tcp"
-msgstr ""
+msgstr "Reality TCP"
 
 msgid "special_reality_xhttp"
-msgstr ""
+msgstr "Reality xHTTP"
 
 msgid "ssh"
 msgstr "SSH"

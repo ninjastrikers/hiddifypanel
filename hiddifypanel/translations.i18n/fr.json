@@ -706,7 +706,7 @@
       "description": "Lorsque le GFW visitera les sites Web dans les noms de serveur, il sera redirigé vers ce domaine.",
       "label": "🌍 Domaine de repli de Reality"
     },
-    "reality_port": {
+    "special_port": {
       "description": "Vous pouvez définir un port personnalisé pour votre serveur de Reality afin de réduire la surcharge du système. (Autoriser la connexion directe aux proxys devrait être oui)",
       "label": "↔️ Port de Reality directe"
     },
