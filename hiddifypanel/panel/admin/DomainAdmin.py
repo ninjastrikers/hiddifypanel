@@ -46,39 +46,31 @@ class DomainAdmin(AdminLTEModelView):
         domain=_("domain.description"),
         mode=_("Direct mode means you want to use your server directly (for usual use), CDN means that you use your server on behind of a CDN provider."),
         cdn_ip=_("config.cdn_forced_host.description"),
-        show_domains=_(
-            'domain.show_domains_description'),
+        show_domains=_('domain.show_domains_description'),
         alias=_('The name shown in the configs for this domain.'),
         servernames=_('config.reality_server_names.description'),
         sub_link_only=_('This can be used for giving your users a permanent non blockable links.'),
-        grpc=_('grpc-proxy.description'))
-
+        grpc=_('grpc-proxy.description'),
+        download_domain=_('download_domain.description')
+    )
     # create_modal = True
     can_export = False
-    form_widget_args = {'show_domains': {'class': 'form-control ltr'}}
+    form_widget_args = {'show_domains': {'class': 'form-control ltr'},'download_domain': {'class': 'form-control ltr'}}
+
     form_args = {
-        'mode': {
-            'enum': DomainType},
+        'mode': {'enum': DomainType},
         'show_domains': {
-            'query_factory': lambda: Domain.query.filter(
-                Domain.sub_link_only == False),
+            'query_factory': lambda: Domain.query.filter(     Domain.sub_link_only == False),
         },
         'domain': {
             'validators': [
-                Regexp(
-                    r'^(\*\.)?([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$|^$',
-                    message=__("Should be a valid domain"))]},
+                Regexp(r'^(\*\.)?([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,})$|^$',message=__("Should be a valid domain"))]},
         "cdn_ip": {
             'validators': [
-                Regexp(
-                    r"(((((25[0-5]|(2[0-4]|1\d|[1-9]|)\d).){3}(25[0-5]|(2[0-4]|1\d|[1-9]|)\d))|^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,}))[ \t\n,;]*\w{3}[ \t\n,;]*)*",
-                    message=__("Invalid IP or domain"))]},
+                Regexp(r"(((((25[0-5]|(2[0-4]|1\d|[1-9]|)\d).){3}(25[0-5]|(2[0-4]|1\d|[1-9]|)\d))|^([A-Za-z0-9\-\.]+\.[a-zA-Z]{2,}))[ \t\n,;]*\w{3}[ \t\n,;]*)*",message=__("Invalid IP or domain"))]},
         "servernames": {
             'validators': [
-                Regexp(
-                    r"^([\w-]+\.)+[\w-]+(,\s*([\w-]+\.)+[\w-]+)*$",
-                    re.IGNORECASE,
-                    _("Invalid REALITY hostnames"))]}}
+                Regexp(r"^([\w-]+\.)+[\w-]+(,\s*([\w-]+\.)+[\w-]+)*$",re.IGNORECASE,_("Invalid REALITY hostnames"))]}}
     column_list = ["domain", "alias", "mode", "domain_ip", "show_domains"]
     column_editable_list = ["alias"]
     # column_filters=["domain","mode"]
@@ -93,10 +85,11 @@ class DomainAdmin(AdminLTEModelView):
         'servernames': _('config.reality_server_names.label'),
         'show_domains': _('Show Domains'),
         'alias': _('Alias'),
-        'grpc': _('gRPC')
+        'grpc': _('gRPC'),
+        "download_domain":_('Download Domain')
     }
 
-    form_columns = ['mode', 'domain', 'alias', 'servernames', 'grpc', 'cdn_ip', 'show_domains']
+    form_columns = ['mode', 'domain','download_domain', 'alias', 'servernames', 'cdn_ip', 'show_domains']
 
     def _domain_admin_link(view, context, model, name):
         if model.mode == DomainType.fake:
@@ -155,7 +148,9 @@ class DomainAdmin(AdminLTEModelView):
     def on_model_change(self, form, model, is_created):
         # Sanitize domain input
         model.domain = (model.domain or '').lower().strip()
-        
+        if model.domain==model.download_domain.domain:
+            model.download_domain_id=None
+            model.download_domain=None
         # Basic validation
         if model.domain == '' and model.mode != DomainType.fake:
             raise ValidationError(_("domain.empty.allowed_for_fake_only"))
@@ -199,7 +194,7 @@ class DomainAdmin(AdminLTEModelView):
         if model.mode == DomainType.old_xtls_direct and not hconfig(ConfigEnum.xtls_enable):
             set_hconfig(ConfigEnum.xtls_enable, True)
             hutils.proxy.get_proxies().invalidate_all()
-        elif model.mode == DomainType.reality:
+        elif "reality" in  model.mode:
             self._validate_reality_settings(model, server_ips)
                 
             # Signal config update if needed
@@ -267,7 +262,7 @@ class DomainAdmin(AdminLTEModelView):
                 if model.domain == configs[c]:
                     raise ValidationError(_("You have used this domain in: ") + _(f"config.{c}.label"))
 
-        for td in Domain.query.filter(Domain.mode == DomainType.reality, Domain.domain != model.domain).all():
+        for td in Domain.query.filter(Domain.mode._in([DomainType.reality,DomainType.special_reality_xhttp,DomainType.special_reality_grpc,DomainType.special_reality_tcp]) == DomainType.reality, Domain.domain != model.domain).all():
             # print(td)
             if td.servernames and (model.domain in td.servernames.split(",")):
                 raise ValidationError(_("You have used this domain in: ") + _(f"config.reality_server_names.label") + td.domain)
@@ -282,6 +277,8 @@ class DomainAdmin(AdminLTEModelView):
         if (model.domain.startswith('*') or not model.domain) and model.mode not in [DomainType.direct]:
             return True
         if model.mode in [DomainType.fake, DomainType.reality, DomainType.relay]:
+            return True
+        if "special" in model.mode:
             return True
         # Resolve domain IPs with timeout
         try:
@@ -319,7 +316,7 @@ class DomainAdmin(AdminLTEModelView):
     def on_model_delete(self, model):
         if len(Domain.query.all()) <= 1:
             raise ValidationError(f"at least one domain should exist")
-        if hconfig(ConfigEnum.cloudflare) and model.mode not in [DomainType.fake, DomainType.reality, DomainType.relay]:
+        if hconfig(ConfigEnum.cloudflare) and model.mode not in [DomainType.fake, DomainType.reality, DomainType.relay] and "special" not in model.mode:
             if not hutils.network.cf_api.delete_dns_record(model.domain):
                 hutils.flask.flash(_('cf-delete.failed'), 'warning')  # type: ignore
         model.showed_by_domains = []

@@ -155,7 +155,7 @@ def to_clash(proxy, meta_or_normal):
             base["ws-opts"]["headers"] = {"Host": proxy["host"]}
 
     if base["network"] == "tcp" and proxy['alpn'] != 'h2':
-        if proxy['transport'] != ProxyTransport.XTLS:
+        if proxy['transport'] != ProxyL3.reality:
             base["network"] = "http"
 
         if "path" in proxy:

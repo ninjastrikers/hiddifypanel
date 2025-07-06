@@ -68,6 +68,7 @@
     "title": "Donation"
   },
   "Download App": "<i class='fa-solid fa-download'></i> Download App",
+  "Download Domain": "Download Domain",
   "Edit": "Edit",
   "Edit Proxy Names": "✏️ Modifying Proxies",
   "Enable": "❇️ Enable",
@@ -800,6 +801,10 @@
       "description": "This option creates a Fake Config in the user's sub link that shows the user's remaining volume",
       "label": "👁️‍🗨️ Show Usage in Sublink"
     },
+    "special_port": {
+      "description": "config.special_port.description",
+      "label": "config.special_port.label"
+    },
     "speed_test": {
       "description": "Allow your users to do Speed Test. It helps them to identify the link quality",
       "label": "🚀 Speed Test"
@@ -999,6 +1004,10 @@
     "unique_id": {
       "description": "config.unique_id.description",
       "label": "config.unique_id.label"
+    },
+    "use_ip_in_config": {
+      "description": "config.use_ip_in_config.description",
+      "label": "config.use_ip_in_config.label"
     },
     "utls": {
       "description": "This Option Will Simulate Different Browsers, Therefore, GFW Can Not Detect Your Browsing",
@@ -1202,6 +1211,9 @@
     }
   },
   "singbox: ssh": "SingBox: SSH",
+  "special_reality_grpc": "Reality gRPC",
+  "special_reality_tcp": "Reality TCP",
+  "special_reality_xhttp": "Reality xHTTP",
   "ssh": "SSH",
   "sub_link_only": "📳 Only for Subscription Link (can be Direct, Relay, or CDN)",
   "telegram": "Telegram",

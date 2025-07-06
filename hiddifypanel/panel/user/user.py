@@ -332,22 +332,22 @@ def get_domain_information(no_domain=False, filter_domain=None, alternative=None
         domains = db_domain.show_domains or Domain.query.filter(Domain.sub_link_only != True).all()
 
     has_auto_cdn = False
-    for d in domains:
-        db.session.expunge(d)
-        d.has_auto_ip = False
-        if d.mode == DomainType.auto_cdn_ip or d.cdn_ip:
-            has_auto_cdn = True
-            d.has_auto_ip = d.mode == DomainType.auto_cdn_ip or (
-                d.cdn_ip and "MTN" in d.cdn_ip)
-            d.cdn_ip = hutils.network.auto_ip_selector.get_clean_ip(
-                d.cdn_ip, d.mode == DomainType.auto_cdn_ip, default_asn)
+    # for d in domains:
+        # db.session.expunge(d)
+        # d.has_auto_ip = False
+        # if d.mode == DomainType.auto_cdn_ip or d.cdn_ip:
+        #     has_auto_cdn = True
+        #     d.has_auto_ip = d.mode == DomainType.auto_cdn_ip or (
+        #         d.cdn_ip and "MTN" in d.cdn_ip)
+        #     d.cdn_ip = hutils.network.auto_ip_selector.get_clean_ip(
+        #         d.cdn_ip, d.mode == DomainType.auto_cdn_ip, default_asn)
             # print("autocdn ip mode ", d.cdn_ip)
-        if "*" in d.domain:
-            d.domain = d.domain.replace("*", hutils.random.get_random_string(5, 15))
+        # if "*" in d.domain:
+        #     d.domain = d.domain.replace("*", hutils.random.get_random_string(5, 15))
 
     if len(domains) == 0:
         domains = [Domain(id=0, domain=alternative, mode=DomainType.direct, cdn_ip='', show_domains=[], child_id=0)]
-        domains[0].has_auto_ip = True
+        # domains[0].has_auto_ip = True
 
     return domains, db_domain, has_auto_cdn
 

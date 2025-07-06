@@ -5,12 +5,13 @@ from sqlalchemy import Column, String, Integer, Boolean, Enum, ForeignKey
 
 from hiddifypanel.database import db
 
+from sqlalchemy.types import JSON
 
 
 class ProxyTransport(StrEnum):
     h2 = auto()
     grpc = auto()
-    XTLS = auto()
+    # XTLS = auto()
     faketls = auto()
     shadowtls = auto()
     restls1_2 = auto()
@@ -68,6 +69,7 @@ class Proxy(db.Model):  # type: ignore
     l3 = Column(Enum(ProxyL3), nullable=False)
     transport = Column(Enum(ProxyTransport), nullable=False)
     cdn = Column(Enum(ProxyCDN), nullable=False)
+    params = Column(JSON,default={})
 
     @property
     def enabled(self):
@@ -81,7 +83,8 @@ class Proxy(db.Model):  # type: ignore
             'l3': self.l3,
             'transport': self.transport,
             'cdn': self.cdn,
-            'child_unique_id': self.child.unique_id if self.child else ''
+            'child_unique_id': self.child.unique_id if self.child else '',
+            'params': self.params
         }
 
     def __str__(self):
@@ -101,6 +104,7 @@ class Proxy(db.Model):  # type: ignore
         dbproxy.transport = proxy['transport']
         dbproxy.cdn = proxy['cdn']
         dbproxy.l3 = proxy['l3']
+        dbproxy.params=proxy['params']
         dbproxy.child_id = child_id
         if commit:
             db.session.commit()  # type: ignore

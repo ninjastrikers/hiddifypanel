@@ -68,6 +68,7 @@
     "title": "捐款"
   },
   "Download App": "下载应用程序",
+  "Download Domain": "",
   "Edit": "编辑",
   "Edit Proxy Names": "✏️ 修改代理",
   "Enable": "❇️启用",
@@ -796,6 +797,10 @@
       "description": "此选项会在用户的子链接中创建一个假配置，显示用户的剩余音量",
       "label": "👁️‍🗨️ 在子链接中显示用法"
     },
+    "special_port": {
+      "description": "",
+      "label": ""
+    },
     "speed_test": {
       "description": "允许您的用户进行速度测试。它可以帮助他们识别链接质量",
       "label": "🚀 速度测试"
@@ -991,6 +996,10 @@
     "unique_id": {
       "description": "config.unique_id.description",
       "label": "config.unique_id.label"
+    },
+    "use_ip_in_config": {
+      "description": "",
+      "label": ""
     },
     "utls": {
       "description": "此选项将模拟不同的浏览器，因此 GFW 无法检测到您的浏览",
@@ -1194,6 +1203,9 @@
     }
   },
   "singbox: ssh": "歌手盒：SSH",
+  "special_reality_grpc": "",
+  "special_reality_tcp": "",
+  "special_reality_xhttp": "",
   "ssh": "SSH",
   "sub_link_only": "📳 仅适用于订阅链接（可以是 Direct、Relay 或 CDN）",
   "telegram": "Telegram",

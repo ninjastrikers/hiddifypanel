@@ -80,7 +80,7 @@ def hconfig(key: ConfigEnum, child_id: Optional[int] = None):  # -> str | int | 
     except BaseException:
         logger.exception(f'{key} error!')
         raise
-    if value != None:
+    if value is not None:
         if key.type == int:
             return int(value)
         elif hasattr(key.type, 'from_str'):

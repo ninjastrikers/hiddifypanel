@@ -292,6 +292,9 @@ msgstr "Пожертвование"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> Загрузить приложение"
 
+msgid "Download Domain"
+msgstr ""
+
 msgid "Edit"
 msgstr "Изменить"
 
@@ -1935,6 +1938,12 @@ msgstr ""
 msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ Показать использование в доп.ссылке"
 
+msgid "config.special_port.description"
+msgstr ""
+
+msgid "config.special_port.label"
+msgstr ""
+
 msgid "config.speed_test.description"
 msgstr ""
 "Разрешите вашим пользователям выполнять тест скорости. Это помогает им "
@@ -2282,6 +2291,12 @@ msgstr "config.unique_id.description"
 
 msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
+
+msgid "config.use_ip_in_config.description"
+msgstr ""
+
+msgid "config.use_ip_in_config.label"
+msgstr ""
 
 msgid "config.utls.description"
 msgstr ""
@@ -2692,6 +2707,15 @@ msgstr ""
 
 msgid "singbox: ssh"
 msgstr "SingBox: SSH"
+
+msgid "special_reality_grpc"
+msgstr ""
+
+msgid "special_reality_tcp"
+msgstr ""
+
+msgid "special_reality_xhttp"
+msgstr ""
 
 msgid "ssh"
 msgstr "SSH"

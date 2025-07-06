@@ -4,7 +4,7 @@ from flask import request, g
 from hiddifypanel import hutils
 from hiddifypanel.models import ProxyTransport, ProxyL3, ProxyProto, Domain, User, ConfigEnum, hconfig
 from flask_babel import gettext as _
-
+from urllib.parse import urlencode,quote
 OUTBOUND_LEVEL = 8
 
 
@@ -43,16 +43,18 @@ def to_link(proxy: dict) -> str | dict:
                       "host": proxy.get("host", ""),
                       "alpn": proxy.get("alpn", "h2,http/1.1"),
                       "path": proxy["path"] if "path" in proxy else "",
-                      "tls": "tls" if "tls" in proxy["l3"] else "",
+                      "tls": "tls" if "tls" in proxy["l3"] or "quic" in proxy['l3'] else "",
                       "sni": proxy["sni"],
                       "fp": proxy["fingerprint"]
                       }
-
+        
         if 'reality' in proxy["l3"]:
             vmess_data['tls'] = "reality"
             vmess_data['pbk'] = proxy['reality_pbk']
             vmess_data['sid'] = proxy['reality_short_id']
-
+        if proxy.get('transport') in {ProxyTransport.xhttp}:
+            vmess_data['core']='xray'
+            _add_xhttp_extra(vmess_data,proxy)
         add_tls_tricks_to_dict(vmess_data, proxy)
         add_mux_to_dict(vmess_data, proxy)
 
@@ -102,52 +104,70 @@ def to_link(proxy: dict) -> str | dict:
             # f'wg://{proxy["server"]}:{proxy["port"]}/?pk={proxy["wg_pk"]}&local_address={proxy["wg_ipv4"]}/32&peer_pk={proxy["wg_server_pub"]}&pre_shared_key={proxy["wg_psk"]}&workers=4&mtu=1380&reserved=0,0,0&ifp={proxy["wg_noise_trick"]}#{name_link}'
             return f'wg://{proxy["server"]}:{proxy["port"]}?publicKey={proxy["wg_pub"]}&privateKey={proxy["wg_pk"]}=&presharedKey={proxy["wg_psk"]}&ip=10.0.0.1&mtu=1380&keepalive=30&udp=1&reserved=0,0,0&ifp={proxy["wg_noise_trick"]}#{name_link}'
 
-    baseurl = f'{proxy["proto"]}://{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}?hiddify=1'
-    baseurl += f'&sni={proxy["sni"]}&type={proxy["transport"]}'
-    baseurl += f"&alpn={proxy['alpn']}"
+
+    baseurl = f'{proxy["proto"]}://{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}'
+    
+    q = {
+        'hiddify': 1,
+        'sni': proxy['sni'],
+        'type': proxy['transport'],
+        'alpn': proxy['alpn']
+    }
 
     # the ray2sing supports vless, vmess and trojan tls tricks and mux
     # the vmess handled already
 
-    baseurl += add_mux_to_link(proxy)
-    baseurl += add_tls_tricks_to_link(proxy)
-
+    add_mux_to_dict(q,proxy)
+    add_tls_tricks_to_dict(q,proxy)
+    if "path" in proxy:
+        q['path']=proxy["path"]
+    if "host" in proxy :
+        q['host']=proxy["host"]
     # infos+=f'&alpn={proxy["alpn"]}'
-    baseurl += f'&path={proxy["path"]}' if "path" in proxy else ""
-    baseurl += f'&host={proxy["host"]}' if "host" in proxy else ""
+    
     if "grpc" == proxy["transport"]:
-        baseurl += f'&serviceName={proxy["grpc_service_name"]}&mode={proxy["grpc_mode"]}'
+        q['serviceName']=proxy["grpc_service_name"]
+        q['mode']=proxy["grpc_mode"]
     # print(proxy['cdn'],proxy["transport"])
     if request.args.get("fragment"):
-        baseurl += f'&fragment=' + request.args.get("fragment")  # type: ignore
+        q['fragment']= request.args.get("fragment")  # type: ignore
     if "ws" == proxy["transport"] and proxy['cdn'] and request.args.get("fragment_v1"):
-        baseurl += f'&fragment_v1=' + request.args.get("fragment_v1")  # type: ignore
+        q['fragment_v1']= request.args.get("fragment_v1")  # type: ignore
     if 'vless' == proxy['proto']:
-        baseurl += "&encryption=none"
+        q['encryption']='none'
+
     if proxy.get('fingerprint', 'none') != 'none':
-        baseurl += "&fp=" + proxy['fingerprint']
+        q['fp']=proxy['fingerprint']
     if proxy.get('transport') in {ProxyTransport.xhttp}:
-        baseurl += "&core=xray"
+        q['core']='xray'
+        _add_xhttp_extra(q,proxy)
     if proxy['l3'] != 'quic':
         if proxy.get('l3') != ProxyL3.reality and (proxy.get('transport') in {ProxyTransport.tcp, ProxyTransport.httpupgrade, ProxyTransport.xhttp}) and proxy['proto'] in [ProxyProto.vless, ProxyProto.trojan]:
-            baseurl += '&headerType=http'
+            q['headerType']='http'
         else:
-            baseurl += '&headerType=None'
+            q['headerType']='none'
 
     if proxy['mode'] == 'Fake' or proxy['allow_insecure']:
-        baseurl += "&allowInsecure=true"
+        q['allowInsecure']='true'
+        q['insecure']='true'
     if proxy.get('flow'):
-        baseurl += f'&flow={proxy["flow"]}'
+        q['flow']=proxy["flow"]
 
-    infos = f'#{name_link}'
-
+    
     if 'reality' in proxy["l3"]:
-        return f"{baseurl}&security=reality&pbk={proxy['reality_pbk']}&sid={proxy['reality_short_id']}{infos}"
-    if 'tls' in proxy['l3'] or "quic" in proxy['l3']:
-        return f'{baseurl}&security=tls{infos}'
-    if proxy['l3'] == 'http':
-        return f'{baseurl}&security=none{infos}'
-    return proxy
+        q['security']='reality'
+        q['pbk']=proxy['reality_pbk']
+        q['sid']=proxy['reality_short_id']
+
+        
+    elif 'tls' in proxy['l3'] or "quic" in proxy['l3']:
+        q['security']='tls'
+        
+    elif proxy['l3'] == 'http':
+        q['security']='none'
+    
+    print(q)
+    return f"{baseurl}?{urlencode(q,quote_via=quote)}#{name_link}"
 
 
 def make_v2ray_configs(domains: list[Domain], user: User, expire_days: int, ip_debug=None) -> str:
@@ -230,13 +250,8 @@ def add_mux_to_dict(d: dict, proxy):
         d['muxdown'] = proxy["mux_brutal_down_mbps"]
 
 
-def add_tls_tricks_to_link(proxy: dict) -> str:
-    out = {}
-    add_tls_tricks_to_dict(out, proxy)
-    return hutils.encode.convert_dict_to_url(out)
-
-
-def add_mux_to_link(proxy: dict) -> str:
-    out = {}
-    add_mux_to_dict(out, proxy)
-    return hutils.encode.convert_dict_to_url(out)
+def _add_xhttp_extra(d:dict,proxy):
+    from .xrayjson import _add_xhttp_details
+    xhttp_dict={}
+    _add_xhttp_details(xhttp_dict,proxy)
+    d['extra']=json.dumps(xhttp_dict['xhttpSettings']['extra'],separators=(',', ':'))

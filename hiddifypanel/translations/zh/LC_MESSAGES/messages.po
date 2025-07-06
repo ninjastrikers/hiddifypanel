@@ -285,6 +285,9 @@ msgstr "捐款"
 msgid "Download App"
 msgstr "下载应用程序"
 
+msgid "Download Domain"
+msgstr ""
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -1810,6 +1813,12 @@ msgstr "此选项会在用户的子链接中创建一个假配置，显示用户
 msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ 在子链接中显示用法"
 
+msgid "config.special_port.description"
+msgstr ""
+
+msgid "config.special_port.label"
+msgstr ""
+
 msgid "config.speed_test.description"
 msgstr "允许您的用户进行速度测试。它可以帮助他们识别链接质量"
 
@@ -2119,6 +2128,12 @@ msgstr "config.unique_id.description"
 
 msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
+
+msgid "config.use_ip_in_config.description"
+msgstr ""
+
+msgid "config.use_ip_in_config.label"
+msgstr ""
 
 msgid "config.utls.description"
 msgstr "此选项将模拟不同的浏览器，因此 GFW 无法检测到您的浏览"
@@ -2492,6 +2507,15 @@ msgstr ""
 
 msgid "singbox: ssh"
 msgstr "歌手盒：SSH"
+
+msgid "special_reality_grpc"
+msgstr ""
+
+msgid "special_reality_tcp"
+msgstr ""
+
+msgid "special_reality_xhttp"
+msgstr ""
 
 msgid "ssh"
 msgstr "SSH"

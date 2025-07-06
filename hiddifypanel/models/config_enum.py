@@ -128,6 +128,7 @@ class ConfigEnum(metaclass=FastEnum):
     reality_private_key = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
     reality_public_key = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
     reality_port = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
+    special_port = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
 
     restls1_2_domain = _StrConfigDscr(ConfigCategory.hidden)
     restls1_3_domain = _StrConfigDscr(ConfigCategory.hidden)
@@ -161,6 +162,8 @@ class ConfigEnum(metaclass=FastEnum):
     admin_lang = _TypedConfigDscr(Lang, ConfigCategory.admin)
     admin_secret = _StrConfigDscr(ConfigCategory.hidden)  # removed
 
+    default_useragent_string = _StrConfigDscr(ConfigCategory.general)    
+    use_ip_in_config=_BoolConfigDscr(ConfigCategory.general)
     # tls
     tls_ports = _StrConfigDscr(ConfigCategory.tls, ApplyMode.apply_config)
 
@@ -289,6 +292,7 @@ class ConfigEnum(metaclass=FastEnum):
     ssh_host_ecdsa_pub = _StrConfigDscr(ConfigCategory.hidden)
     ssh_host_dsa_pk = _StrConfigDscr(ConfigCategory.hidden)
     ssh_host_dsa_pub = _StrConfigDscr(ConfigCategory.hidden)
+    
     
     
 

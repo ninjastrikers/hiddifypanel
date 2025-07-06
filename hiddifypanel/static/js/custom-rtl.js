@@ -13,7 +13,7 @@ function ConvertNumberToPersion(elemnt) {
 
   function traverse(el) {
     //            console.log(el.tagName)
-    if (el.tagName == "PRE" || el.tagName == "STYLE" || el.tagName == "SCRIPT" || el.tagName == "INPUT" || el.tagName == "TEXTAREA") return
+    if (el==undefined||el.tagName == "PRE" || el.tagName == "STYLE" || el.tagName == "SCRIPT" || el.tagName == "INPUT" || el.tagName == "TEXTAREA") return
     if (el.nodeType == 3 && el.data != undefined) {
       for (const key in replace) {
         el.data = el.data.replace(key, replace[key])

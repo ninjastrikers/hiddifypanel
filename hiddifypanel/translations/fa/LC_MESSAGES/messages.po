@@ -282,6 +282,9 @@ msgstr "حمایت"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> دانلود"
 
+msgid "Download Domain"
+msgstr ""
+
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -1907,6 +1910,12 @@ msgstr ""
 msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ نمایش حجم و تاریخ انقضا در کانفیگ ها"
 
+msgid "config.special_port.description"
+msgstr ""
+
+msgid "config.special_port.label"
+msgstr ""
+
 msgid "config.speed_test.description"
 msgstr ""
 "با فعالسازی این گزینه به کاربران اجازه تست سرعت می‌دهید. این کار به آن‌ها "
@@ -2253,6 +2262,12 @@ msgstr "config.unique_id.description"
 
 msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
+
+msgid "config.use_ip_in_config.description"
+msgstr ""
+
+msgid "config.use_ip_in_config.label"
+msgstr ""
 
 msgid "config.utls.description"
 msgstr ""
@@ -2654,6 +2669,15 @@ msgstr ""
 
 msgid "singbox: ssh"
 msgstr "SingBox: SSH"
+
+msgid "special_reality_grpc"
+msgstr ""
+
+msgid "special_reality_tcp"
+msgstr ""
+
+msgid "special_reality_xhttp"
+msgstr ""
 
 msgid "ssh"
 msgstr "SSH"

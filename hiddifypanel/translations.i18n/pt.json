@@ -68,6 +68,7 @@
     "title": "Doação"
   },
   "Download App": "<i class='fa-solid fa-download'></i> Baixar aplicativo",
+  "Download Domain": "",
   "Edit": "Editar",
   "Edit Proxy Names": "✏️ Modificando Proxies",
   "Enable": "❇️ Habilitar",
@@ -796,6 +797,10 @@
       "description": "Esta opção cria uma configuração falsa no sublink do usuário que mostra o volume restante do usuário",
       "label": "💬 Mostrar uso no sublink"
     },
+    "special_port": {
+      "description": "",
+      "label": ""
+    },
     "speed_test": {
       "description": "Permita que seus usuários façam o teste de velocidade. Isso os ajuda a identificar a qualidade do link",
       "label": "🚀 Teste de velocidade"
@@ -991,6 +996,10 @@
     "unique_id": {
       "description": "config.unique_id.description",
       "label": "config.unique_id.label"
+    },
+    "use_ip_in_config": {
+      "description": "",
+      "label": ""
     },
     "utls": {
       "description": "Esta opção irá simular diferentes navegadores, portanto, GFW não pode detectar sua navegação",
@@ -1194,6 +1203,9 @@
     }
   },
   "singbox: ssh": "caixa de som: ssh",
+  "special_reality_grpc": "",
+  "special_reality_tcp": "",
+  "special_reality_xhttp": "",
   "ssh": "SSH",
   "sub_link_only": "📳 Somente para Link de Assinatura (pode ser direto, relé ou CDN)",
   "telegram": "Telegram",

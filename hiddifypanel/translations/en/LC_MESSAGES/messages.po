@@ -294,6 +294,9 @@ msgstr "Donation"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> Download App"
 
+msgid "Download Domain"
+msgstr "Download Domain"
+
 msgid "Edit"
 msgstr "Edit"
 
@@ -1918,6 +1921,12 @@ msgstr ""
 msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ Show Usage in Sublink"
 
+msgid "config.special_port.description"
+msgstr "config.special_port.description"
+
+msgid "config.special_port.label"
+msgstr "config.special_port.label"
+
 msgid "config.speed_test.description"
 msgstr ""
 "Allow your users to do Speed Test. It helps them to identify the link "
@@ -2267,6 +2276,12 @@ msgstr "config.unique_id.description"
 
 msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
+
+msgid "config.use_ip_in_config.description"
+msgstr "config.use_ip_in_config.description"
+
+msgid "config.use_ip_in_config.label"
+msgstr "config.use_ip_in_config.label"
 
 msgid "config.utls.description"
 msgstr ""
@@ -2669,6 +2684,15 @@ msgstr ""
 
 msgid "singbox: ssh"
 msgstr "SingBox: SSH"
+
+msgid "special_reality_grpc"
+msgstr "Reality gRPC"
+
+msgid "special_reality_tcp"
+msgstr "Reality TCP"
+
+msgid "special_reality_xhttp"
+msgstr "Reality xHTTP"
 
 msgid "ssh"
 msgstr "SSH"
