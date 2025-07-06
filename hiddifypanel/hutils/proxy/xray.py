@@ -166,7 +166,7 @@ def to_link(proxy: dict) -> str | dict:
     elif proxy['l3'] == 'http':
         q['security']='none'
     
-    for k,v in q['params'].items():
+    for k,v in proxy.get('params',{}).items():
         if k not in q:
             q[k]=v
     return f"{baseurl}?{urlencode(q,quote_via=quote)}#{name_link}"
