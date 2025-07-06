@@ -43,6 +43,8 @@
 
 #### Other
 
+* Add all params to sub url. 
+
 * New xhttp, now it is possible to have two distinct domain or alpn for download and upload, add parameters to proxies. 
 
 * Improve auto ip selector, add random latest user_agent. 
