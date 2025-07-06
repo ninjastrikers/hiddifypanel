@@ -20,7 +20,7 @@ from hiddifypanel.models import *
 from hiddifypanel.cache import cache
 
 
-def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
+def get_domain_ip_old(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
     res = None
     if not version:
         try:
@@ -41,13 +41,27 @@ def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = N
         except BaseException:
             pass
 
-    if retry <= 0:
-        return None
-    if not res:
-        return get_domain_ip(domain, retry=retry - 1, version=version)
+    if retry > 0:
+        return get_domain_ip_old(domain, retry=retry - 1, version=version)
 
+    if not res:
+        return None
     return ipaddress.ip_address(res)
 
+
+def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
+    ips=get_domain_ips_cached(domain)
+    ips=[ip for ip in ips if version==None or (version==4 and isinstance(ip,ipaddress.IPv4Address)) or  (version==6 and isinstance(ip,ipaddress.IPv6Address)) ]
+    if ips:
+        return random.sample(ips,1)[0]
+    return get_domain_ip_old(domain,0)
+
+@cache.cache(300)
+def get_domain_ips_cached(domain: str, retry: int = 3) -> Set[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
+    try:
+        return set(ipaddress.ip_address(domain))
+    except:
+        return get_domain_ips(domain,retry)
 
 def get_domain_ips(domain: str, retry: int = 3) -> Set[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
     res = set()
@@ -171,6 +185,12 @@ def get_ip(version: Literal[4, 6], retry: int = 5) -> ipaddress.IPv4Address | ip
     return ip
 
 
+def get_random_user_agent():
+    
+    uas = requests.get('https://cdn.jsdelivr.net/gh/microlinkhq/top-user-agents@master/src/index.json').json()
+    if uas:
+        return random.sample(uas,1)[0]
+    return 
 def get_random_domains(count: int = 1, retry: int = 3) -> List[str]:
     try:
         irurl = "https://api.ooni.io/api/v1/measurements?probe_cc=IR&test_name=web_connectivity&anomaly=false&confirmed=false&failure=false&order_by=test_start_time&limit=1000"

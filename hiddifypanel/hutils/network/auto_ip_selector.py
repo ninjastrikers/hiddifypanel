@@ -38,10 +38,10 @@ apt.ircf.space		APT
 """
 
 try:
-   
+
     IPASN = maxminddb.open_database('GeoLite2-ASN.mmdb')
     IPCOUNTRY = maxminddb.open_database('GeoLite2-Country.mmdb')
-    # __ipcity = maxminddb.open_database('GeoLite2-City.mmdb') 
+    # __ipcity = maxminddb.open_database('GeoLite2-City.mmdb')
 except BaseException as e:
     logger.error("Error can not load maxminddb")
     IPASN = {}
@@ -163,12 +163,23 @@ def __get_host_base_on_asn(ips: Union[str, List[str]], asn_short: str) -> str:
     return selected
 
 
-def get_clean_ip(ips: Union[str, List[str]], resolve: bool = False, default_asn: str = '') -> str:
-    if not ips:
-        ips = DEFAULT_IPs
-
-    ips = re.split('[ \t\r\n;,]+', ips.strip())
+def get_clean_ip(ips: Union[str, List[str]], resolve: bool = False) -> str:
     user_ip = get_real_user_ip()
+    default_asn = request.args.get("asn", '')
+    return get_clean_ip_user(user_ip, ips, default_asn)
+
+
+split_pattern = re.compile(r'[ \t\r\n;,]+')
+
+
+@cache.cache(300)
+def get_clean_ip_user(user_ip, ipliststr: str, default_asn: str = '') -> tuple[str, str]:
+    ipliststr = ipliststr.strip()
+    if not ipliststr:
+        ipliststr = DEFAULT_IPs.strip()
+
+    ips = split_pattern.split(ipliststr)
+
     asn_short = get_asn_short_name(user_ip)
     country = get_country(user_ip)
     # print("Real user ip",get_real_user_ip_debug(), user_ip,asn_short,country)
@@ -181,6 +192,4 @@ def get_clean_ip(ips: Union[str, List[str]], resolve: bool = False, default_asn:
     else:
         selected_server = random.sample(ips, 1)[0]
     # print("selected_server",selected_server)
-    if resolve:
-        selected_server = hutils.network.get_domain_ip(selected_server) or selected_server
-    return str(selected_server)
+    return str(selected_server), asn_short
