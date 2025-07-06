@@ -1351,6 +1351,12 @@ msgstr ""
 msgid "config.decoy_domain.label"
 msgstr "📺 Сайт-приманка"
 
+msgid "config.default_useragent_string.description"
+msgstr ""
+
+msgid "config.default_useragent_string.label"
+msgstr ""
+
 msgid "config.dns_server.description"
 msgstr ""
 "✳️ По умолчанию 1.1.1.1 <br>\n"
@@ -2532,6 +2538,9 @@ msgstr ""
 
 msgid "download"
 msgstr "Direct Download"
+
+msgid "download_domain.description"
+msgstr ""
 
 msgid "fake"
 msgstr "🆎 Поддельный сайт"

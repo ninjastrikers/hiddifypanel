@@ -459,6 +459,10 @@
       "description": "Site falso: simula um site quando alguém visita seu domínio.\nPor favor, não use sites iranianos, sites populares bem conhecidos como: Google, Yahoo, Wikipedia, etc.",
       "label": "🔀 Site Decoy"
     },
+    "default_useragent_string": {
+      "description": "",
+      "label": ""
+    },
     "dns_server": {
       "description": "✳️ Padrão 1.1.1.1 <br>\n🚧 Bloquear Malware 1.1.1.2 <br>\n🔞 Bloquear pornografia 1.1.1.3",
       "label": "🖥 Servidor DNS"
@@ -1112,6 +1116,9 @@
     "show_domains_description": "Para os usuários que visitam a área do usuário com este domínio, especifique que eles podem ver os proxies de quais domínios.\n<br>\nSugestão: Para um domínio com IP não filtrado e diferente dos demais, selecione todos os outros domínios (exceto o domínio atual). Como resultado, como o uso deste IP não é para proxy e é um site simples, este domínio e IP nunca serão bloqueados e seus usuários poderão facilmente atualizar novos perfis."
   },
   "download": "Download direto",
+  "download_domain": {
+    "description": ""
+  },
   "fake": "🆎 Site falso",
   "gRPC": "➿ gRPC",
   "grpc-proxy": {

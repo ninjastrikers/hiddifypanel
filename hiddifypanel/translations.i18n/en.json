@@ -459,6 +459,10 @@
       "description": "Fake Site: simulates a site when someone visits your domain directly.<br>\n⚠️ Do not use financial, Iranian and famous sites or sites with login such as Google, Yahoo, Wikipedia, PayPal.<br>\n⛔ Be sure to check the site and make sure that it is the right site, otherwise you may receive a phishing warning.<br>\n⛔⛔ Check this domain again so that there is no problem in the future",
       "label": "📺 Decoy Site"
     },
+    "default_useragent_string": {
+      "description": "config.default_useragent_string.description",
+      "label": "config.default_useragent_string.label"
+    },
     "dns_server": {
       "description": "✳️ Default 1.1.1.1 <br>\n🚧 Block Malware 1.1.1.2 <br>\n🔞 Block Porn 1.1.1.3\n",
       "label": "🖥 DNS Server"
@@ -1120,6 +1124,9 @@
     "show_domains_description": "For users visit the user area with this domain, Specify they can see the proxies of which domains.\n<br>\nSuggestion: For a domain with an unfiltered IP and different from the others, select all other domains (except the current domain). As a result, since the use of this IP is not for proxy and it is a simple website, this domain and IP will never be blocked and your users can easily update new profiles."
   },
   "download": "Direct Download",
+  "download_domain": {
+    "description": "download_domain.description"
+  },
   "fake": "🆎 Fake Site",
   "gRPC": "➿ gRPC",
   "grpc-proxy": {

@@ -1286,6 +1286,12 @@ msgstr ""
 msgid "config.decoy_domain.label"
 msgstr "📺 诱饵网站"
 
+msgid "config.default_useragent_string.description"
+msgstr ""
+
+msgid "config.default_useragent_string.label"
+msgstr ""
+
 msgid "config.dns_server.description"
 msgstr ""
 "✳️默认1.1.1.1 <br>\n"
@@ -2344,6 +2350,9 @@ msgstr ""
 
 msgid "download"
 msgstr "直接下载"
+
+msgid "download_domain.description"
+msgstr ""
 
 msgid "fake"
 msgstr "🆎 假网站"

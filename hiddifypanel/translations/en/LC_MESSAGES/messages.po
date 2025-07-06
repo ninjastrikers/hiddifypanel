@@ -1340,6 +1340,12 @@ msgstr ""
 msgid "config.decoy_domain.label"
 msgstr "📺 Decoy Site"
 
+msgid "config.default_useragent_string.description"
+msgstr "config.default_useragent_string.description"
+
+msgid "config.default_useragent_string.label"
+msgstr "config.default_useragent_string.label"
+
 msgid "config.dns_server.description"
 msgstr ""
 "✳️ Default 1.1.1.1 <br>\n"
@@ -2513,6 +2519,9 @@ msgstr ""
 
 msgid "download"
 msgstr "Direct Download"
+
+msgid "download_domain.description"
+msgstr "download_domain.description"
 
 msgid "fake"
 msgstr "🆎 Fake Site"
