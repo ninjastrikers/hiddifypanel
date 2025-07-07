@@ -148,7 +148,7 @@ class DomainAdmin(AdminLTEModelView):
     def on_model_change(self, form, model, is_created):
         # Sanitize domain input
         model.domain = (model.domain or '').lower().strip()
-        if model.domain==model.download_domain.domain:
+        if model.download_domain and model.domain==model.download_domain.domain:
             model.download_domain_id=None
             model.download_domain=None
         # Basic validation
@@ -262,7 +262,7 @@ class DomainAdmin(AdminLTEModelView):
                 if model.domain == configs[c]:
                     raise ValidationError(_("You have used this domain in: ") + _(f"config.{c}.label"))
 
-        for td in Domain.query.filter(Domain.mode._in([DomainType.reality,DomainType.special_reality_xhttp,DomainType.special_reality_grpc,DomainType.special_reality_tcp]) == DomainType.reality, Domain.domain != model.domain).all():
+        for td in Domain.query.filter(Domain.mode.in_([DomainType.reality,DomainType.special_reality_xhttp,DomainType.special_reality_grpc,DomainType.special_reality_tcp]), Domain.domain != model.domain).all():
             # print(td)
             if td.servernames and (model.domain in td.servernames.split(",")):
                 raise ValidationError(_("You have used this domain in: ") + _(f"config.reality_server_names.label") + td.domain)

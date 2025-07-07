@@ -388,13 +388,15 @@ def _add_xhttp_details(ss: dict, proxy: dict):
         }
     }
     if proxy.get("download"):
-        ss['xhttpSettings']['extra']['downloadSettings'] = {
-            "address": proxy['download'].get("server"),
-            "port": proxy['port'],
+        
+        dlsettings = {
+            "address":proxy['download'].get("server"),
+            "port":proxy['port']
         }
-
-        _add_xhttp_details(ss['xhttpSettings']['extra']['downloadSettings'], proxy['download'])
-        _add_security(ss['xhttpSettings']['extra']['downloadSettings'], proxy, proxy['download'])
+        _add_xhttp_details(dlsettings, proxy['download'])
+        _add_security(dlsettings, proxy, proxy['download'])
+        
+        ss['xhttpSettings']['extra']['downloadSettings']=dlsettings
 
 
 def add_kcp_stream(ss: dict, proxy: dict):
