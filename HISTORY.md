@@ -45,6 +45,8 @@
 
 #### Other
 
+* Add support for reality grpc, tcp and xhttp. 
+
 * Add translation and fix port bug. 
 
 * Add all params to sub url. 
