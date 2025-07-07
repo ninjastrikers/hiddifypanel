@@ -107,7 +107,7 @@ def is_tls(l3) -> bool:
     return 'tls' in l3 or "reality" in l3 or l3 in [ProxyL3.h3_quic]
 
 
-# @cache.cache(ttl=300)
+@cache.cache(ttl=300)
 def get_proxies(child_id: int = 0, only_enabled=False) -> list['Proxy']:
     proxies = Proxy.query.filter(Proxy.child_id == child_id).all()
     proxies = [c for c in proxies if 'restls' not in c.transport]
