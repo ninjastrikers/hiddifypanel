@@ -9,6 +9,8 @@
 
 #### Fix
 
+* Change proxy settings. 
+
 * Bug. 
 
 * Typo. 
@@ -44,6 +46,8 @@
 * My translation. 
 
 #### Other
+
+* Update useragegnt. 
 
 * Add support for reality grpc, tcp and xhttp. 
 
