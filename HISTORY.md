@@ -47,6 +47,8 @@
 
 #### Other
 
+* Add resolve ip and fix cdn ip. 
+
 * Update useragegnt. 
 
 * Add support for reality grpc, tcp and xhttp. 
