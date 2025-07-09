@@ -247,7 +247,7 @@ def get_valid_proxies(domains: list[Domain]) -> list[dict]:
 def random_or_none(inp: list):
     if not inp:
         return
-    return random.sample(inp, 1)[0]
+    return random.sample(list(inp), 1)[0]
 
 
 split_pattern = re.compile(r'[ \t\r\n;,]+')
@@ -258,12 +258,12 @@ def sni_host_server_extractor(domain_db: Domain, hconfigs):
     server=sni=host = domain_db.domain.replace("*", hutils.random.get_random_string(5, 15))
     is_cdn = domain_db.mode in [DomainType.cdn, DomainType.auto_cdn_ip]
     if auto_ip:=domain_db.auto_cdn_ip():
-        server=auto_ip
+        server=auto_ip[0]
     elif 'special' in domain_db.mode.value or domain_db.mode in [DomainType.fake]:
         server=hutils.network.get_direct_host_or_ip(4)
     
     if hconfig(ConfigEnum.use_ip_in_config):
-        server = random_or_none(hutils.network.get_domain_ips_cached(server)) or server
+        server = str(random_or_none(hutils.network.get_domain_ips_cached(server)) or server)
 
     
     allow_insecure=not domain_db.need_valid_ssl

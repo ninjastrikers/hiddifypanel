@@ -16,11 +16,15 @@ from hiddifypanel.database import db, db_execute
 from loguru import logger
 MAX_DB_VERSION = 120
 
+def _v106(child_id):
+    set_hconfig(ConfigEnum.use_ip_in_config,True)
+
 def _v105(child_id):
     StrConfig.query.filter(StrConfig.key==ConfigEnum.reality_port).delete()
 def _v104(child_id):
     
-    set_hconfig(ConfigEnum.special_port,hconfig(ConfigEnum.reality_port))
+    if rport:=hconfig(ConfigEnum.reality_port):
+        set_hconfig(ConfigEnum.special_port,rport)
     StrConfig.query.filter(StrConfig.key==ConfigEnum.reality_port).delete()
     set_hconfig(ConfigEnum.default_useragent_string,hutils.network.get_random_user_agent())
     for d in Domain.query.filter(Domain.mode==DomainType.reality,Domain.child_id == child_id).all():
@@ -302,7 +306,7 @@ def _v57():
 
 
 def _v56():
-    set_hconfig(ConfigEnum.reality_port, hutils.random.get_random_unused_port())
+    set_hconfig(ConfigEnum.special_port, hutils.random.get_random_unused_port())
 
 
 def _v55():
