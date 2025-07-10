@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v11.0.1 (2025-07-10)
+
+#### Other
+
+* Merge branch 'main' into dev. 
+
+* Merge pull request #19 from hiddify/beta. 
+  _release_
+
+* Update translations. 
+
+* Merge pull request #18 from hiddify/beta. 
+  _10.86.2_
+
+* Enable tcp reality by default. 
+
+
+
 ## v11.0.0 (2025-07-10)
 
 #### Fix
