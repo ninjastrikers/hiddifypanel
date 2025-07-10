@@ -67,11 +67,11 @@ def to_link(proxy: dict) -> str | dict:
         # else:
         hk = ",".join(proxy["host_keys"])
         pk = proxy["private_key"].replace('\n', '')
-        d={
+        q={
             'file':'ssh',
+            'hk':hk,
             'pk':pk,
             'private_key':pk,
-            'hk':hk,
             'authentication':0,
             'passphrase':'',                
         }
