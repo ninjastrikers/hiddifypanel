@@ -292,9 +292,6 @@ msgstr "Пожертвование"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> Загрузить приложение"
 
-msgid "Download Domain"
-msgstr ""
-
 msgid "Edit"
 msgstr "Изменить"
 
@@ -1949,12 +1946,6 @@ msgstr ""
 
 msgid "config.special_port.label"
 msgstr "↔️ Порт Direct Reality"
-
-msgid "config.special_port_old.description"
-msgstr ""
-
-msgid "config.special_port_old.label"
-msgstr ""
 
 msgid "config.speed_test.description"
 msgstr ""

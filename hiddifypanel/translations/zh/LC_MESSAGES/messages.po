@@ -285,9 +285,6 @@ msgstr "捐款"
 msgid "Download App"
 msgstr "下载应用程序"
 
-msgid "Download Domain"
-msgstr ""
-
 msgid "Edit"
 msgstr "编辑"
 
@@ -1824,12 +1821,6 @@ msgstr "您可以为您的现实服务器设置自定义端口，以减少系统
 
 msgid "config.special_port.label"
 msgstr "↔️ 直接 Reality 端口"
-
-msgid "config.special_port_old.description"
-msgstr ""
-
-msgid "config.special_port_old.label"
-msgstr ""
 
 msgid "config.speed_test.description"
 msgstr "允许您的用户进行速度测试。它可以帮助他们识别链接质量"

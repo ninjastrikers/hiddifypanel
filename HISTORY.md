@@ -1,6 +1,16 @@
 # Changelog
 
 
+## v10.86.3 (2025-07-10)
+
+#### Other
+
+* Merge branch 'dev' of github.com:hiddify/Hiddify-Panel into dev. 
+
+* Chore: update translations with Fink 🐦 
+
+
+
 ## v10.86.2 (2025-07-10)
 
 #### Other

@@ -282,9 +282,6 @@ msgstr "حمایت"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> دانلود"
 
-msgid "Download Domain"
-msgstr ""
-
 msgid "Edit"
 msgstr "ویرایش"
 
@@ -471,7 +468,7 @@ msgid "No children!"
 msgstr "هیچ زیر مجموعه ای یافت نشد"
 
 msgid "Not Secure"
-msgstr ""
+msgstr "ناامن"
 
 msgid "Note"
 msgstr "📝 یادداشت"
@@ -489,7 +486,7 @@ msgid "Ok"
 msgstr "تایید"
 
 msgid "Online"
-msgstr ""
+msgstr "آنلاین"
 
 msgid "Online Users"
 msgstr "کاربران آنلاین"
@@ -614,7 +611,7 @@ msgid "REALITY Fallback domain is not compaitble with server names!"
 msgstr "دامنه بازگشتی REALITY با نام سرور سازگار نیست!"
 
 msgid "REALITY Fallback domain is not compatible with server names!"
-msgstr ""
+msgstr "ریالتی: دامنه جایگزین با نام سرورها سازگار نیست!"
 
 msgid "Release"
 msgstr "✅ پایدار"
@@ -722,7 +719,7 @@ msgid "Sort by %(name)s"
 msgstr "مرتب سازی بر اساس %(name)s"
 
 msgid "Specifying CDN IP is only valid for CDN mode"
-msgstr ""
+msgstr "مشخص کردن IP مربوط به CDN فقط برای حالت CDN معتبر است"
 
 msgid "Start Date"
 msgstr "زمان شروع"
@@ -1328,7 +1325,7 @@ msgid "config.default_useragent_string.description"
 msgstr ""
 
 msgid "config.default_useragent_string.label"
-msgstr ""
+msgstr "یوزرایجنت پیش‌فرض"
 
 msgid "config.dns_server.description"
 msgstr ""
@@ -1694,6 +1691,12 @@ msgstr "باید تصادفی باشد"
 msgid "config.path_httpupgrade.label"
 msgstr "ℹ️ مسیر ارتقاء HTTP"
 
+msgid "config.path_splithttp.description"
+msgstr "مسیر XHTTP"
+
+msgid "config.path_splithttp.label"
+msgstr "مسیر XHTTP"
+
 msgid "config.path_ss.description"
 msgstr "مسیر شدوساکس در لینکها"
 
@@ -1797,7 +1800,7 @@ msgid "config.reality_fallback_domain.label"
 msgstr "🌍 دامنه بازگشتی ریالیتی"
 
 msgid "config.reality_port.description"
-msgstr ""
+msgstr "پورت reality"
 
 msgid "config.reality_port.label"
 msgstr ""
@@ -1922,12 +1925,6 @@ msgstr ""
 msgid "config.special_port.label"
 msgstr "↔️  پورت ریالیتی"
 
-msgid "config.special_port_old.description"
-msgstr ""
-
-msgid "config.special_port_old.label"
-msgstr ""
-
 msgid "config.speed_test.description"
 msgstr ""
 "با فعالسازی این گزینه به کاربران اجازه تست سرعت می‌دهید. این کار به آن‌ها "
@@ -1935,6 +1932,14 @@ msgstr ""
 
 msgid "config.speed_test.label"
 msgstr "🚀 تست سرعت"
+
+msgid "config.splithttp_enable.description"
+msgstr ""
+"XHTTP امکان دانلود و آپلود جداگانه را فراهم می‌کند و gRPC، H2، H1 را یکپارچه"
+" می‌کند و همچنین از Quic پشتیبانی می‌کند."
+
+msgid "config.splithttp_enable.label"
+msgstr "فعال کردن XHTTP"
 
 msgid "config.ssfaketls.description"
 msgstr ""
@@ -2277,9 +2282,11 @@ msgstr "config.unique_id.label"
 
 msgid "config.use_ip_in_config.description"
 msgstr ""
+"این به کاهش مشکلاتی که ممکن است در حل مشکل IP سرور رخ دهد کمک می‌کند. این از"
+" یک IP تصادفی از دامنه انتخاب شده استفاده می‌کند."
 
 msgid "config.use_ip_in_config.label"
-msgstr ""
+msgstr "استفاده از IP در کانفیگها"
 
 msgid "config.utls.description"
 msgstr ""
