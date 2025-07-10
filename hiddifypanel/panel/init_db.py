@@ -16,6 +16,10 @@ from hiddifypanel.database import db, db_execute
 from loguru import logger
 MAX_DB_VERSION = 120
 
+def _v107(child_id):
+    execute("UPDATE proxy SET params = '{}' WHERE params is NULL;")
+    set_hconfig(ConfigEnum.core_type,'xray') # disable singbox core temporary
+
 def _v106(child_id):
     set_hconfig(ConfigEnum.use_ip_in_config,True)
 
@@ -642,7 +646,7 @@ def make_proxy_rows(cfgs):
             # if l3 == "tls_h2" and transport =="grpc":
             #     continue
             enable = l3 != "http" or proto == "vmess"
-            enable = enable and transport != 'tcp'
+            enable = enable and (transport != 'tcp' or l3=="reality")
             name = f'{l3} {c}'
             # is_exist = Proxy.query.filter(Proxy.name == name).first() or Proxy.query.filter(            #     Proxy.l3 == l3, Proxy.transport == transport, Proxy.cdn == cdn, Proxy.proto == proto).first()
             # if not is_exist:
