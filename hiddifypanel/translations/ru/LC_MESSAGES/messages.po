@@ -292,9 +292,6 @@ msgstr "Пожертвование"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> Загрузить приложение"
 
-msgid "Download Domain"
-msgstr ""
-
 msgid "Edit"
 msgstr "Изменить"
 
@@ -589,6 +586,9 @@ msgstr ""
 
 msgid "Please wait "
 msgstr "Пожалуйста, подождите"
+
+msgid "Port 80 and 443 can not be selected"
+msgstr ""
 
 msgid "Port is already used! in"
 msgstr "Порт уже используется в:"
@@ -1949,12 +1949,6 @@ msgstr ""
 
 msgid "config.special_port.label"
 msgstr "↔️ Порт Direct Reality"
-
-msgid "config.special_port_old.description"
-msgstr ""
-
-msgid "config.special_port_old.label"
-msgstr ""
 
 msgid "config.speed_test.description"
 msgstr ""

@@ -254,9 +254,6 @@ msgstr "Doação"
 msgid "Download App"
 msgstr "<i class='fa-solid fa-download'></i> Baixar aplicativo"
 
-msgid "Download Domain"
-msgstr ""
-
 msgid "Edit"
 msgstr "Editar"
 
@@ -547,6 +544,9 @@ msgstr ""
 
 msgid "Please wait "
 msgstr "Por favor, aguarde"
+
+msgid "Port 80 and 443 can not be selected"
+msgstr ""
 
 msgid "Port is already used! in"
 msgstr "A porta já é usada em:"
@@ -1898,12 +1898,6 @@ msgstr ""
 
 msgid "config.special_port.label"
 msgstr "↔️ Porto de Realidade Direta"
-
-msgid "config.special_port_old.description"
-msgstr ""
-
-msgid "config.special_port_old.label"
-msgstr ""
 
 msgid "config.speed_test.description"
 msgstr ""

@@ -115,11 +115,13 @@
   "Network": "Réseau",
   "New": "Nouveau",
   "No children!": "Pas d'enfants",
+  "Not Secure": "Non sécurisé",
   "Note": "📝 Remarque",
   "Offline more than 1 day": "Hors ligne plus d'un jour",
   "Offline more than 1 hour": "Hors ligne plus d'une heure",
   "Offline more than 1 week": "Hors ligne plus d'une semaine",
   "Ok": "D'accord",
+  "Online": "En ligne",
   "Online Users": "Utilisateurs en ligne",
   "Only Blocked and Local websites": "☑️ Uniquement les sites Web bloqués et locaux",
   "Only for sublink?": "🌍 Utiliser uniquement pour le lien d'abonnement",
@@ -706,10 +708,6 @@
       "description": "Lorsque le GFW visitera les sites Web dans les noms de serveur, il sera redirigé vers ce domaine.",
       "label": "🌍 Domaine de repli de Reality"
     },
-    "special_port": {
-      "description": "Vous pouvez définir un port personnalisé pour votre serveur de Reality afin de réduire la surcharge du système. (Autoriser la connexion directe aux proxys devrait être oui)",
-      "label": "↔️ Port de Reality directe"
-    },
     "reality_private_key": {
       "description": "Ne le changez pas",
       "label": "🔑 Clé privée"
@@ -773,6 +771,10 @@
     "show_usage_in_sublink": {
       "description": "Cette option crée une fausse configuration dans le sous-lien de l'utilisateur qui affiche le volume restant de l'utilisateur.",
       "label": "👁️‍🗨️ Afficher l'utilisation dans le  Sublink"
+    },
+    "special_port": {
+      "description": "Vous pouvez définir un port personnalisé pour votre serveur de Reality afin de réduire la surcharge du système. (Autoriser la connexion directe aux proxys devrait être oui)",
+      "label": "↔️ Port de Reality directe"
     },
     "speed_test": {
       "description": "Autorisez vos utilisateurs à effectuer des tests de vitesse. Cela les aide à identifier la qualité du lien",

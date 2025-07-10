@@ -590,6 +590,9 @@ msgstr ""
 msgid "Please wait "
 msgstr "Please Wait "
 
+msgid "Port 80 and 443 can not be selected"
+msgstr "Port 80 and 443 can not be selected"
+
 msgid "Port is already used! in"
 msgstr "Port is Already Used in:"
 
@@ -1344,7 +1347,7 @@ msgid "config.default_useragent_string.description"
 msgstr "config.default_useragent_string.description"
 
 msgid "config.default_useragent_string.label"
-msgstr "config.default_useragent_string.label"
+msgstr "Default User Agent"
 
 msgid "config.dns_server.description"
 msgstr ""
@@ -1704,10 +1707,10 @@ msgid "config.path_httpupgrade.label"
 msgstr "ℹ️ HTTP Upgrade Path"
 
 msgid "config.path_splithttp.description"
-msgstr "config.path_splithttp.description"
+msgstr "XHTTP path"
 
 msgid "config.path_splithttp.label"
-msgstr "config.path_splithttp.label"
+msgstr "XHTTP path"
 
 msgid "config.path_ss.description"
 msgstr "Shadowsocks Path in the Links"
@@ -1809,7 +1812,7 @@ msgid "config.reality_fallback_domain.label"
 msgstr "🌍 Reality Fallback Domain"
 
 msgid "config.reality_port.description"
-msgstr "config.reality_port.description"
+msgstr "Reality Port"
 
 msgid "config.reality_port.label"
 msgstr "config.reality_port.label"
@@ -1942,10 +1945,12 @@ msgid "config.speed_test.label"
 msgstr "🚀 Speed Test"
 
 msgid "config.splithttp_enable.description"
-msgstr "config.splithttp_enable.description"
+msgstr ""
+"XHTTP allowing seperate download and upload stream and uniforming gRPC, H2, "
+"H1 and also support Quic."
 
 msgid "config.splithttp_enable.label"
-msgstr "config.splithttp_enable.label"
+msgstr "Enable XHTTP"
 
 msgid "config.ssfaketls.description"
 msgstr ""
@@ -2284,10 +2289,12 @@ msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
 
 msgid "config.use_ip_in_config.description"
-msgstr "config.use_ip_in_config.description"
+msgstr ""
+"This help to reduce the issue may heppen in resolving server IP. This will "
+"use a random IP of the selected domain."
 
 msgid "config.use_ip_in_config.label"
-msgstr "config.use_ip_in_config.label"
+msgstr "Use IP in configs"
 
 msgid "config.utls.description"
 msgstr ""

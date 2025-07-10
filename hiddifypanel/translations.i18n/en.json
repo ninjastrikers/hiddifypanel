@@ -152,6 +152,7 @@
   "Please type your message to send to the telegram:": "✏️  Please write your message to send to the Telegram:",
   "Please understand that parent panel is under test and the plan and the condition of use maybe change at anytime.": "Please understand that parent Panel is under test and the plan and the condition of use maybe change at anytime.",
   "Please wait ": "Please Wait ",
+  "Port 80 and 443 can not be selected": "Port 80 and 443 can not be selected",
   "Port is already used! in": "Port is Already Used in:",
   "Premium Description": "Hiddify Manager Is Made For Non-Commercial Use. But If You Use This Panel Commercially, Please Help The Project Grow By Donating. <br/>\nIn Exchange For Your Financial Support, We Also Provide Special Facilities For Your Commercial Product.\n<br/>\n<br/>\nSuch as:\n<ul><li>\n<li>The Possibility Of Syncing To Cloudflare: That Is, By Adding a Domain In The Panel, The Relevant Settings Can Also Be Made In Cloudflare</li>\n<li>Possibility Of Displaying Your Brand In The Panel</li>\n<li>Possibility Of Using The Central Panel To Manage More Than 1 Server In Just One Panel, So It Is No Longer Necessary To Register Users In Different Servers, And Their Volume Will Be Collected In All Servers.\n</li>\n<li>\nThe Possibility Of Using The Telegram Bot\n</li>\n<li>\nAbility To Change Proxy Names\n</li>\n</ul>\n\nPlease Contact <a href='tg://resolve?domain=HiddifyCommercial'>@HiddifyCommercial</a> After Donating.\nSend a Message To Get a Special Version for business users.",
   "ProxyPath is already used! use different proxy path": "ProxyPath is already used! use different proxy path",
@@ -461,7 +462,7 @@
     },
     "default_useragent_string": {
       "description": "config.default_useragent_string.description",
-      "label": "config.default_useragent_string.label"
+      "label": "Default User Agent"
     },
     "dns_server": {
       "description": "✳️ Default 1.1.1.1 <br>\n🚧 Block Malware 1.1.1.2 <br>\n🔞 Block Porn 1.1.1.3\n",
@@ -670,8 +671,8 @@
       "label": "ℹ️ HTTP Upgrade Path"
     },
     "path_splithttp": {
-      "description": "config.path_splithttp.description",
-      "label": "config.path_splithttp.label"
+      "description": "XHTTP path",
+      "label": "XHTTP path"
     },
     "path_ss": {
       "description": "Shadowsocks Path in the Links",
@@ -738,7 +739,7 @@
       "label": "🌍 Reality Fallback Domain"
     },
     "reality_port": {
-      "description": "config.reality_port.description",
+      "description": "Reality Port",
       "label": "config.reality_port.label"
     },
     "reality_private_key": {
@@ -814,8 +815,8 @@
       "label": "🚀 Speed Test"
     },
     "splithttp_enable": {
-      "description": "config.splithttp_enable.description",
-      "label": "config.splithttp_enable.label"
+      "description": "XHTTP allowing seperate download and upload stream and uniforming gRPC, H2, H1 and also support Quic.",
+      "label": "Enable XHTTP"
     },
     "ssfaketls": {
       "description": "Shadowsocks FakeTLS is a simple obfusacting tool that encapsulate the date In tls packet",
@@ -1010,8 +1011,8 @@
       "label": "config.unique_id.label"
     },
     "use_ip_in_config": {
-      "description": "config.use_ip_in_config.description",
-      "label": "config.use_ip_in_config.label"
+      "description": "This help to reduce the issue may heppen in resolving server IP. This will use a random IP of the selected domain.",
+      "label": "Use IP in configs"
     },
     "utls": {
       "description": "This Option Will Simulate Different Browsers, Therefore, GFW Can Not Detect Your Browsing",

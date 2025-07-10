@@ -19,10 +19,6 @@ MAX_DB_VERSION = 120
 def _v106(child_id):
     set_hconfig(ConfigEnum.use_ip_in_config,True)
 
-def _v105(child_id):
-    StrConfig.query.filter(StrConfig.key==ConfigEnum.reality_port).delete()
-def _v104(child_id):
-    
     if rport:=hconfig(ConfigEnum.reality_port):
         set_hconfig(ConfigEnum.special_port,rport)
     StrConfig.query.filter(StrConfig.key==ConfigEnum.reality_port).delete()
