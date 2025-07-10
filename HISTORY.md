@@ -1,7 +1,15 @@
 # Changelog
 
 
-## v10.86.1 (2025-07-09)
+## v10.86.2 (2025-07-10)
+
+#### Other
+
+* Add xray strinde ssh support. 
+
+
+
+## v10.86.1 (2025-07-10)
 
 #### New
 
