@@ -5,7 +5,6 @@
   "%(expire_days)s days": "%(expire_days)s 天",
   "%(placeholder)s": "%(placeholder)s",
   "0 - Last day": "最后一天",
-  "<a href=\"%(user_link)s\"> %(user)s</a>": "",
   "Access Denied!": "拒绝访问",
   "Actions": "行动",
   "Active": "积极",
@@ -14,7 +13,6 @@
   "Add some text that is only visible to super_admin.": "添加一些只有超级管理员可见的文本",
   "Add some text that is only visible to you.": "您可以添加一些只有您可见的文本",
   "Added by": "添加者",
-  "Admin Links": "",
   "Admins": "管理员",
   "Alias": "别名",
   "All": "全部",
@@ -31,7 +29,6 @@
   "Bug": "错误/功能",
   "CPU %(cores)s Cores": "CPU %(cores)s 核心",
   "Can add sub admin": "👥 可以添加子管理员",
-  "Change": "",
   "Check again": "再检查一遍",
   "Childs": "孩子们",
   "China": "🇨🇳中国",
@@ -60,7 +57,6 @@
   "Domain (%(domain)s)-> IP=%(domain_ip)s is not matched with your ip=%(server_ip)s which is required in direct mode": "域 (%(domain)s)-> IP = %(domain_ip)s 与您的 IP = %(server_ip)s 不同。这在直接模式下是必需的",
   "Domain IP=%(domain_ip)s is not matched with your ip=%(server_ip)s which is required in direct mode": "域名IP=%(domain_ip)s is not matched with your ip=%(server_ip)s需要用于直连模式",
   "Domain can not be resolved! there is a problem in your domain": "域名无法解析！您的域有问题。请检查您的域配置。",
-  "Domain cannot be resolved! Please check DNS settings": "",
   "Domain is not REALITY friendly!": "域名对现实不友好！",
   "Domain?": "域名？",
   "Donation": {
@@ -68,7 +64,6 @@
     "title": "捐款"
   },
   "Download App": "下载应用程序",
-  "Download Domain": "",
   "Edit": "编辑",
   "Edit Proxy Names": "✏️ 修改代理",
   "Enable": "❇️启用",
@@ -89,7 +84,6 @@
   "HiddifyNG": "HiddifyNG <span class='badge badge-success'>推荐</span>",
   "HiddifyNG intro": "📌 请从以下任一链接安装 HiddifyNG：\n<br/>\n %(dl_link)s %(play_link)s\n<br/>\n然后单击下面的链接并在 HiddifyNG 中打开它。\n<br/>",
   "HiddigyN": "HiddifyN <span class='badge badge-success'>推荐</span>",
-  "Home Link": "",
   "Hover the user to see the reason": "将鼠标悬停在用户上即可查看原因",
   "How many days this package should be available?": "这个套餐有多少天？",
   "How many?": "多少？",
@@ -121,13 +115,11 @@
   "Network": "网络",
   "New": "新",
   "No children!": "没有孩子",
-  "Not Secure": "",
   "Note": "📝 注意",
   "Offline more than 1 day": "离线超过1天",
   "Offline more than 1 hour": "离线1小时以上",
   "Offline more than 1 week": "离线超过1周",
   "Ok": "好的",
-  "Online": "",
   "Online Users": "在线用户",
   "Only Blocked and Local websites": "☑️ 仅屏蔽和本地网站",
   "Only for sublink?": "🌍 仅用于订阅链接",
@@ -159,7 +151,6 @@
   "QRCode": "<i class='fa-solid fa-qrcode'></i> QRCode",
   "RAM": "内存",
   "REALITY Fallback domain is not compaitble with server names!": "REALITY 后备域与服务器名称不兼容！",
-  "REALITY Fallback domain is not compatible with server names!": "",
   "Release": "✅ 发布",
   "Remaining about %(relative)s, exactly %(days)s days": "还剩下大约 %(relative)s，正好 %(days)s 天",
   "Remote nodes are not supported yet!": "尚不支持远程节点！",
@@ -195,17 +186,14 @@
   "Simplifies the process of employing the link elsewhere.": "简化了在其他地方使用链接的过程",
   "SingBox": "📦 歌盒",
   "Sort by %(name)s": "以%(name)s排序",
-  "Specifying CDN IP is only valid for CDN mode": "",
   "Start Date": "开始日期",
   "Started %(days)s days ago": "已于 %(days)s 天前开始",
   "Started from %(relative)s": "从 %(relative)s 开始",
   "Status": "地位",
-  "SubLink": "",
   "Submit": "提交",
   "Success": "成功",
   "Success! Please wait around 5 minutes to make sure everything is updated.": "✔️ 成功！请等待大约 5 分钟以确保所有内容均已更新",
   "Telegram Bot": "Telegram 机器人",
-  "Telegram Bot Link": "",
   "Temporary Short Link": "⏱️临时短链接",
   "The message has been sent.": "消息已发送。",
   "The message was not sent to": "该消息未发送至",
@@ -287,14 +275,6 @@
   "all": "全部",
   "android": "安卓",
   "app": {
-    "clash_verge_rev": {
-      "description": "",
-      "title": ""
-    },
-    "cmfa": {
-      "description": "",
-      "title": ""
-    },
     "foxray": {
       "description": "福克斯射线描述",
       "title": "福克斯X射线"
@@ -344,9 +324,6 @@
     "streisand": {
       "description": "Streisand描述",
       "title": "Streisand"
-    },
-    "v2rayn": {
-      "title": ""
     },
     "v2rayng": {
       "description": "V2RayNG 说明",
@@ -458,10 +435,6 @@
     "decoy_domain": {
       "description": "假网站：当有人直接访问您的域时模拟网站。<br>\n⚠️ 不要使用金融、伊朗和著名网站或需要登录的网站，例如 Google、Yahoo、Wikipedia、PayPal。<br>\n⛔ 请务必检查该网站并确保它是正确的网站，否则您可能会收到网络钓鱼警告。<br>\n⛔⛔ 再次检查该域名，以免以后出现问题",
       "label": "📺 诱饵网站"
-    },
-    "default_useragent_string": {
-      "description": "",
-      "label": ""
     },
     "dns_server": {
       "description": "✳️默认1.1.1.1 <br>\n🚧 阻止恶意软件 1.1.1.2 <br>\n🔞 阻止色情 1.1.1.3",
@@ -733,10 +706,6 @@
       "description": "当 GFW 访问服务器名称中的网站时，将被重定向到该域。",
       "label": "🌍 现实后备域"
     },
-    "reality_port": {
-      "description": "",
-      "label": ""
-    },
     "reality_private_key": {
       "description": "不要改变它",
       "label": "🔑 私钥"
@@ -805,10 +774,6 @@
       "description": "您可以为您的现实服务器设置自定义端口，以减少系统开销。（允许直接连接到代理应该是肯定的）",
       "label": "↔️ 直接 Reality 端口"
     },
-    "special_port_old": {
-      "description": "",
-      "label": ""
-    },
     "speed_test": {
       "description": "允许您的用户进行速度测试。它可以帮助他们识别链接质量",
       "label": "🚀 速度测试"
@@ -828,38 +793,6 @@
     "ssh": {
       "description": "ℹ️ SSH 代理，也称为 SSH 隧道或 SSH 端口转发，是一种通过不安全网络在两台计算机之间创建安全通信通道的安全方法。我们有一个与 ssh 服务器完全不同的特定应用程序，无法执行任何命令",
       "label": "SSH 代理"
-    },
-    "ssh_host_dsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_dsa_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ecdsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ecdsa_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ed25519_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ed25519_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_rsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_rsa_pub": {
-      "description": "",
-      "label": ""
     },
     "ssh_server_enable": {
       "description": "SSH Proxy 与原来的 SSH Server 完全不同",
@@ -1005,10 +938,6 @@
       "description": "config.unique_id.description",
       "label": "config.unique_id.label"
     },
-    "use_ip_in_config": {
-      "description": "",
-      "label": ""
-    },
     "utls": {
       "description": "此选项将模拟不同的浏览器，因此 GFW 无法检测到您的浏览",
       "label": "❇️uTLS"
@@ -1120,10 +1049,6 @@
     "show_domains_description": "对于访问该域的用户区的用户，指定他们可以看到哪些域的代理。\n<br>\n建议：对于IP未过滤且与其他域不同的域，选择所有其他域（当前域除外）。因此，由于该 IP 的使用不是用于代理，并且它是一个简单的网站，因此该域名和 IP 永远不会被阻止，您的用户可以轻松更新新的配置文件。"
   },
   "download": "直接下载",
-  "download_domain": {
-    "description": "",
-    "label": ""
-  },
   "fake": "🆎 假网站",
   "gRPC": "➿ gRPC",
   "grpc-proxy": {
