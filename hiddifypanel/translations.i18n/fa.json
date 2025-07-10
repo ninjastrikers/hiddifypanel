@@ -5,7 +5,6 @@
   "%(expire_days)s days": "%(expire_days)s روز",
   "%(placeholder)s": "%(placeholder)s",
   "0 - Last day": "آخرین روز",
-  "<a href=\"%(user_link)s\"> %(user)s</a>": "",
   "Access Denied!": "دسترسی غیرمجاز",
   "Actions": "عملیات",
   "Active": "فعال",
@@ -14,7 +13,6 @@
   "Add some text that is only visible to super_admin.": "متنی را اضافه کنید که فقط برای سوپر ادمین ها قابل مشاهده هست",
   "Add some text that is only visible to you.": "در این قسمت یادداشتی اضافه کنید. (این یادداشت فقط برای شما قابل نمایش است.)",
   "Added by": "اضافه شده توسط",
-  "Admin Links": "",
   "Admins": "ادمین ها",
   "Alias": "نام نمایشی",
   "All": "همه",
@@ -31,7 +29,6 @@
   "Bug": "باگ/پیشنهاد",
   "CPU %(cores)s Cores": "پردازنده %(cores)s هسته",
   "Can add sub admin": "👥 امکان اضافه کردن ادمین فرعی",
-  "Change": "",
   "Check again": "بررسی مجدد",
   "Childs": "زیرمجموعه‌ها",
   "China": "🇨🇳 چین",
@@ -60,7 +57,6 @@
   "Domain (%(domain)s)-> IP=%(domain_ip)s is not matched with your ip=%(server_ip)s which is required in direct mode": "دامنه (%(domain)s)-> IP=%(domain_ip)s با آی‌پی شما: ip=%(server_ip)s همخوانی ندارد. در حالت مستقیم (Direct Mode) این مورد الزامی است.",
   "Domain IP=%(domain_ip)s is not matched with your ip=%(server_ip)s which is required in direct mode": "دامنه IP=%(domain_ip)s با ip=%(server_ip)s شما مطابقت ندارد که در حالت مستقیم مورد نیاز است",
   "Domain can not be resolved! there is a problem in your domain": "دامنه قابل دسترسی نیست! در دامنه شما مشکلی وجود دارد.",
-  "Domain cannot be resolved! Please check DNS settings": "",
   "Domain is not REALITY friendly!": "دامنه سازگار با REALITY نیست!",
   "Domain?": "دامنه؟",
   "Donation": {
@@ -68,7 +64,6 @@
     "title": "حمایت"
   },
   "Download App": "<i class='fa-solid fa-download'></i> دانلود",
-  "Download Domain": "",
   "Edit": "ویرایش",
   "Edit Proxy Names": "✏️ ویرایش پروکسی‌ها",
   "Enable": "❇️ فعال",
@@ -89,7 +84,6 @@
   "HiddifyNG": "HiddifyNG <span class='badge badge-success'>پیشنهادی</span>",
   "HiddifyNG intro": "📌 لطفاً HiddifyNG را از یکی از این لینک ها نصب کنید:\n<br />\n %(dl_link)s  %(play_link)s\n<br />\nسپس روی لینک زیر کلیک کنید و آن را در HiddifyNG باز کنید.\n<br />",
   "HiddigyN": "HiddifyN <span class='badge badge-success'>پیشنهادی</span>",
-  "Home Link": "",
   "Hover the user to see the reason": "روی یوزر کلیک کنید تا دلیل آن را ببینید",
   "How many days this package should be available?": "این بسته چند روزه است؟",
   "How many?": "چه تعداد؟",
@@ -121,13 +115,13 @@
   "Network": "شبکه",
   "New": "تازه",
   "No children!": "هیچ زیر مجموعه ای یافت نشد",
-  "Not Secure": "",
+  "Not Secure": "ناامن",
   "Note": "📝 یادداشت",
   "Offline more than 1 day": "آفلاین بیش از 1 روز",
   "Offline more than 1 hour": "آفلاین بیش از 1 ساعت",
   "Offline more than 1 week": "آفلاین بیش از 1 هفته",
   "Ok": "تایید",
-  "Online": "",
+  "Online": "آنلاین",
   "Online Users": "کاربران آنلاین",
   "Only Blocked and Local websites": "☑️ فقط سایت‌های داخلی و مسدود شده‌ی خارجی",
   "Only for sublink?": "🌍 استفاده فقط برای لینک کانفیگ ها (سابسکریپشن)",
@@ -159,7 +153,7 @@
   "QRCode": "<i class='fa-solid fa-qrcode'></i> QR Code ",
   "RAM": "رم",
   "REALITY Fallback domain is not compaitble with server names!": "دامنه بازگشتی REALITY با نام سرور سازگار نیست!",
-  "REALITY Fallback domain is not compatible with server names!": "",
+  "REALITY Fallback domain is not compatible with server names!": "ریالتی: دامنه جایگزین با نام سرورها سازگار نیست!",
   "Release": "✅ پایدار",
   "Remaining about %(relative)s, exactly %(days)s days": "حدود %(relative)s و دقیقا %(days)s روز باقی مانده است",
   "Remote nodes are not supported yet!": "گره های راه دور هنوز پشتیبانی نمی شوند!",
@@ -195,17 +189,15 @@
   "Simplifies the process of employing the link elsewhere.": "برای راحتی انتقال این صفحه به ‌پلتفرم دیگر",
   "SingBox": "📦 SingBox",
   "Sort by %(name)s": "مرتب سازی بر اساس %(name)s",
-  "Specifying CDN IP is only valid for CDN mode": "",
+  "Specifying CDN IP is only valid for CDN mode": "مشخص کردن IP مربوط به CDN فقط برای حالت CDN معتبر است",
   "Start Date": "زمان شروع",
   "Started %(days)s days ago": "از %(days)s روز پیش شروع شد",
   "Started from %(relative)s": "از %(relative)s شروع شد",
   "Status": "وضعیت",
-  "SubLink": "",
   "Submit": "ثبت",
   "Success": "موفقیت",
   "Success! Please wait around 5 minutes to make sure everything is updated.": "✔️ موفقیت آمیز بود! لطفا برای اینکه مطمئن شوید بروزرسانی‌ها به درستی اعمال شده، حدود 5 دقیقه صبر کنید.",
   "Telegram Bot": "بات تلگرام",
-  "Telegram Bot Link": "",
   "Temporary Short Link": "⏱️ لینک کوتاه موقت",
   "The message has been sent.": "پیام ارسال شده است.",
   "The message was not sent to": "پیام نتوانست به کاربران زیر ارسال شود",
@@ -287,14 +279,6 @@
   "all": "همه",
   "android": "اندروید",
   "app": {
-    "clash_verge_rev": {
-      "description": "",
-      "title": ""
-    },
-    "cmfa": {
-      "description": "",
-      "title": ""
-    },
     "foxray": {
       "description": "توضیحات FoXray",
       "title": "FoXray"
@@ -344,9 +328,6 @@
     "streisand": {
       "description": "توضیحات Streisand",
       "title": "Streisand"
-    },
-    "v2rayn": {
-      "title": ""
     },
     "v2rayng": {
       "description": "توضیحات V2RayNG",
@@ -460,8 +441,7 @@
       "label": "📺 آدرس سایت جعلی"
     },
     "default_useragent_string": {
-      "description": "",
-      "label": ""
+      "label": "یوزرایجنت پیش‌فرض"
     },
     "dns_server": {
       "description": "✳️ پیش فرض 1.1.1.1 <br>\n🚧 مسدود کردن بدافزار 1.1.1.2 <br>\n🔞 مسدود کردن پورن 1.1.1.3",
@@ -669,6 +649,10 @@
       "description": "باید تصادفی باشد",
       "label": "ℹ️ مسیر ارتقاء HTTP"
     },
+    "path_splithttp": {
+      "description": "مسیر XHTTP",
+      "label": "مسیر XHTTP"
+    },
     "path_ss": {
       "description": "مسیر شدوساکس در لینکها",
       "label": "مسیر شدوساکس"
@@ -734,8 +718,7 @@
       "label": "🌍 دامنه بازگشتی ریالیتی"
     },
     "reality_port": {
-      "description": "",
-      "label": ""
+      "description": "پورت reality"
     },
     "reality_private_key": {
       "description": "این کد را تغییر ندهید",
@@ -805,13 +788,13 @@
       "description": "شما می توانید یک پورت سفارشی برای سرور ریالیتی خود تنظیم کنید تا پردازش سیستم را کاهش دهید. (اجازه اتصال مستقیم به پروکسی ها باید بله باشد)",
       "label": "↔️  پورت ریالیتی"
     },
-    "special_port_old": {
-      "description": "",
-      "label": ""
-    },
     "speed_test": {
       "description": "با فعالسازی این گزینه به کاربران اجازه تست سرعت می‌دهید. این کار به آن‌ها کمک می‌کند تا کیفیت سرور و کانفیگ‌ها را بسنجند",
       "label": "🚀 تست سرعت"
+    },
+    "splithttp_enable": {
+      "description": "XHTTP امکان دانلود و آپلود جداگانه را فراهم می‌کند و gRPC، H2، H1 را یکپارچه می‌کند و همچنین از Quic پشتیبانی می‌کند.",
+      "label": "فعال کردن XHTTP"
     },
     "ssfaketls": {
       "description": "شادوساکس FakeTLS یک روش مبهم سازی ساده هست که دیتا را در بسته  TLS کپسوله میکند تا فیلترچی فریب بخورد.",
@@ -828,38 +811,6 @@
     "ssh": {
       "description": "پروکسی SSH که به عنوان تونل SSH یا ارسال پورت SSH نیز شناخته می شود، روشی امن برای ایجاد یک کانال ارتباطی امن بین دو ماشین در یک شبکه ناامن است. ما یک برنامه خاص داریم که کاملاً با سرور SSH متفاوت است. با این کانکشن کاربر نمی تواند هیچ دستوری را روی سرور اجرا کند",
       "label": "پروکسی SSH"
-    },
-    "ssh_host_dsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_dsa_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ecdsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ecdsa_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ed25519_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_ed25519_pub": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_rsa_pk": {
-      "description": "",
-      "label": ""
-    },
-    "ssh_host_rsa_pub": {
-      "description": "",
-      "label": ""
     },
     "ssh_server_enable": {
       "description": "این SSH پروکسی با SSH سرور اصلی کاملا متفاوت است و امکان اجرای دستورات را ندارد",
@@ -1006,8 +957,8 @@
       "label": "config.unique_id.label"
     },
     "use_ip_in_config": {
-      "description": "",
-      "label": ""
+      "description": "این به کاهش مشکلاتی که ممکن است در حل مشکل IP سرور رخ دهد کمک می‌کند. این از یک IP تصادفی از دامنه انتخاب شده استفاده می‌کند.",
+      "label": "استفاده از IP در کانفیگها"
     },
     "utls": {
       "description": "این گزینه مرورگرهای معروف را شبیه سازی میکند تا فیلترچی نتواند شما رو شناسایی کند",
