@@ -1,3 +1,9 @@
+from hiddifypanel.cache import cache
+from hiddifypanel import __version__
+from hiddifypanel.panel import hiddify, custom_widgets
+from hiddifypanel.database import db
+from hiddifypanel.models import *
+from hiddifypanel.models import BoolConfig, StrConfig, ConfigEnum, hconfig, ConfigCategory
 import re
 import flask_babel
 import flask_babel
@@ -18,14 +24,6 @@ from flask_classful import FlaskView
 from flask_wtf import FlaskForm
 from bleach import clean as bleach_clean, ALLOWED_TAGS as BLEACH_ALLOWED_TAGS
 ALLOWED_TAGS = set([*BLEACH_ALLOWED_TAGS, "h1", "h2", "h3", "h4", "p"])
-
-
-from hiddifypanel.models import BoolConfig, StrConfig, ConfigEnum, hconfig, ConfigCategory
-from hiddifypanel.models import *
-from hiddifypanel.database import db
-from hiddifypanel.panel import hiddify, custom_widgets
-from hiddifypanel import __version__
-from hiddifypanel.cache import cache
 
 
 class SettingAdmin(FlaskView):
@@ -63,10 +61,15 @@ class SettingAdmin(FlaskView):
                                 return render_template('config.html', form=form)
                             if "port" in k:
                                 for p in v.split(","):
-                                    for k2, v2 in c_items.items():
-                                        if "port" in k2 and k.name != k2 and p in v2:
-                                            hutils.flask.flash(_("Port is already used! in") + f" {k2} {k}", 'error')
-                                            return render_template('config.html', form=form)
+                                    if (k != ConfigEnum.tls_ports and p == "443") or (k != ConfigEnum.http_ports and p == "80"):
+                                        hutils.flask.flash(_("Port 80 and 443 can not be selected"), 'error')
+                                        return render_template('config.html', form=form)
+                                    for c_, c_items2 in form.data.items():
+                                        if not isinstance(c_items2, dict):continue
+                                        for k2, v2 in c_items2.items():
+                                                if "port" in k2 and k.name != k2 and p in v2.strip().split(","):
+                                                    hutils.flask.flash(_("Port is already used! in") + f" {k2} {k}", 'error')
+                                                    return render_template('config.html', form=form)
                             if k == ConfigEnum.parent_panel and v != '':
                                 # v=(v+"/").replace("/admin",'')
                                 v = re.sub("(/admin/.*)", "/", v) + ("/" if not v.endswith("/") else "")
@@ -140,7 +143,6 @@ class SettingAdmin(FlaskView):
             for field, errors in form.errors.items():
                 for error in errors:
                     hutils.flask.flash(error, 'danger')  # type: ignore
-            
 
         return reset_action or render_template('config.html', form=form)
 
