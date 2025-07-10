@@ -37,12 +37,12 @@
 {% endfor %}
 {% endif %}
 <!-- Include the default stylesheet -->
-<link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+<link rel="stylesheet" href="https://unpkg.com/multiple-select@2.1.1/dist/multiple-select.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
-<link href="https://unpkg.com/multiple-select@1.5.2/dist/themes/bootstrap.min.css" rel="stylesheet">
-
+<script src="https://unpkg.com/multiple-select@2.1.1/dist/multiple-select.min.js"></script>
+<link href="https://unpkg.com/multiple-select@2.1.1/dist/themes/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>     -->
@@ -54,7 +54,9 @@
     
     function update_hiddify_ui() {
         
-        $("#show_domains").multipleSelect({ width: '100%' });
+        $("#show_domains").multipleSelect({ width: '100%',      filter: true });
+        // $("#download_domain").select2()
+        $("#download_domain").multipleSelect({ width: '100%',      filter: true });
 
         if ($("#domain").length > 0) {
             var selectElement = document.getElementById("mode");
@@ -62,7 +64,7 @@
                 { label: `{{_("Direct")}}`, options: ["direct", "old_xtls_direct"] },
                 { label: `{{_("Panel Link")}}`, options: ["sub_link_only"] },
                 { label: `{{_("Bridge Servers")}}`, options: ["cdn", "auto_cdn_ip", "worker", "relay"] },
-                { label: `{{_("Fake")}}`, options: ["reality", "fake"] }
+                { label: `{{_("Fake")}}`, options: ["special_reality_xhttp","special_reality_tcp","special_reality_grpc", "fake"] }
             ];
 
             var options = Array.from($("#mode option"));
@@ -105,9 +107,10 @@
                 $("#servernames").parent().hide();
                 $("#domain").parent().find(".control-label").html(`{{_('domain.domain')}}`)
                 $("#domain").parent().find(".help-block").html(`{{_('domain.description')}}`)
+                $("#download_domain").parent().hide();
 
-                $("#grpc").parent().parent().hide()
             } else {
+                $("#download_domain").parent().show();
                 $("#cdn_ip").parent().show();
                 //$("#mode").parent().show();
                 $("#show_domains").parent().hide()
@@ -119,17 +122,19 @@
                     $("#cdn_ip").parent().show();
                 }
                 {% autoescape false %}
-                if ($("#mode").val() == 'reality') {
+                if (($("#mode").val()?? "").indexOf('reality')>=0) {
 
                     //$("#servernames").parent().hide();
                     $("#servernames").parent().show();
                     $("#servernames").parent().find(".control-label").html(`{{_('config.reality_server_names.label')}}`)
                     $("#servernames").parent().find(".help-block").html(`{{_('config.reality_server_names.description')}}`)
 
-                    $("#grpc").parent().parent().show()
+                    // $("#grpc").parent().parent().show()
                     $("#domain").parent().find(".control-label").html(`{{_('config.reality_fallback_domain.label')}}`)
                     $("#domain").parent().find(".help-block").html(`{{_('config.reality_fallback_domain.description')+("<a target='_blank' href='" +hurl_for('admin.Actions:get_some_random_reality_friendly_domain',test_domain=domain)+"'>"+_('Example Domains')+"</a>")}}`)
+                    $("#download_domain").parent().hide();
                 } else {
+                    
                     if ($("#mode").val() == 'cdn' || $("#mode").val() == 'auto_cdn_ip') {
                         $("#servernames").parent().show();
                         $("#servernames").parent().find(".control-label").html(`{{_('domain.domain_fronting.label')}}`)
@@ -138,7 +143,7 @@
                         $("#servernames").parent().hide();
                     }
 
-                    $("#grpc").parent().parent().hide()
+                    
                     $("#domain").parent().find(".control-label").html(`{{_('domain.domain')}}`)
                     $("#domain").parent().find(".help-block").html(`{{_('domain.description')}}`)
                 }

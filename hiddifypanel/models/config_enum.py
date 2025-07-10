@@ -1,4 +1,5 @@
 from enum import auto, Enum
+import os
 from typing import Union
 
 from strenum import StrEnum
@@ -126,7 +127,8 @@ class ConfigEnum(metaclass=FastEnum):
     reality_short_ids = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
     reality_private_key = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
     reality_public_key = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
-    reality_port = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
+    reality_port = _StrConfigDscr(ConfigCategory.hidden, ApplyMode.apply_config, hide_in_virtual_child=True)
+    special_port = _StrConfigDscr(ConfigCategory.reality, ApplyMode.apply_config, hide_in_virtual_child=True)
 
     restls1_2_domain = _StrConfigDscr(ConfigCategory.hidden)
     restls1_3_domain = _StrConfigDscr(ConfigCategory.hidden)
@@ -160,6 +162,8 @@ class ConfigEnum(metaclass=FastEnum):
     admin_lang = _TypedConfigDscr(Lang, ConfigCategory.admin)
     admin_secret = _StrConfigDscr(ConfigCategory.hidden)  # removed
 
+    default_useragent_string = _StrConfigDscr(ConfigCategory.general)    
+    use_ip_in_config=_BoolConfigDscr(ConfigCategory.general)
     # tls
     tls_ports = _StrConfigDscr(ConfigCategory.tls, ApplyMode.apply_config)
 
@@ -194,7 +198,7 @@ class ConfigEnum(metaclass=FastEnum):
     http_proxy_enable = _BoolConfigDscr(ConfigCategory.http)
     block_iran_sites = _BoolConfigDscr(ConfigCategory.proxies, ApplyMode.apply_config, hide_in_virtual_child=True)
     allow_invalid_sni = _BoolConfigDscr(ConfigCategory.tls, ApplyMode.apply_config, hide_in_virtual_child=True)
-    auto_update = _BoolConfigDscr(ConfigCategory.general, ApplyMode.apply_config, True, hide_in_virtual_child=True)
+    auto_update = _BoolConfigDscr(ConfigCategory.hidden if os.environ.get('HIDDIFY_DISABLE_UPDATE',"").lower() in {'1',"true"} else ConfigCategory.general, ApplyMode.apply_config, True, hide_in_virtual_child=True)
     speed_test = _BoolConfigDscr(ConfigCategory.general, ApplyMode.reinstall, hide_in_virtual_child=True)
     only_ipv4 = _BoolConfigDscr(ConfigCategory.general, ApplyMode.apply_config, hide_in_virtual_child=True)
 
@@ -247,8 +251,8 @@ class ConfigEnum(metaclass=FastEnum):
     reality_enable = _BoolConfigDscr(ConfigCategory.proxies, ApplyMode.apply_config)
     tcp_enable = _BoolConfigDscr(ConfigCategory.proxies, ApplyMode.apply_config)
     quic_enable = _BoolConfigDscr(ConfigCategory.proxies, ApplyMode.apply_config)
-    xtls_enable = _BoolConfigDscr(ConfigCategory.hidden, ApplyMode.apply_config)
-    h2_enable = _BoolConfigDscr(ConfigCategory.proxies, ApplyMode.apply_config)
+    xtls_enable = _BoolConfigDscr(ConfigCategory.hidden, ApplyMode.apply_config)#deprecated 
+    h2_enable = _BoolConfigDscr(ConfigCategory.hidden, ApplyMode.apply_config)#deprecated
 
     db_version = _StrConfigDscr(ConfigCategory.hidden)
     last_priodic_usage_check = _IntConfigDscr(ConfigCategory.hidden)
@@ -288,6 +292,7 @@ class ConfigEnum(metaclass=FastEnum):
     ssh_host_ecdsa_pub = _StrConfigDscr(ConfigCategory.hidden)
     ssh_host_dsa_pk = _StrConfigDscr(ConfigCategory.hidden)
     ssh_host_dsa_pub = _StrConfigDscr(ConfigCategory.hidden)
+    
     
     
 

@@ -63,11 +63,12 @@ def init_app_no_flask():
     hiddifypanel.database.init_no_flask()
 
     from hiddifypanel.panel import init_db
-    if not init_db.is_db_latest():
-        logger.error("The database upgrade is required before proceeding. Terminating the process.")
+    while not init_db.is_db_latest():
+        logger.error("The database upgrade is required before proceeding. Retrying...")
         import time
         time.sleep(20)
-        sys.exit(1)
+    
+    logger.info("Starting background tasks")
 
     celery_app = Celery()
     

@@ -6,6 +6,11 @@ from wtforms import TextAreaField
 from wtforms.fields import IntegerField, SelectField, DecimalField
 from wtforms.widgets import TextArea
 
+from wtforms import Field
+from wtforms.validators import ValidationError
+from wtforms.widgets import TextArea
+import json
+
 from hiddifypanel.models import *
 
 
@@ -89,3 +94,43 @@ class UsageField(DecimalField):
             self.data = int(float(valuelist[0]) * ONE_GIG)
         else:
             self.data = None
+
+
+
+
+
+
+
+class JSONWidget(TextArea):
+    def __call__(self, field, **kwargs):
+        if isinstance(field.data, dict):
+            try:
+                field.data = json.dumps(field.data, indent=2)
+            except Exception:
+                pass
+        if kwargs.get('class'):
+            kwargs['class'] += ' ltr json-editor'
+        else:
+            kwargs.setdefault('class', 'ltr json-editor')
+        
+        return super().__call__(field, **kwargs)
+
+class JSONField(Field):
+    widget = JSONWidget()
+
+    def _value(self):
+        if self.data is None:
+            return ''
+        if isinstance(self.data, str):
+            return self.data
+        try:
+            return json.dumps(self.data, indent=2)
+        except Exception:
+            return str(self.data)
+
+    def process_formdata(self, valuelist):
+        if valuelist:
+            try:
+                self.data = json.loads(valuelist[0])
+            except Exception as e:
+                raise ValidationError(f'Invalid JSON: {e}')

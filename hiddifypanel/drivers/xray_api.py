@@ -16,36 +16,41 @@ class XrayApi(DriverABS):
         return self.xray_client
 
     def get_enabled_users(self):
-        xray_client = self.get_xray_client()
-        usages = xray_client.stats_query('user', reset=True)
-        res = defaultdict(int)
-        tags = set(self.get_inbound_tags())
-        for use in usages:
-            if "user>>>" not in use.name:
-                continue
-            uuid = use.name.split(">>>")[1].split("@")[0]
+        return {u:1 for u in self.get_enabled_users_terminal()}
+        # xray_client = self.get_xray_client()
+        # usages = xray_client.stats_query('user', reset=True)
+        # res = defaultdict(int)
+        # tags = set(self.get_inbound_tags())
+        # for use in usages:
+        #     if "user>>>" not in use.name:
+        #         continue
+        #     uuid = use.name.split(">>>")[1].split("@")[0]
+        #     res[uuid]=1
 
-            for t in tags.copy():
-                try:
-                    self.__add_uuid_to_tag(uuid, t)
-                    self._remove_client(uuid, [t], False)
-                    # print(f"Success add  {uuid} {t}")
-                    res[uuid] = 0
-                except ValueError:
-                    # tag invalid
-                    tags.remove(t)
-                    pass
-                except xtlsapi.xtlsapi.exceptions.EmailAlreadyExists as e:
-                    res[uuid] = 1
-                except Exception as e:
-                    print(f"error {e}")
-                    res[uuid] = 0
+        #     #TODO use xtls api
+        #     for t in tags.copy():
+        #         try:
+        #             self.__add_uuid_to_tag(uuid, t)
+        #             self._remove_client(uuid, [t], False)
+        #             # print(f"Success add  {uuid} {t}")
+        #             res[uuid] = 0
+        #             break
+        #         except ValueError:
+        #             # tag invalid
+        #             tags.remove(t)
+        #             pass
+        #         except xtlsapi.xtlsapi.exceptions.EmailAlreadyExists as e:
+        #             res[uuid] = 1
+        #             break
+        #         except Exception as e:
+        #             print(f"error {e}")
+        #             # res[uuid] = 1
+        #             break
 
-        return res
+        # return res
 
         # xray_client = self.get_xray_client()
-        # users = User.query.all()
-        # t = "xtls"
+        # users = User.query.all() # t = "xtls"
         # protocol = "vless"
         # enabled = {}
         # for u in users:
@@ -101,8 +106,7 @@ class XrayApi(DriverABS):
         if (protocol == "vless" and p != "xtls" and p != "realityin") or "realityingrpc" in t:
             xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow='\0',)
         else:
-            xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol,
-                                   flow='xtls-rprx-vision', alter_id=0, cipher='chacha20_poly1305')
+            xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow='xtls-rprx-vision', alter_id=0, cipher='chacha20_poly1305')
 
     def add_client(self, user):
         uuid = user.uuid
@@ -130,26 +134,26 @@ class XrayApi(DriverABS):
         for t in tags:
             try:
                 xray_client.remove_client(t, f'{uuid}@hiddify.com')
-                if dolog:
-                    logger.info(f"Success remove  {uuid} {t}")
+                # if dolog:
+                #     logger.info(f"Success remove  {uuid} {t}")
             except Exception as e:
                 if dolog:
                     logger.info(f"error in remove  {uuid} {t} {e}")
                 pass
 
-    def get_all_usage(self, users):
+    def get_all_usage(self)->dict:
         xray_client = self.get_xray_client()
         usages = xray_client.stats_query('user', reset=True)
-        uuid_user_map = {u.uuid: u for u in users}
+        # uuid_user_map = {u.uuid: u for u in users}
         res = defaultdict(int)
         for use in usages:
             if "user>>>" not in use.name:
                 continue
             uuid = use.name.split(">>>")[1].split("@")[0]
-            if u := uuid_user_map.get(uuid):
-                res[u] += use.value
-            else:
-                self._remove_client(uuid)
+            # if u := uuid_user_map.get(uuid):
+            res[uuid] += use.value
+            # else:
+            #     self._remove_client(uuid)
         return res
 
     def get_usage_imp(self, uuid):
@@ -167,3 +171,36 @@ class XrayApi(DriverABS):
         if res:
             logger.debug(f"Xray usage {uuid} d={d} u={u} sum={res}")
         return res
+
+
+
+
+    def get_enabled_users_terminal(self):
+        import subprocess
+        import json
+        tags=self.get_inbound_tags()
+        for t in tags:
+        # Command to execute
+            cmd = [
+                'xray',
+                'api',
+                'inbounduser',
+                '--server=127.0.0.1:10085',
+                f'-tag={t}'
+            ]
+
+            try:
+                result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+                # Parse JSON output
+                data = json.loads(result.stdout)
+                users= [splt[0] for splt in [u.get('email','').split("@") for u in data.get('users',[])] if len(splt)==2 and splt[1]=="hiddify.com"]
+                if len(data)>0:
+                    return users
+
+            except subprocess.CalledProcessError as e:
+                print("Command failed:", e)
+                print("Error output:", e.stderr)
+            except json.JSONDecodeError as e:
+                print("Failed to parse JSON:", e)
+        return []

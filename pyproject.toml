@@ -5,7 +5,7 @@ documentation = "https://hiddify.com/manager"
 
 [project]
 name = "hiddifypanel"
-version = "10.85.0.dev8"
+version = '10.86.2'
 description = "hiddifypanel multi proxy panel"
 readme = "README.md"
 authors = [{ name = "hiddify" }]
@@ -48,7 +48,6 @@ dependencies = [
     "flask-babel==4.0.0",
     "loguru==0.7.2",
     "maxminddb==2.6.2",
-    "netifaces==0.11.0",
     "ping3==4.0.8",
     "psutil==6.1.0",
     "python-dateutil==2.9.0.post0",
@@ -69,6 +68,11 @@ dependencies = [
     "dynaconf>=3.2.6,<4.0.0",
     "json5>=0.9.28,<1.0.0",
     "jinja2>=3.1.6",
+    "marshmallow<=3.26.1",
+    "psutils>=3.3.9",
+    "dotenv==0.9.9",
+    "setuptools==80.0.0",
+    "aiohttp==3.11.18",
 ]
 
 [project.optional-dependencies]
@@ -110,4 +114,3 @@ exclude = ["tests", ".github"]
 
 [uv]
 index-url = "https://pypi.org/simple"
-extra-index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"

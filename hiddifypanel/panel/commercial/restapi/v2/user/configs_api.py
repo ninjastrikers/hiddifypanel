@@ -130,7 +130,7 @@ class AllConfigsAPI(MethodView):
             items.append(
                 create_item(
                     pinfo["name"].replace("_", " "),
-                    f"{'Auto ' if pinfo['dbdomain'].has_auto_ip else ''}{pinfo['mode']}",
+                    f"{pinfo['mode']}",
                     pinfo['server'],
                     pinfo['proto'],
                     pinfo['transport'],

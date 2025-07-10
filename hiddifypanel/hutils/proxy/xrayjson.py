@@ -87,8 +87,7 @@ def configs_as_json(domains: list[Domain], user: User, expire_days: int, remarks
     if not all_configs:
         return ''
 
-    json_configs = json.dumps(all_configs, indent=2,
-                              cls=hutils.proxy.ProxyJsonEncoder)
+    json_configs = json.dumps(all_configs, indent=2, cls=hutils.proxy.ProxyJsonEncoder)
     return json_configs
 
 
@@ -162,7 +161,7 @@ def add_vless_settings(base: dict, proxy: dict):
                     'id': proxy['uuid'],
                     'encryption': 'none',
                     # 'security': 'auto',
-                    'flow': 'xtls-rprx-vision' if (proxy['transport'] == ProxyTransport.XTLS or base['streamSettings']['security'] == 'reality') else '',
+                    'flow': proxy.get('flow',''),
                     'level': OUTBOUND_LEVEL
                 }
             ]
@@ -216,14 +215,17 @@ def add_shadowsocks_settings(base: dict, proxy: dict):
 
 # region stream settings
 
-def add_stream_settings(base: dict, proxy: dict):
-    ss = base['streamSettings']
+def _add_security(base_dict, proxy, tls_info=None):
+    if not tls_info:
+        tls_info = proxy
+
+    ss = base_dict
     ss['security'] = 'none'  # default
 
     # security
-    if proxy['l3'] == ProxyL3.reality:
+    if 'reality' in tls_info['mode']:
         ss['security'] = 'reality'
-    elif proxy['l3'] in [ProxyL3.tls, ProxyL3.tls_h2, ProxyL3.tls_h2_h1, ProxyL3.h3_quic]:
+    elif proxy['l3'] in [ProxyL3.tls, ProxyL3.tls_h2, ProxyL3.tls_h2_h1, ProxyL3.h3_quic, ProxyL3.reality]:
         ss['security'] = 'tls'
 
     # network and transport settings
@@ -231,15 +233,14 @@ def add_stream_settings(base: dict, proxy: dict):
     # ss['security'] == 'tls' or 'xtls' -----> ss['security'] in ['tls','xtls']
     # TODO: FIX THE CONDITION AND TEST CONFIGS ON THE CLIENT SIDE
     if ss['security'] == 'reality':
-        ss['network'] = proxy['transport']
-        add_reality_stream(ss, proxy)
+        # ss['network'] = proxy['transport']
+        add_reality_stream(ss, proxy, tls_info)
     elif ss['security'] in ['tls', "xtls"] and proxy['proto'] != ProxyProto.ss:
-
         ss['tlsSettings'] = {
-            'serverName': proxy['sni'],
-            'allowInsecure': proxy['allow_insecure'],
+            'serverName': tls_info['sni'],
+            'allowInsecure': tls_info['allow_insecure'],
             'fingerprint': proxy['fingerprint'],
-            'alpn': [proxy['alpn']],
+            'alpn': [tls_info['alpn']],
             # 'minVersion': '1.2',
             # 'disableSystemRoot': '',
             # 'enableSessionResumption': '',
@@ -250,6 +251,11 @@ def add_stream_settings(base: dict, proxy: dict):
             # 'rejectUnknownSni': '', # default is false
         }
 
+
+def add_stream_settings(base: dict, proxy: dict):
+    ss = base['streamSettings']
+
+    _add_security(ss, proxy, proxy)
     if proxy['l3'] == ProxyL3.kcp:
         ss['network'] = 'kcp'
         add_kcp_stream(ss, proxy)
@@ -290,11 +296,20 @@ def add_tcp_stream(ss: dict, proxy: dict):
             'header': {
                 'type': 'http',
                 'request': {
-                    'path': [proxy['path']]
+                    'path': [proxy['path']],
+                    'method': 'GET',
+                    "headers": {
+                        "Host": proxy.get('host'),
+                        "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.122 Mobile Safari/537.36",
+                        "Accept-Encoding": "gzip, deflate",
+                        "Connection": "keep-alive",
+                        "Pragma": "no-cache"
+                    },
+
                 }
             }
-            # 'acceptProxyProtocol': False
         }
+        # ss['tcpSettings']['header']['request']['headers']
     else:
         ss['tcpSettings'] = {
             'header': {
@@ -349,23 +364,39 @@ def add_httpupgrade_stream(ss: dict, proxy: dict):
 
 
 def add_xhttp_stream(ss: dict, proxy: dict):
-    if ss['transport'] == "xhttp" and not hutils.flask.is_client_version(hutils.flask.ClientVersion.hiddify_next, 3, 0, 0):
+    if ss['transport'] == "xhttp" and g.user_agent.get(hutils.flask.ClientVersion.hiddify_next) and not hutils.flask.is_client_version(hutils.flask.ClientVersion.hiddify_next, 3, 0, 0):
         ss['transport'] = "splithttp"
         ss['splithttpSettings'] = {
             'path': proxy['path'],
             'host': proxy['host'],
-            "headers": {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
-            }
+            "headers": proxy['params'].get('headers', {})
         }
     else:
-        ss['xhttpSettings'] = {
-            'path': proxy['path'],
-            'host': proxy['host'],
-            "headers": {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
-            }
+        _add_xhttp_details(ss, proxy)
+
+        
+
+
+def _add_xhttp_details(ss: dict, proxy: dict):
+    ss['network'] = "xhttp"
+    ss['xhttpSettings'] = {
+        'path': proxy['path'],
+        'host': proxy['host'],
+        'mode':proxy['xhttp_mode'],
+        "extra": {
+            "headers": proxy['params'].get('headers', {})
         }
+    }
+    if proxy.get("download"):
+        
+        dlsettings = {
+            "address":proxy['download'].get("server"),
+            "port":proxy['port']
+        }
+        _add_xhttp_details(dlsettings, proxy['download'])
+        _add_security(dlsettings, proxy, proxy['download'])
+        
+        ss['xhttpSettings']['extra']['downloadSettings']=dlsettings
 
 
 def add_kcp_stream(ss: dict, proxy: dict):
@@ -400,12 +431,12 @@ def add_quic_stream(ss: dict, proxy: dict):
     }
 
 
-def add_reality_stream(ss: dict, proxy: dict):
+def add_reality_stream(ss: dict, proxy: dict, domain_info: dict):
     ss['realitySettings'] = {
-        'serverName': proxy['sni'],
+        'serverName': domain_info['sni'],
         'fingerprint': proxy['fingerprint'],
-        'shortId': proxy['reality_short_id'],
-        'publicKey': proxy['reality_pbk'],
+        'shortId': domain_info['reality_short_id'],
+        'publicKey': domain_info['reality_pbk'],
         'show': False,
     }
 

@@ -80,7 +80,7 @@ def hconfig(key: ConfigEnum, child_id: Optional[int] = None):  # -> str | int | 
     except BaseException:
         logger.exception(f'{key} error!')
         raise
-    if value != None:
+    if value is not None:
         if key.type == int:
             return int(value)
         elif hasattr(key.type, 'from_str'):
@@ -107,7 +107,7 @@ def set_hconfig(key: ConfigEnum, value: str | int | bool, child_id: int | None =
     get_hconfigs.invalidate_all()
     old_v = None
     if key.type == bool:
-        dbconf = BoolConfig.query.filter(BoolConfig.key == key, BoolConfig.child_id == child_id).first()
+        dbconf = db.session.query(BoolConfig).filter(BoolConfig.key == key, BoolConfig.child_id == child_id).first()
         if not dbconf:
             dbconf = BoolConfig(key=key, value=value, child_id=child_id)
             db.session.add(dbconf)
@@ -115,7 +115,7 @@ def set_hconfig(key: ConfigEnum, value: str | int | bool, child_id: int | None =
             old_v = dbconf.value
     else:
         value = str(value)
-        dbconf = StrConfig.query.filter(StrConfig.key == key, StrConfig.child_id == child_id).first()
+        dbconf = db.session.query(StrConfig).filter(StrConfig.key == key, StrConfig.child_id == child_id).first()
         if not dbconf:
             dbconf = StrConfig(key=key, value=value, child_id=child_id)
             db.session.add(dbconf)

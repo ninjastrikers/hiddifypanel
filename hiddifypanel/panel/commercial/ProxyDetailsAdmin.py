@@ -8,11 +8,13 @@ from hiddifypanel.auth import login_required
 from flask_admin.actions import action
 from flask_admin.contrib.sqla import form, filters as sqla_filters, tools
 from flask_admin import expose
-
+from hiddifypanel.panel import  custom_widgets
 
 # Define a custom field type for the related domains
 from hiddifypanel import hutils
 
+from wtforms.widgets import TextArea
+import json
 
 class ProxyDetailsAdmin(AdminLTEModelView):
     list_template = 'model/proxydetail_list.html'
@@ -22,7 +24,12 @@ class ProxyDetailsAdmin(AdminLTEModelView):
     column_exclude_list = ['child']
     column_searchable_list = ['name', 'proto', 'transport', 'l3', 'cdn']
     column_editable_list = ['name']
-
+    form_extra_fields = {
+        'params': custom_widgets.JSONField(label='Proxy Params')
+    }
+    form_overrides={
+          'params': custom_widgets.JSONField
+    }
     @expose('reset_proxies')
     def reset_proxies(self):
         from hiddifypanel.panel.init_db import get_proxy_rows_v1
@@ -70,7 +77,8 @@ class ProxyDetailsAdmin(AdminLTEModelView):
         if login_required(roles={Role.super_admin, Role.admin})(lambda: True)() != True:
             return False
         return True
-
+    def _params_formatter(view, context, model, name):
+        return str(model.params)
     def _enable_formatter(view, context, model, name):
         if model.enable:
             link = '<i class="fa-solid fa-circle-check text-success"></i> '
@@ -79,5 +87,6 @@ class ProxyDetailsAdmin(AdminLTEModelView):
         return Markup(link)
     column_formatters = {
 
-        "enable": _enable_formatter
+        "enable": _enable_formatter,
+        "params": _params_formatter
     }

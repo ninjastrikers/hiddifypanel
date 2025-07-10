@@ -78,7 +78,8 @@ def init_app(app):
         
 
 
-def db_execute(query: str, return_val: bool = False, commit: bool = False, **params: dict):
+def db_execute(query: str, return_val: bool = False, commit: bool = False, **params):
+    # print(params)
     q = db.session.execute(text(query), params)
     if commit:
         db.session.commit()

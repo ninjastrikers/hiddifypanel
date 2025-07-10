@@ -1,5 +1,6 @@
 {% set V1_7= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<8 %}
 {% set V1_9= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<10 %}
+{% set V1_10= g.user_agent['is_singbox'] and g.user_agent['singbox_version'][0]==1 and g.user_agent['singbox_version'][1]<11 %}
 
 {
     "outbounds": [
@@ -7,10 +8,7 @@
             "tag": "direct",
             "type": "direct"
         },
-        {
-            "tag": "bypass",
-            "type": "direct"
-        },
+        {% if V1_10 %}
         {
             "tag": "block",
             "type": "block"
@@ -18,6 +16,11 @@
         {
             "tag": "dns-out",
             "type": "dns"
+        },
+        {%endif%}
+        {
+            "tag": "bypass",
+            "type": "direct"
         }
     ],
     "route": {
@@ -35,45 +38,63 @@
         }, 
         {%else%}
         "rule_set": [
-            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
+
+            {%if 0 and hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {
                 "tag": "geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
                 "type": "remote",
                 "format": "binary",
-                "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
-                "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%}
+                "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+                "download_detour": "Select"
             },
             {
             "tag": "geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}",
             "type": "remote",
             "format": "binary",
-            "url": "https:\/\/github.com\/hiddify\/hiddify-geo\/raw\/rule-set\/country\/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
-            "download_detour": {% if hconfig(ConfigEnum.country)=='zh' %}"Select" {%else%}"bypass"{%endif%} 
+            "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}.srs",
+            "download_detour": "Select"
             }
             {%endif%}               
             {# {
                 "tag": "geosite-category-ads-all",
                 "type": "remote",
                 "format": "binary",
-                "url": "https:\/\/raw.githubusercontent.com\/Chocolate4U\/Iran-sing-box-rules\/rule-set\/geosite-category-ads-all.srs",
-                "download_detour": {% if hconfig(ConfigEnum.country)=='cn' %}"Select" {%else%}"bypass"{%endif%} 
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-category-ads-all.srs", 
+                "download_detour": "Select"
             } #}
         ],
         {%endif%}
         "rules": [
+          
+            {% if V1_10 %}
             {
                 "outbound": "dns-out",
-                "port": [
-                    53
-                ]
+                "port": [53]
             },
             {
-                "inbound": [
-                    "dns-in"
-                ],
+                "inbound": ["dns-in"],
                 "outbound": "dns-out"
             },
-            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
+            {%else%}
+            {
+                "inbound":["tun-in","mixed-in"],
+                "port": [53],
+                "action": "hijack-dns"
+            },
+            {
+                "inbound": ["dns-in"],
+                "action": "hijack-dns"
+            },
+            {%endif%}
+            {% if not V1_10 %}
+                
+                {
+                    "inbound": ["tun-in","mixed-in"],
+                    "action": "sniff",
+                    "timeout": "1s"
+                },
+            {%endif%}
+            {%if 0 and hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
                     "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
@@ -88,9 +109,13 @@
                 {%else%}
                 "rule_set": "geosite-category-ads-all",
                 {%endif%}
+                {% if V1_10 %}
                 "outbound": "block"
+                {%else%}
+                "action": "reject"
+                {%endif%}
             }, #}
-            {%if hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
+            {%if 0 and hconfig(ConfigEnum.country) in ["ir","zh","ru"]%}
             {% if V1_7 %}
             {
                 "geoip": ["{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"],
@@ -112,7 +137,11 @@
                 "port": [
                     443
                 ],
+                {% if V1_10 %}
                 "outbound": "block"
+                {%else%}
+                "action": "reject"
+                {%endif%}
             },
             {
                 "ip_cidr": [
@@ -158,7 +187,7 @@
                 "detour": "Select"
             },
             {
-                "address": "1.1.1.1",
+                "address": "8.8.8.8",
                 "detour": "direct",
                 "tag": "dns-local"
             },
@@ -177,7 +206,7 @@
                 ],
                 "server": "dns-local"
             },
-            {%if hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
+            {%if 0 and hconfig(ConfigEnum.country)in ["ir","zh","ru"]%}
             {
                 "domain_suffix": [
                     "{{hconfig(ConfigEnum.country)|replace('zh', 'cn')}}"
@@ -190,7 +219,7 @@
                 "server": "dns-local"
             }
         ],
-        "final": "dns-remote",
+        "final": "dns-local",
         "reverse_mapping": true,
         "strategy": "prefer_ipv4",
         "independent_cache": true
@@ -208,7 +237,6 @@
         {
             "type": "tun",
             "tag": "tun-in",
-            "domain_strategy": "prefer_ipv4",
             "interface_name": "tun0",
             {% if V1_9 %}
             "inet4_address": "172.19.0.1\/30",
@@ -219,9 +247,12 @@
             "auto_route": true,
             "strict_route": true,
             "stack": "system",
-            "endpoint_independent_nat": true,
+            {% if V1_10 %}
             "sniff": true,
-            "sniff_override_destination": false
+            "domain_strategy": "prefer_ipv4",
+            "sniff_override_destination": false,
+            {% endif %}
+            "endpoint_independent_nat": true
         },
         {
             "domain_strategy": "prefer_ipv4",

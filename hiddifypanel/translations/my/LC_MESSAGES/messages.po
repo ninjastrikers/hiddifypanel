@@ -1655,10 +1655,10 @@ msgstr "ဆာဗာအမည်များရှိ ဝဘ်ဆိုဒ်�
 msgid "config.reality_fallback_domain.label"
 msgstr "🌍 Reality Fallback ဒိုမိန်း"
 
-msgid "config.reality_port.description"
+msgid "config.special_port.description"
 msgstr "သင့် မျက်မြင်ဆာဗာအား စနစ်မှ လျှော့ချရန်အတွက် စိတ်ကြိုက် port ကို သတ်မှတ်နိုင်သည်။ (ပရောက်စီများသို့ တိုက်ရိုက် ချိတ်ဆက်မှုအား ဖွင့်ထားသင့်သည်။)"
 
-msgid "config.reality_port.label"
+msgid "config.special_port.label"
 msgstr "↔️  တိုက်ရိုက် Reality Port"
 
 msgid "config.reality_private_key.description"

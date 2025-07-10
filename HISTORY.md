@@ -1,7 +1,15 @@
 # Changelog
 
 
-## (unreleased)
+## v10.86.2 (2025-07-10)
+
+#### Other
+
+* Add xray strinde ssh support. 
+
+
+
+## v10.86.1 (2025-07-10)
 
 #### New
 
@@ -9,9 +17,119 @@
 
 #### Fix
 
+* Change proxy settings. 
+
+* Bug. 
+
+* Typo. 
+
+* Test bug. 
+
+* Installation issues. 
+
+* Db issue. 
+
+* Child. 
+
+* Db not init issue. 
+
+* Release bug. 
+
+* Exception showing. 
+
+* Std out issue generation. 
+
+* Bug. 
+
+* Bug. 
+
+* Webapp installation. 
+
+* Refactor to xhttp. 
+
+* Refactor splithttp to xhttp. 
+
+* Upgrade issue. 
+
 * My translation. 
 
 #### Other
+
+* Add resolve ip and fix cdn ip. 
+
+* Update useragegnt. 
+
+* Add support for reality grpc, tcp and xhttp. 
+
+* Add translation and fix port bug. 
+
+* Add all params to sub url. 
+
+* New xhttp, now it is possible to have two distinct domain or alpn for download and upload, add parameters to proxies. 
+
+* Improve auto ip selector, add random latest user_agent. 
+
+* Disable singbox routing. 
+
+* Update to singbox 1.11. 
+
+* Update singbox configs. 
+
+* Add host to tcp settings. 
+
+* Use same date time in update. 
+
+* Fix fragment order. 
+
+* Speed up usage and fix concurrent bug. 
+
+* Add reality xhttp and fix the view avaible proxies page. 
+
+* Use global index. 
+
+* Remove inetfaces. 
+
+* Merge branch 'dev' into beta. 
+
+* Update marshmallow. 
+
+* Merge pull request #15 from tesilaaliset/fix/pin_marshmellow_version. 
+  _Pining marshmellow version on uv_
+
+* Pining marshmellow version on uv. 
+
+* Update release script. 
+
+* Update release script. 
+
+* Merge pull request #12 from tesilaaliset/fix/fix_session_config_background_job. 
+  _Fix using session for hiddify panel after removing flask from backgro…_
+
+* Fix using session for hiddify panel after removing flask from background jobs. 
+
+* Remove unused import. 
+
+* Updte. 
+
+* Add DISABLE_AUTO_UPDATE. 
+
+* Improve ram and cpu usage. 
+
+* Better logging for exceptions. 
+
+* Convert package manager to uv. 
+
+* Disallow background task until db upgrade is done. 
+
+* Remove useless sqlachemy serializer. 
+
+* Make less memory usage for background task and excluding flask in background task. 
+
+* Reduce 70% memory usage due to inactive for most users the cloudflare api and some other enhancements. 
+
+* Merge branch 'main' of github.com:hiddify/Hiddify-Panel. 
+
+* Update translations. 
 
 * Update translations. 
 

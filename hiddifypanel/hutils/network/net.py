@@ -4,7 +4,6 @@ from urllib.parse import urlparse
 import urllib.request
 import ipaddress
 from hiddifypanel.hutils.network.auto_ip_selector import IPASN
-import netifaces
 import requests
 import random
 import socket
@@ -12,13 +11,16 @@ import time
 import ssl
 import re
 import os
-
+import ipaddress
+import psutil
+import socket
+from typing import List, Union, Literal
 
 from hiddifypanel.models import *
 from hiddifypanel.cache import cache
 
 
-def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
+def get_domain_ip_old(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
     res = None
     if not version:
         try:
@@ -39,13 +41,27 @@ def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = N
         except BaseException:
             pass
 
-    if retry <= 0:
-        return None
-    if not res:
-        return get_domain_ip(domain, retry=retry - 1, version=version)
+    if retry > 0:
+        return get_domain_ip_old(domain, retry=retry - 1, version=version)
 
+    if not res:
+        return None
     return ipaddress.ip_address(res)
 
+
+def get_domain_ip(domain: str, retry: int = 3, version: Literal[4, 6] | None = None) -> Union[ipaddress.IPv4Address, ipaddress.IPv6Address, None]:
+    ips=get_domain_ips_cached(domain)
+    ips=[ip for ip in ips if version==None or (version==4 and isinstance(ip,ipaddress.IPv4Address)) or  (version==6 and isinstance(ip,ipaddress.IPv6Address)) ]
+    if ips:
+        return random.sample(ips,1)[0]
+    return get_domain_ip_old(domain,0)
+
+@cache.cache(300)
+def get_domain_ips_cached(domain: str, retry: int = 3) -> Set[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
+    try:
+        return set(ipaddress.ip_address(domain))
+    except:
+        return get_domain_ips(domain,retry)
 
 def get_domain_ips(domain: str, retry: int = 3) -> Set[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
     res = set()
@@ -87,29 +103,31 @@ def get_socket_public_ip(version: Literal[4, 6]) -> Union[ipaddress.IPv4Address,
         return None
 
 
+
 def get_interface_public_ip(version: Literal[4, 6]) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
     addresses = []
     try:
-        interfaces = netifaces.interfaces()
-        for interface in interfaces:
-            if version == 4:
-                address_info = netifaces.ifaddresses(interface).get(netifaces.AF_INET, [])
-            elif version == 6:
-                address_info = netifaces.ifaddresses(interface).get(netifaces.AF_INET6, [])
-            else:
-                continue
+        interfaces = psutil.net_if_addrs()
+        for interface_addresses in interfaces.values():
+            for addr in interface_addresses:
+                if version == 4 and addr.family == socket.AF_INET:
+                    ip = addr.address
+                elif version == 6 and addr.family == socket.AF_INET6:
+                    ip = addr.address
+                else:
+                    continue
 
-            if address_info:
-                for addr in address_info:
-                    address = ipaddress.ip_address(addr['addr'])
-                    if address.is_global:
-                        addresses.append(address)
+                try:
+                    ip_obj = ipaddress.ip_address(ip.split('%')[0])  # Remove scope_id for IPv6
+                    if ip_obj.is_global:
+                        addresses.append(ip_obj)
+                except ValueError:
+                    continue
 
         return addresses
 
     except (OSError, KeyError):
         return []
-
 
 @cache.cache(ttl=600)
 def get_ips(version: Literal[4, 6] | None = None) -> List[Union[ipaddress.IPv4Address, ipaddress.IPv6Address]]:
@@ -167,6 +185,12 @@ def get_ip(version: Literal[4, 6], retry: int = 5) -> ipaddress.IPv4Address | ip
     return ip
 
 
+def get_random_user_agent():
+    
+    uas = requests.get('https://cdn.jsdelivr.net/gh/microlinkhq/top-user-agents@master/src/index.json').json()
+    if uas:
+        return random.sample(uas,1)[0]
+    return 
 def get_random_domains(count: int = 1, retry: int = 3) -> List[str]:
     try:
         irurl = "https://api.ooni.io/api/v1/measurements?probe_cc=IR&test_name=web_connectivity&anomaly=false&confirmed=false&failure=false&order_by=test_start_time&limit=1000"

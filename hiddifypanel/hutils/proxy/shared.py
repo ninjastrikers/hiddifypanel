@@ -11,11 +11,11 @@ from hiddifypanel.models import Proxy, ProxyProto, ProxyL3, ProxyTransport, Prox
 from hiddifypanel import hutils
 
 
-def get_ssh_hostkeys(hconfigs,dojson=False) -> list[str] | str:
+def get_ssh_hostkeys(hconfigs, dojson=False) -> list[str] | str:
     host_keys = [
         # hconfigs[ConfigEnum.ssh_host_dsa_pub],
         hconfigs[ConfigEnum.ssh_host_ed25519_pub],
-        hconfigs[ConfigEnum.ssh_host_ecdsa_pub], 
+        hconfigs[ConfigEnum.ssh_host_ecdsa_pub],
         hconfigs[ConfigEnum.ssh_host_rsa_pub],
     ]
     if dojson:
@@ -28,17 +28,18 @@ def is_proxy_valid(proxy: Proxy, domain_db: Domain, port: int) -> dict | None:
     l3 = proxy.l3
     if not port:
         return {'name': name, 'msg': "port not defined", 'type': 'error', 'proto': proxy.proto}
-    if "reality" not in l3 and domain_db.mode == DomainType.reality:
-        return {'name': name, 'msg': "reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
+    if "reality" not in l3 and 'reality' in domain_db.mode:
+        return {'name': name, 'msg': "1reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
 
-    if "reality" in l3 and domain_db.mode != DomainType.reality:
-        return {'name': name, 'msg': "reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
+    if "reality" in l3 and 'reality' not in domain_db.mode:
+        return {'name': name, 'msg': "2reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
 
-    if "reality" in l3 and domain_db.grpc and ProxyTransport.grpc != proxy.transport:
-        return {'name': name, 'msg': "reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
+    for p in ['tcp','grpc','xhttp']:
+        if "reality" in l3 and p in domain_db.mode  and p not in proxy.transport:
+            return {'name': name, 'msg': f"reality proxy {proxy.transport} in reality {p} domain", 'type': 'debug', 'proto': proxy.proto}
+        if "reality" in l3 and p not in domain_db.mode  and p in proxy.transport:
+            return {'name': name, 'msg': f"reality {p} proxy not in reality {p} domain", 'type': 'debug', 'proto': proxy.proto}
 
-    if "reality" in l3 and (not domain_db.grpc) and ProxyTransport.grpc == proxy.transport:
-        return {'name': name, 'msg': "reality proxy not in reality domain", 'type': 'debug', 'proto': proxy.proto}
 
     is_cdn = ProxyCDN.CDN == proxy.cdn or ProxyCDN.Fake == proxy.cdn
     if is_cdn and domain_db.mode not in [DomainType.cdn, DomainType.auto_cdn_ip, DomainType.worker]:
@@ -58,17 +59,21 @@ def is_proxy_valid(proxy: Proxy, domain_db: Domain, port: int) -> dict | None:
     if domain_db.mode == DomainType.worker and proxy.transport == ProxyTransport.grpc:
         return {'name': name, 'msg': "worker does not support grpc", 'type': 'debug', 'proto': proxy.proto}
 
-    if domain_db.mode != DomainType.old_xtls_direct and "tls" in proxy.l3 and proxy.cdn == ProxyCDN.direct and proxy.transport in [ProxyTransport.tcp, ProxyTransport.XTLS]:
-        return {'name': name, 'msg': "only  old_xtls_direct  support this", 'type': 'debug', 'proto': proxy.proto}
+    if domain_db.mode == DomainType.old_xtls_direct:
+        return {'name': name, 'msg': "unsupported", 'type': 'debug', 'proto': proxy.proto}
+    # if domain_db.mode != DomainType.old_xtls_direct and "tls" in proxy.l3 and proxy.cdn == ProxyCDN.direct and proxy.transport in [ProxyTransport.tcp, ProxyTransport.XTLS]:
+        # return {'name': name, 'msg': "only  old_xtls_direct  support this", 'type': 'debug', 'proto': proxy.proto}
 
     if proxy.proto == "trojan" and not is_tls(l3):
         return {'name': name, 'msg': "trojan but not tls", 'type': 'warning', 'proto': proxy.proto}
 
-    if l3 == "http" and ProxyTransport.XTLS in proxy.transport:
-        return {'name': name, 'msg': "http and xtls???", 'type': 'warning', 'proto': proxy.proto}
+    # if l3 == "http" and ProxyTransport.XTLS in proxy.transport:
+    #     return {'name': name, 'msg': "http and xtls???", 'type': 'warning', 'proto': proxy.proto}
 
     if l3 == "http" and proxy.proto in [ProxyProto.ss, ProxyProto.ssr]:
         return {'name': name, 'msg': "http and ss or ssr???", 'type': 'warning', 'proto': proxy.proto}
+
+    return 
 
 
 def get_port(proxy: Proxy, hconfigs: dict, domain_db: Domain, ptls: int, phttp: int, pport: int | None) -> int:
@@ -163,7 +168,8 @@ def get_proxies(child_id: int = 0, only_enabled=False) -> list['Proxy']:
 
     if not Domain.query.filter(Domain.mode.in_([DomainType.cdn, DomainType.auto_cdn_ip]), Domain.servernames != "", Domain.servernames != Domain.domain).first():
         proxies = [c for c in proxies if 'Fake' not in c.cdn]
-    proxies = [c for c in proxies if not ('vless' == c.proto and ProxyTransport.tcp == c.transport and c.cdn == ProxyCDN.direct)]
+
+    # proxies = [c for c in proxies if not ('vless' == c.proto and ProxyTransport.tcp == c.transport and c.cdn == ProxyCDN.direct)]
 
     if only_enabled:
         proxies = [p for p in proxies if p.enable]
@@ -181,10 +187,11 @@ def get_valid_proxies(domains: list[Domain]) -> list[dict]:
         if domain.child_id not in configsmap:
             configsmap[domain.child_id] = get_hconfigs(domain.child_id)
             proxeismap[domain.child_id] = get_proxies(domain.child_id, only_enabled=True)
+            # print(proxeismap[domain.child_id])
         hconfigs = configsmap[domain.child_id]
         ips = domain.get_cdn_ips_parsed()
         if not ips:
-            ips = hutils.network.get_domain_ips(domain.domain)
+            ips = hutils.network.get_domain_ips_cached(domain.domain)
         for proxy in proxeismap[domain.child_id]:
             noDomainProxies = False
             if proxy.proto in [ProxyProto.ssh, ProxyProto.wireguard]:
@@ -230,9 +237,75 @@ def get_valid_proxies(domains: list[Domain]) -> list[dict]:
 
             for opt in options:
                 pinfo = make_proxy(hconfigs, proxy, domain, **opt)
+                # if key in "vlesstcp":
+                #     print(pinfo)
                 if 'msg' not in pinfo:
                     allp.append(pinfo)
     return allp
+
+
+def random_or_none(inp: list):
+    if not inp:
+        return
+    return random.sample(list(inp), 1)[0]
+
+
+split_pattern = re.compile(r'[ \t\r\n;,]+')
+
+
+def sni_host_server_extractor(domain_db: Domain, hconfigs):
+    
+    server=sni=host = domain_db.domain.replace("*", hutils.random.get_random_string(5, 15))
+    is_cdn = domain_db.mode in [DomainType.cdn, DomainType.auto_cdn_ip]
+    if auto_ip:=domain_db.auto_cdn_ip():
+        server=auto_ip[0]
+    elif 'special' in domain_db.mode.value or domain_db.mode in [DomainType.fake]:
+        server=hutils.network.get_direct_host_or_ip(4)
+    
+    if hconfig(ConfigEnum.use_ip_in_config):
+        server = str(random_or_none(hutils.network.get_domain_ips_cached(server)) or server)
+
+    
+    allow_insecure=not domain_db.need_valid_ssl
+    if all_snis := split_pattern.split((domain_db.servernames or "").strip()):
+        sni = random_or_none(all_snis) or sni
+        if 'reality' in domain_db.mode:
+            allow_insecure=False
+            if hconfigs[ConfigEnum.core_type] == "singbox": #TODO
+                sni = all_snis[0]
+            
+        else: 
+            allow_insecure=True
+
+    base = {
+        'sni': sni,
+        'host': host,
+        'server': server,
+        'mode': domain_db.mode,
+        'allow_insecure': allow_insecure,
+        'cdn': is_cdn,
+    }
+    if 'reality' in domain_db.mode:
+        base['reality_short_id'] = random.sample(hconfigs[ConfigEnum.reality_short_ids].split(','), 1)[0]
+        # base['flow']="xtls-rprx-vision"
+        base['reality_pbk'] = hconfigs[ConfigEnum.reality_public_key]
+        # del base['host']
+
+        # if not domain_db.cdn_ip:
+        #     base['server']=hiddify.get_domain_ip(base['server'])
+
+    return base
+
+def put_default_header(parmas:dict):
+    
+    if not isinstance(parmas.get('headers'),dict):
+        parmas['headers']={}
+        
+    if not parmas['headers'].get('User-Agent'):
+        parmas['headers']['User-Agent']=hconfig(ConfigEnum.default_useragent_string)
+    if not parmas['headers'].get('Pragma'):
+        parmas['headers']['Pragma']="no-cache"
+    
 
 
 def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=443, pport: int | None = None) -> dict:
@@ -244,7 +317,7 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
     port = hutils.proxy.get_port(proxy, hconfigs, domain_db, ptls, phttp, pport)
 
     if val_res := hutils.proxy.is_proxy_valid(proxy, domain_db, port):
-        # print(val_res)
+        # print(f'{name}:{domain}->{val_res}')
         return val_res
 
     if 'reality' in proxy.l3:
@@ -254,17 +327,19 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         if proxy.l3 in [ProxyL3.h3_quic]:
             alpn = "h3"
 
-    cdn_forced_host = domain_db.cdn_ip or (domain_db.domain if domain_db.mode != DomainType.reality else hutils.network.get_direct_host_or_ip(4))
-    is_cdn = ProxyCDN.CDN == proxy.cdn or ProxyCDN.Fake == proxy.cdn
+    # cdn_forced_host = domain_db.cdn_ip or (domain_db.domain if domain_db.mode != DomainType.reality else hutils.network.get_direct_host_or_ip(4))
+    # is_cdn = ProxyCDN.CDN == proxy.cdn or ProxyCDN.Fake == proxy.cdn
+    domain_data=sni_host_server_extractor(domain_db, hconfigs)
     base = {
+        **domain_data,
         'name': name,
-        'cdn': is_cdn,
-        'mode': "CDN" if is_cdn else "direct",
+        # 'cdn': is_cdn,
+        # 'mode': "CDN" if is_cdn else "direct",
         'l3': l3,
-        'host': domain,
+        # 'host': domain,
         'port': port,
-        'server': cdn_forced_host,
-        'sni': domain_db.servernames if is_cdn and domain_db.servernames else domain,
+        # 'server': cdn_forced_host,
+        # 'sni': domain_db.servernames if is_cdn and domain_db.servernames else domain,
         'uuid': str(g.account.uuid),
         'proto': proxy.proto,
         'transport': proxy.transport,
@@ -272,10 +347,29 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         'alpn': alpn,
         'extra_info': f'{domain_db.alias or domain}',
         'fingerprint': hconfigs[ConfigEnum.utls],
-        'allow_insecure': domain_db.mode == DomainType.fake or "Fake" in proxy.cdn,
+        # 'allow_insecure': domain_db.mode == DomainType.fake or "Fake" in proxy.cdn,
         'dbe': proxy,
-        'dbdomain': domain_db
+        'dbdomain': domain_db,
+        'params': proxy.params or {},
     }
+    put_default_header(base['params'])
+
+    
+    if domain_db.download_domain:
+        base['download'] = sni_host_server_extractor(domain_db.download_domain,hconfigs)
+    else:
+        base['download']=domain_data
+        
+    if 'download' not in base['params']:
+        base['params']['download']={}
+    base['download']['params']=base['params']['download']
+    put_default_header(base['download']['params'])
+
+    base['download']['alpn']=base['params']['download'].get('alpn',alpn)
+
+        
+
+            
     if proxy.proto in ['tuic', 'hysteria2']:
         base['alpn'] = "h3"
         if proxy.proto == 'hysteria2':
@@ -297,36 +391,8 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
     if proxy.proto in [ProxyProto.vmess]:
         base['cipher'] = "auto"  # "chacha20-poly1305"
 
-    if l3 in ['reality']:
-        base['reality_short_id'] = random.sample(hconfigs[ConfigEnum.reality_short_ids].split(','), 1)[0]
-        # base['flow']="xtls-rprx-vision"
-        base['reality_pbk'] = hconfigs[ConfigEnum.reality_public_key]
-        if (domain_db.servernames):
-            all_servernames = re.split('[ \t\r\n;,]+', domain_db.servernames)
-            base['sni'] = random.sample(all_servernames, 1)[0]
-            if hconfigs[ConfigEnum.core_type] == "singbox":
-                base['sni'] = all_servernames[0]
-        else:
-            base['sni'] = domain_db.domain
-
-        del base['host']
-        if base.get('fingerprint'):
-            base['fingerprint'] = hconfigs[ConfigEnum.utls]
-        # if not domain_db.cdn_ip:
-        #     base['server']=hiddify.get_domain_ip(base['server'])
-
-    if "Fake" in proxy.cdn:
-        if not hconfigs[ConfigEnum.domain_fronting_domain]:
-            return {'name': name, 'msg': "no domain_fronting_domain", 'type': 'debug', 'proto': proxy.proto}
-        if l3 == "http" and not hconfigs[ConfigEnum.domain_fronting_http_enable]:
-            return {'name': name, 'msg': "no http in domain_fronting_domain", 'type': 'debug', 'proto': proxy.proto}
-        if l3 == "tls" and not hconfigs[ConfigEnum.domain_fronting_tls_enable]:
-            return {'name': name, 'msg': "no tls in domain_fronting_domain", 'type': 'debug', 'proto': proxy.proto}
-        base['server'] = hconfigs[ConfigEnum.domain_fronting_domain]
-        base['sni'] = hconfigs[ConfigEnum.domain_fronting_domain]
-        # base["host"]=domain
-        base['mode'] = 'Fake'
-    elif l3 == "http" and not hconfigs[ConfigEnum.http_proxy_enable]:
+    
+    if l3 == "http" and not hconfigs[ConfigEnum.http_proxy_enable]:
         return {'name': name, 'msg': "http but http is disabled ", 'type': 'debug', 'proto': proxy.proto}
 
     path = {
@@ -361,7 +427,7 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         return base
     elif "shadowsocks" in proxy.transport:
         return base
-    if ProxyTransport.XTLS in proxy.transport:
+    if proxy.l3 in [ProxyL3.reality] and proxy.transport in [ProxyTransport.tcp]:
         base['flow'] = 'xtls-rprx-vision'
         return {**base, 'transport': 'tcp'}
 
@@ -380,7 +446,7 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
                 base['mux_brutal_up_mbps'] = hconfigs.get(ConfigEnum.mux_brutal_up_mbps, 10)
                 base['mux_brutal_down_mbps'] = hconfigs.get(ConfigEnum.mux_brutal_down_mbps, 10)
 
-    if is_cdn and proxy.proto in {'vless', 'trojan', "vmess"}:
+    if base['cdn'] and proxy.proto in {'vless', 'trojan', "vmess"}:
         if hconfigs[ConfigEnum.tls_fragment_enable] and "tls" in base["l3"]:
             base["tls_fragment_enable"] = True
             base["tls_fragment_size"] = hconfigs[ConfigEnum.tls_fragment_size]
@@ -402,6 +468,7 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         base['transport'] = 'tcp'
         base['path'] = f'/{path[base["proto"]]}{hconfigs[ConfigEnum.path_tcp]}'
         return base
+    
     if proxy.transport in ["ws", "WS"]:
         base['transport'] = 'ws'
         base['path'] = f'/{path[base["proto"]]}{hconfigs[ConfigEnum.path_ws]}'
@@ -413,14 +480,17 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         base['path'] = f'/{path[base["proto"]]}{hconfigs[ConfigEnum.path_httpupgrade]}'
         base["host"] = domain
         return base
+    
     if proxy.transport in [ProxyTransport.xhttp]:
         base['transport'] = 'xhttp'
         base['path'] = f'/{path[base["proto"]]}{hconfigs[ConfigEnum.path_xhttp]}'
-        # if 0 and 'h2' in base['alpn'] or 'h3' in base['alpn']:
-        #     base['path'] += "2"
-        # else:
-        #     base['path'] += "1"
-        base["host"] = domain
+        base['xhttp_mode']=base['params'].get('mode',"auto")
+        if dl:=base.get('download'):
+            dl['path']=base['path']
+            dl['xhttp_mode']=dl['params'].get('mode',"auto")
+
+            if all_element_in_first_dict_is_exist_in_second(dl,base):
+                del base['download']
         return base
 
     if proxy.transport == "grpc":
@@ -437,11 +507,22 @@ def make_proxy(hconfigs: dict, proxy: Proxy, domain_db: Domain, phttp=80, ptls=4
         return base
     if ProxyProto.ssh == proxy.proto:
         base['private_key'] = g.account.ed25519_private_key
-        base['host_keys'] = hutils.proxy.get_ssh_hostkeys(hconfigs,False)
+        base['host_keys'] = hutils.proxy.get_ssh_hostkeys(hconfigs, False)
         # base['ssh_port'] = hconfig(ConfigEnum.ssh_server_port)
         return base
     return {'name': name, 'msg': 'not valid', 'type': 'error', 'proto': proxy.proto}
 
+def all_element_in_first_dict_is_exist_in_second(fdict,sdict):
+    for k,v in fdict.items():
+        if k=="params":
+            continue
+        if isinstance(v,dict):
+            if not all_element_in_first_dict_is_exist_in_second(v,sdict.get(k,{})):
+                return False
+        if sdict.get(k,v)!=v:
+            return False
+        
+    return True
 
 class ProxyJsonEncoder(json.JSONEncoder):
     def default(self, obj):

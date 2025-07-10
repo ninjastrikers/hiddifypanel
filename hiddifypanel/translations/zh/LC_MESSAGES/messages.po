@@ -22,6 +22,9 @@ msgstr "%(placeholder)s"
 msgid "0 - Last day"
 msgstr "最后一天"
 
+msgid "<a href=\"%(user_link)s\"> %(user)s</a>"
+msgstr ""
+
 msgid "Access Denied!"
 msgstr "拒绝访问"
 
@@ -45,6 +48,9 @@ msgstr "您可以添加一些只有您可见的文本"
 
 msgid "Added by"
 msgstr "添加者"
+
+msgid "Admin Links"
+msgstr ""
 
 msgid "Admins"
 msgstr "管理员"
@@ -93,6 +99,9 @@ msgstr "CPU %(cores)s 核心"
 
 msgid "Can add sub admin"
 msgstr "👥 可以添加子管理员"
+
+msgid "Change"
+msgstr ""
 
 msgid "Check again"
 msgstr "再检查一遍"
@@ -276,6 +285,9 @@ msgstr "捐款"
 msgid "Download App"
 msgstr "下载应用程序"
 
+msgid "Download Domain"
+msgstr ""
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -346,6 +358,9 @@ msgstr ""
 
 msgid "HiddigyN"
 msgstr "HiddifyN <span class='badge badge-success'>推荐</span>"
+
+msgid "Home Link"
+msgstr ""
 
 msgid "Hover the user to see the reason"
 msgstr "将鼠标悬停在用户上即可查看原因"
@@ -452,6 +467,9 @@ msgstr "新"
 msgid "No children!"
 msgstr "没有孩子"
 
+msgid "Not Secure"
+msgstr ""
+
 msgid "Note"
 msgstr "📝 注意"
 
@@ -466,6 +484,9 @@ msgstr "离线超过1周"
 
 msgid "Ok"
 msgstr "好的"
+
+msgid "Online"
+msgstr ""
 
 msgid "Online Users"
 msgstr "在线用户"
@@ -710,6 +731,9 @@ msgstr "从 %(relative)s 开始"
 msgid "Status"
 msgstr "地位"
 
+msgid "SubLink"
+msgstr ""
+
 msgid "Submit"
 msgstr "提交"
 
@@ -722,6 +746,9 @@ msgstr "✔️ 成功！请等待大约 5 分钟以确保所有内容均已更�
 
 msgid "Telegram Bot"
 msgstr "Telegram 机器人"
+
+msgid "Telegram Bot Link"
+msgstr ""
 
 msgid "Temporary Short Link"
 msgstr "⏱️临时短链接"
@@ -1259,6 +1286,12 @@ msgstr ""
 msgid "config.decoy_domain.label"
 msgstr "📺 诱饵网站"
 
+msgid "config.default_useragent_string.description"
+msgstr ""
+
+msgid "config.default_useragent_string.label"
+msgstr ""
+
 msgid "config.dns_server.description"
 msgstr ""
 "✳️默认1.1.1.1 <br>\n"
@@ -1681,10 +1714,10 @@ msgid "config.reality_fallback_domain.label"
 msgstr "🌍 现实后备域"
 
 msgid "config.reality_port.description"
-msgstr "您可以为您的现实服务器设置自定义端口，以减少系统开销。（允许直接连接到代理应该是肯定的）"
+msgstr ""
 
 msgid "config.reality_port.label"
-msgstr "↔️ 直接 Reality 端口"
+msgstr ""
 
 msgid "config.reality_private_key.description"
 msgstr "不要改变它"
@@ -1785,6 +1818,18 @@ msgstr "此选项会在用户的子链接中创建一个假配置，显示用户
 
 msgid "config.show_usage_in_sublink.label"
 msgstr "👁️‍🗨️ 在子链接中显示用法"
+
+msgid "config.special_port.description"
+msgstr "您可以为您的现实服务器设置自定义端口，以减少系统开销。（允许直接连接到代理应该是肯定的）"
+
+msgid "config.special_port.label"
+msgstr "↔️ 直接 Reality 端口"
+
+msgid "config.special_port_old.description"
+msgstr ""
+
+msgid "config.special_port_old.label"
+msgstr ""
 
 msgid "config.speed_test.description"
 msgstr "允许您的用户进行速度测试。它可以帮助他们识别链接质量"
@@ -2096,6 +2141,12 @@ msgstr "config.unique_id.description"
 msgid "config.unique_id.label"
 msgstr "config.unique_id.label"
 
+msgid "config.use_ip_in_config.description"
+msgstr ""
+
+msgid "config.use_ip_in_config.label"
+msgstr ""
+
 msgid "config.utls.description"
 msgstr "此选项将模拟不同的浏览器，因此 GFW 无法检测到您的浏览"
 
@@ -2306,6 +2357,12 @@ msgstr ""
 msgid "download"
 msgstr "直接下载"
 
+msgid "download_domain.description"
+msgstr ""
+
+msgid "download_domain.label"
+msgstr ""
+
 msgid "fake"
 msgstr "🆎 假网站"
 
@@ -2468,6 +2525,15 @@ msgstr ""
 
 msgid "singbox: ssh"
 msgstr "歌手盒：SSH"
+
+msgid "special_reality_grpc"
+msgstr "Reality gRPC"
+
+msgid "special_reality_tcp"
+msgstr "Reality TCP"
+
+msgid "special_reality_xhttp"
+msgstr "Reality xHTTP"
 
 msgid "ssh"
 msgstr "SSH"

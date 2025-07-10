@@ -94,7 +94,8 @@ dev:          ## Create a new tag for release.
 	@gitchangelog > HISTORY.md
 	@git add hiddifypanel/VERSION hiddifypanel/VERSION.py HISTORY.md
 	@git commit -m "release: switch to develop"
-	@git push -u origin HEAD
+
+
 .PHONY: release
 release:
 ifeq ($(TAG),)
@@ -104,9 +105,10 @@ ifeq ($(TAG),)
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif
+	@( git checkout beta && git pull && git merge dev ) || ( git checkout dev; echo "error in merging to beta branch"; exit 1 )
 	@echo "$${TAG}" > hiddifypanel/VERSION
 	@sed -i "/^version =/c version = '$${TAG}'" pyproject.toml
-	@sed -i "/^__version__ =/c __version__ = '$${TAG}'" pyproject.toml
+	@sed -i "/^__version__ =/c __version__ = '$${TAG}'" hiddifypanel/VERSION.py
 	@sed -i "/^__release_time__/c __release_time__= datetime.strptime('$$(date +%Y-%m-%dT%H:%M:%S)','%Y-%m-%dT%H:%M:%S')" hiddifypanel/VERSION.py
 	@git tag v$${TAG}
 	@gitchangelog > HISTORY.md
@@ -118,6 +120,7 @@ endif
 	@echo "creating git tag : $${TAG}"
 	@git tag v$${TAG}
 	@git push -u origin HEAD --tags
+	@git checkout dev && git merge beta && git push
 	@echo "Github Actions will detect the new tag and release the new version."
 
 .PHONY: docs

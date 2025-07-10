@@ -5,6 +5,7 @@
   "%(expire_days)s days": "%(expire_days)s dias",
   "%(placeholder)s": "%(placeholder)s",
   "0 - Last day": "Último dia",
+  "<a href=\"%(user_link)s\"> %(user)s</a>": "",
   "Access Denied!": "Acesso negado",
   "Actions": "Ações",
   "Active": "ativo",
@@ -13,6 +14,7 @@
   "Add some text that is only visible to super_admin.": "Adicione algum texto que seja visível apenas para o superadministrador",
   "Add some text that is only visible to you.": "Você pode adicionar algum texto, será visível apenas para voce",
   "Added by": "Adicionado por",
+  "Admin Links": "",
   "Admins": "Administradores",
   "Alias": "Pseudônimo",
   "All": "Todos",
@@ -29,6 +31,7 @@
   "Bug": "Bug/recurso",
   "CPU %(cores)s Cores": "CPU %(cores)s Núcleos ",
   "Can add sub admin": "👥 Pode adicionar subadministrador",
+  "Change": "",
   "Check again": "Verifique novamente",
   "Childs": "Crianças",
   "China": "🇨🇳 China",
@@ -65,6 +68,7 @@
     "title": "Doação"
   },
   "Download App": "<i class='fa-solid fa-download'></i> Baixar aplicativo",
+  "Download Domain": "",
   "Edit": "Editar",
   "Edit Proxy Names": "✏️ Modificando Proxies",
   "Enable": "❇️ Habilitar",
@@ -85,6 +89,7 @@
   "HiddifyNG": "HiddifyNG <span class='badge badge-success'>Recommended</span>",
   "HiddifyNG intro": "Instale o HiddifyNG a partir de um destes links: %(dl_link)s %(play_link)s.\nEm seguida, clique no link abaixo e abra-o no HiddifyNG.",
   "HiddigyN": "HiddigyN <span class='badge badge-success'>Recommended</span>",
+  "Home Link": "",
   "Hover the user to see the reason": "Hover the user to see the reason",
   "How many days this package should be available?": "Quantos dias é este pacote?",
   "How many?": "Quantos?",
@@ -116,11 +121,13 @@
   "Network": "Rede",
   "New": "Novo",
   "No children!": "sem filhos",
+  "Not Secure": "",
   "Note": "📝 Observação",
   "Offline more than 1 day": "Offline por mais de 1 dia",
   "Offline more than 1 hour": "Offline por mais de 1 hora",
   "Offline more than 1 week": "Offline há mais de uma semana",
   "Ok": "OK",
+  "Online": "",
   "Online Users": "Usuários online",
   "Only Blocked and Local websites": "☑️ Somente sites bloqueados localmente",
   "Only for sublink?": "🌍 Use apenas para link de assinatura",
@@ -193,10 +200,12 @@
   "Started %(days)s days ago": "Iniciado há %(days)s dias",
   "Started from %(relative)s": "Iniciado em %(relative)s",
   "Status": "Status",
+  "SubLink": "",
   "Submit": "Enviar",
   "Success": "Sucesso",
   "Success! Please wait around 5 minutes to make sure everything is updated.": "✔️ Sucesso! Aguarde cerca de 5 minutos para garantir que tudo esteja atualizado",
   "Telegram Bot": "Telegram Bot",
+  "Telegram Bot Link": "",
   "Temporary Short Link": "⏱️ Link curto temporário",
   "The message has been sent.": "A mensagem foi enviada.",
   "The message was not sent to": "The message was not sent to",
@@ -449,6 +458,10 @@
     "decoy_domain": {
       "description": "Site falso: simula um site quando alguém visita seu domínio.\nPor favor, não use sites iranianos, sites populares bem conhecidos como: Google, Yahoo, Wikipedia, etc.",
       "label": "🔀 Site Decoy"
+    },
+    "default_useragent_string": {
+      "description": "",
+      "label": ""
     },
     "dns_server": {
       "description": "✳️ Padrão 1.1.1.1 <br>\n🚧 Bloquear Malware 1.1.1.2 <br>\n🔞 Bloquear pornografia 1.1.1.3",
@@ -721,8 +734,8 @@
       "label": "🌍 Domínio alternativo"
     },
     "reality_port": {
-      "description": "Você pode definir uma porta personalizada para seu servidor de Reality para reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve ser sim)",
-      "label": "↔️ Porto de Realidade Direta"
+      "description": "",
+      "label": ""
     },
     "reality_private_key": {
       "description": "Não mude isso",
@@ -787,6 +800,14 @@
     "show_usage_in_sublink": {
       "description": "Esta opção cria uma configuração falsa no sublink do usuário que mostra o volume restante do usuário",
       "label": "💬 Mostrar uso no sublink"
+    },
+    "special_port": {
+      "description": "Você pode definir uma porta personalizada para seu servidor de Reality para reduzir a sobrecarga do sistema. (Permitir conexão direta com proxies deve ser sim)",
+      "label": "↔️ Porto de Realidade Direta"
+    },
+    "special_port_old": {
+      "description": "",
+      "label": ""
     },
     "speed_test": {
       "description": "Permita que seus usuários façam o teste de velocidade. Isso os ajuda a identificar a qualidade do link",
@@ -984,6 +1005,10 @@
       "description": "config.unique_id.description",
       "label": "config.unique_id.label"
     },
+    "use_ip_in_config": {
+      "description": "",
+      "label": ""
+    },
     "utls": {
       "description": "Esta opção irá simular diferentes navegadores, portanto, GFW não pode detectar sua navegação",
       "label": "❇️ uTLS"
@@ -1095,6 +1120,10 @@
     "show_domains_description": "Para os usuários que visitam a área do usuário com este domínio, especifique que eles podem ver os proxies de quais domínios.\n<br>\nSugestão: Para um domínio com IP não filtrado e diferente dos demais, selecione todos os outros domínios (exceto o domínio atual). Como resultado, como o uso deste IP não é para proxy e é um site simples, este domínio e IP nunca serão bloqueados e seus usuários poderão facilmente atualizar novos perfis."
   },
   "download": "Download direto",
+  "download_domain": {
+    "description": "",
+    "label": ""
+  },
   "fake": "🆎 Site falso",
   "gRPC": "➿ gRPC",
   "grpc-proxy": {
@@ -1186,6 +1215,9 @@
     }
   },
   "singbox: ssh": "caixa de som: ssh",
+  "special_reality_grpc": "Reality gRPC",
+  "special_reality_tcp": "Reality TCP",
+  "special_reality_xhttp": "Reality xHTTP",
   "ssh": "SSH",
   "sub_link_only": "📳 Somente para Link de Assinatura (pode ser direto, relé ou CDN)",
   "telegram": "Telegram",
