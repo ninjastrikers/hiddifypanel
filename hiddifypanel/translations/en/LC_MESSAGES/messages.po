@@ -590,6 +590,9 @@ msgstr ""
 msgid "Please wait "
 msgstr "Please Wait "
 
+msgid "Port 80 and 443 can not be selected"
+msgstr "Port 80 and 443 can not be selected"
+
 msgid "Port is already used! in"
 msgstr "Port is Already Used in:"
 

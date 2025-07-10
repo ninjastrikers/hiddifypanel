@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v11.0.0 (2025-07-10)
+
+#### Fix
+
+* Ssh bug. 
+
+#### Other
+
+* Prevent duplicate ports. 
+
+
+
 ## v10.86.3 (2025-07-10)
 
 #### Other

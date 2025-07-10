@@ -587,6 +587,9 @@ msgstr ""
 msgid "Please wait "
 msgstr "Пожалуйста, подождите"
 
+msgid "Port 80 and 443 can not be selected"
+msgstr ""
+
 msgid "Port is already used! in"
 msgstr "Порт уже используется в:"
 

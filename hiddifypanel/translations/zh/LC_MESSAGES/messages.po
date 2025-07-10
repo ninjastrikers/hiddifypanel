@@ -564,6 +564,9 @@ msgstr "请理解，家长面板正在测试中，计划和使用条件可能随
 msgid "Please wait "
 msgstr "请稍等"
 
+msgid "Port 80 and 443 can not be selected"
+msgstr ""
+
 msgid "Port is already used! in"
 msgstr "端口已用于："
 

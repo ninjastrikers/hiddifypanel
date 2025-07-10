@@ -569,6 +569,9 @@ msgstr ""
 msgid "Please wait "
 msgstr "لطفا صبر کنید"
 
+msgid "Port 80 and 443 can not be selected"
+msgstr ""
+
 msgid "Port is already used! in"
 msgstr "پورت قبلا استفاده شده است در"
 
