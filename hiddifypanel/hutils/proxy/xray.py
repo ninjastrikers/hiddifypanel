@@ -60,16 +60,25 @@ def to_link(proxy: dict) -> str | dict:
 
         return "vmess://" + hutils.encode.do_base_64(f'{json.dumps(vmess_data,cls=hutils.proxy.ProxyJsonEncoder)}')
     if proxy['proto'] == 'ssh':
-        baseurl = 'ssh://'
-        if g.user_agent.get('is_streisand'):
-            streisand_ssh = hutils.encode.do_base_64(f'{proxy["uuid"]}:0:{proxy["private_key"]}::@{proxy["server"]}:{proxy["port"]}')
-            baseurl += f'{streisand_ssh}#{name_link}'
-        else:
-            hk = ",".join(proxy["host_keys"])
-            pk = proxy["private_key"].replace('\n', '')
-            baseurl += f'{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}/?file=ssh&pk={pk}&hk={hk}#{name_link}'
+        # baseurl = 'ssh://'
+        # if g.user_agent.get('is_streisand'):
+        #     streisand_ssh = hutils.encode.do_base_64(f'{proxy["uuid"]}:0:{proxy["private_key"]}::@{proxy["server"]}:{proxy["port"]}')
+        #     baseurl += f'{streisand_ssh}#{name_link}'
+        # else:
+        hk = ",".join(proxy["host_keys"])
+        pk = proxy["private_key"].replace('\n', '')
+        d={
+            'file':'ssh',
+            'pk':pk,
+            'private_key':pk,
+            'hk':hk,
+            'authentication':0,
+            'passphrase':'',                
+        }
+        return f"ssh://{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}/?{urlencode(q,quote_via=quote)}#{name_link}"
+            # baseurl += f'{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}/?file=ssh&pk={pk}&hk={hk}&private_key={pk}&authentication=0&passphrase#{name_link}'
 
-        return baseurl
+        # return baseurl
     if proxy['proto'] == "ssr":
         baseurl = f'ssr://{proxy["cipher"]}:{proxy["uuid"]}@{proxy["server"]}:{proxy["port"]}'
         return baseurl
