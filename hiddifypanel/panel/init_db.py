@@ -17,8 +17,8 @@ from loguru import logger
 MAX_DB_VERSION = 120
 
 def _v107(child_id):
+    # set_hconfig(ConfigEnum.core_type,'xray') # disable singbox core temporary
     execute("UPDATE proxy SET params = '{}' WHERE params is NULL;")
-    set_hconfig(ConfigEnum.core_type,'xray') # disable singbox core temporary
 
 def _v106(child_id):
     set_hconfig(ConfigEnum.use_ip_in_config,True)

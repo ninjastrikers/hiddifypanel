@@ -103,10 +103,11 @@ class XrayApi(DriverABS):
         p, protocol = proto(t)
         if not p:
             raise ValueError("incorrect tag")
-        if (protocol == "vless" and p != "xtls" and p != "realityin") or "realityingrpc" in t:
-            xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow='\0',)
-        else:
-            xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow='xtls-rprx-vision', alter_id=0, cipher='chacha20_poly1305')
+        flow='xtls-rprx-vision' if 'realityin_tcp' in t else '\0'
+        # if (protocol == "vless" and p != "xtls" and p != "realityin") or "realityingrpc" in t:
+        #     xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow='\0',)
+        # else:
+        xray_client.add_client(t, f'{uuid}', f'{uuid}@hiddify.com', protocol=protocol, flow=flow, alter_id=0, cipher='chacha20_poly1305')
 
     def add_client(self, user):
         uuid = user.uuid

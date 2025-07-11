@@ -103,7 +103,7 @@ class DomainAdmin(AdminLTEModelView):
             f'</a><a href="{admin_link}" class="btn btn-xs btn-info ltr" target="_blank">{model.domain}</a></div>')
 
     def _domain_ip(view, context, model, name):
-        dips = hutils.network.get_domain_ips(model.domain)
+        dips = hutils.network.get_domain_ips_cached(model.domain)
         # The get_domain_ip function uses the socket library, which relies on the system DNS resolver. So it may sometimes use cached data, which is not desirable
         # if not dips:
         #     dip = hutils.network.resolve_domain_with_api(model.domain)
