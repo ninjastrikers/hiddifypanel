@@ -105,7 +105,7 @@ ifeq ($(TAG),)
 	@echo "WARNING: This operation will create s version tag and push to github"
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 endif
-	@( git checkout beta && git pull && git rebase dev ) || ( git checkout dev; echo "error in merging to beta branch"; exit 1 )
+	
 	@echo "$${TAG}" > hiddifypanel/VERSION
 	@sed -i "/^version =/c version = '$${TAG}'" pyproject.toml
 	@sed -i "/^__version__ =/c __version__ = '$${TAG}'" hiddifypanel/VERSION.py
@@ -120,6 +120,7 @@ endif
 	@echo "creating git tag : $${TAG}"
 	@git tag v$${TAG}
 	@git push -u origin HEAD --tags
+	@git checkout beta && git rebase dev && git push \ 
 	@if ! echo "$${VERSION_STR}" | grep -q "b"; then \
 		git checkout main && git rebase dev && git push \ 
 	fi
