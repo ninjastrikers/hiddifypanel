@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v11.0.3 (2025-07-11)
+
+#### New
+
+* Add singbox support again, improve xray usage. 
+
+
+
 ## v11.0.1 (2025-07-10)
 
 #### Other
